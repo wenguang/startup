@@ -5,7 +5,7 @@
 * 把/usr/local/bin下相关的redis命令拷到redis/bin目录下。
 * 在etc目录下建redis.conf文件，编辑成如下内容：
 
->####### 修改为守护模式
+    >####### 修改为守护模式
 daemonize yes
 ####### 设置进程锁文件
 pidfile /usr/local/redis/redis.pid
@@ -35,6 +35,7 @@ appendonly no
 appendfsync everysec
 
 上面看到redis启动后会与我们建的redis及子目录关联。
+更多配置项：[http://www.redis.net.cn/tutorial/3504.html](http://www.redis.net.cn/tutorial/3504.html)
 
 * 这里去bin目录启动 ./redis-server，就会发现配置目录下有redis.pid进程文件了，执行 tail -f log-redis.log 看日志。
 * 执行 ./redis-cli 连接redis，就可以用redis命令了。
