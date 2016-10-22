@@ -28,24 +28,24 @@ nginx命令：
 
 * 静态资源：在http结点下加以下配置段
 	
-	`server {	
-     	listen      8081;        
-        server_name localhost;
-        location / {
-            root /ngxwww;
-            index index2.html;
-        }
-    }`
+		server {	
+		 	listen      8081;        
+		    server_name localhost;
+		    location / {
+		        root /ngxwww;
+		        index index2.html;
+		    }
+		}
     
 * 代理服务：把http://localhost:8082 代理到vip主页
 
-	`server {
-        listen    8082;
-        server_name localhost;
-        location / {
-            proxy_pass http://www.vip.com;
-        }
-    }`
+		server {
+		    listen    8082;
+		    server_name localhost;
+		    location / {
+		        proxy_pass http://www.vip.com;
+		    }
+		}
 
     
      
