@@ -1,4 +1,5 @@
 ### redis在mac上的安装和配置
+***
 下载redis安装包（压缩文件），把它拷到/usr/local路径下，解压，进入目录。redis是用ANSI C写的，用make来安装，执行命令 sudo make test，然后是sudo make install。安装完后会在/usr/local/bin目录下发现redis相关命令。此时运行命令 ./redis-server，会提示缺少redis.conf文件，下面就来配置下redis。
 
 * 在/usr/local目录下，建redis目录及子目录bin、etc、db。

@@ -1,4 +1,4 @@
-### mongo 配置与起步
+### mongodb 配置与起步
 
 ***
 
@@ -20,15 +20,13 @@
 
 更多配置项参考：[https://docs.mongodb.com/v3.0/reference/configuration-options/](https://docs.mongodb.com/v3.0/reference/configuration-options/)
 
-启动：
+启动：mongod程序的默认写文件的目录是/data/db，用命令mongod启动会自动创建/data/db目录，若失败可手动创建和设置写权限。用加 --dbpath参数指定写路径启动，如：mongod --dbpath ~/Desktop/mongo/db。在mongod程序启动后（也就是启动了一个db实例），就可以启动mongo这个shell程序连接到db，用shell命令进行db操作了。
 
-mongod程序的默认写文件的目录是/data/db，用命令mongod启动会自动创建/data/db目录，若失败可手动创建和设置写权限。用加 --dbpath参数指定写路径启动，如：mongod --dbpath ~/Desktop/mongo/db。
+issue：那个/data/db目录和mongod.conf中dbPath指定的/usr/local/var/mongodb有什么不同？它们分别放着什么文件？
 
-关闭：
+关闭：control+c即可shutdown掉mongod程序。
 
-control+c即可shutdown掉mongod程序。
-
-mongodb的组件程序：在安装目录的bin子目录下，有很多组件程序，如下程序详细参数和说明见：[https://docs.mongodb.com/v3.0/reference/program/](https://docs.mongodb.com/v3.0/reference/program/)
+mongodb的组件程序：在安装目录的bin子目录下，有很多组件程序，如下程序启动的详细参数和说明见：[https://docs.mongodb.com/v3.0/reference/program/](https://docs.mongodb.com/v3.0/reference/program/)
 
 核心程序：
 
