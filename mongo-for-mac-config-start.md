@@ -24,6 +24,8 @@
 
 issue：那个/data/db目录和mongod.conf中dbPath指定的/usr/local/var/mongodb有什么不同？它们分别放着什么文件？
 
+存储文件：在/data/db目录有文件local.ns、local.0、test.ns、test.0，两个库local和test，.ns文件是collection的元数据，.0文件是数据文件，数据多后还会有.1、.2、.3...等数据文件，新增的数据文件容量会比前一个大，这么设计保证小的数据库不浪费空间。
+
 关闭：control+c即可shutdown掉mongod程序。
 
 mongodb的组件程序：在安装目录的bin子目录下，有很多组件程序，如下程序启动的详细参数和说明见：[https://docs.mongodb.com/v3.0/reference/program/](https://docs.mongodb.com/v3.0/reference/program/)
