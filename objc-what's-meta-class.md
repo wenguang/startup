@@ -49,4 +49,30 @@
 	2017-01-13 15:04:59.623 ZPRuntimeTry[58126:3674515] NSObject's meta class is 0x7fff77581118
 	
 
+**再来看以下两个方法的输出，里面的代码一模一样，区别是一个为类方法，一个为对象方法**
+
+	+ (void)findMetaClass {
+	    if (class_isMetaClass(object_getClass(self))) {
+	        NSLog(@"isa %p is a meta class.", object_getClass(self));
+	    } else {
+	        NSLog(@"isa %p is not a meta class", object_getClass(self));
+	    }
+	}
+	
+	- (void)findMetaClass {
+	    if (class_isMetaClass(object_getClass(self))) {
+	        NSLog(@"ivar %p is a meta class.", object_getClass(self));
+	    } else {
+	        NSLog(@"ivar %p is not a meta class", object_getClass(self));
+	    }
+	}
+	
+**输出如下：**
+
+	2017-01-16 10:48:46.520 ZPRuntimeTry[58682:3763882] isa 0x100002350 is a meta class.
+	2017-01-16 10:48:46.520 ZPRuntimeTry[58682:3763882] isa 0x100002378 is not a meta class
+	
+这样我们就知道了在对象方法中的**self是指该对象**，在类方法中的**self是指该类**。
+	
+
 参考：**[Objective-C 中的 Meta-class 是什么？](http://www.cocoachina.com/industry/20131210/7508.html)**
