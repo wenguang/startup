@@ -57,3 +57,33 @@ class_addMethod最后一个参数为runtime类型编码：[Type Encodings](https
 	
 	//输出
 	2017-01-18 16:43:25.926 ZPRuntimeTry[69840:4494676] ForwardingTarget 的 tt 被调用
+	
+### 3、mothodSignatureForSelector
+如果forwardingTargetForSelector没有返回nil，这里mothodSignatureForSelector(NSObject对象方法)被调用，为SEL返回一个方法签名。
+
+	- (NSMethodSignature *)methodSignatureForSelector:(SEL)aSelector {
+	    NSLog(@"%@被调用", NSStringFromSelector(_cmd));
+	    NSMethodSignature *sig = [super methodSignatureForSelector:aSelector];
+	    if (!sig) {
+	    	//"@^v^c"有意思
+	        sig = [NSMethodSignature signatureWithObjCTypes:"@^v^c"];
+	    }
+	    return sig;
+	}
+	
+### 4、forwardingInvocation
+如果mothodSignatureForSelector返回nil，runtime就会调用doesNotRecognizeSelector而抛异常，就算返回一个签名（如下），如果没有重载forwardInvocation或调用了[super forwardInvocation]，一样就会抛异常。
+
+	- (void)forwardInvocation:(NSInvocation *)anInvocation {
+	    NSLog(@"invocation.taregt=%@, invocation.selector=%@", [anInvocation.target class], NSStringFromSelector(anInvocation.selector));
+	    
+	    //一定不要调用 [super forwardInvocation:]
+	    if ([self respondsToSelector:[anInvocation selector]]) {
+	        [anInvocation invokeWithTarget:self];
+	        NSLog(@"invocation被调用");
+	    }
+	}
+	
+	//输出
+	2017-01-20 16:26:38.815 ZPRuntimeTry[76325:4985202] invocation.taregt=TestObj, invocation.selector=tt
+	Program ended with exit code: 0
