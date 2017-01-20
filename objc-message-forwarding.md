@@ -87,3 +87,5 @@ class_addMethod最后一个参数为runtime类型编码：[Type Encodings](https
 	//输出
 	2017-01-20 16:26:38.815 ZPRuntimeTry[76325:4985202] invocation.taregt=TestObj, invocation.selector=tt
 	Program ended with exit code: 0
+	
+**从输出看到：因为ForwardingTarget才实现tt，self（即TestObj没有），anInvocation没被调用，而程序没有异常。对forwardInvocation还是有疑问**
