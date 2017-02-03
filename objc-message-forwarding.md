@@ -1,5 +1,7 @@
 ## 消息转发 —— 补坑的机会到了
 
+我们知道调用一个方法或叫发一个消息，实际在runtime层面是执行了**objc_msgSend()**函数，当objc_msgSend()函数没有找到方法的实现时，就需要消息转发，这就需要消息转发了！用**_objc_msgForward**函数指针代替要执行的函数指针。然后执行**_objc_msgForward**函数。而**_objc_msgForward**做了什么呢？看下图。
+
 ### 搞懂这张图，避免出现 *Unrecognized selector sent to instance xxx* 崩溃
 
 ![](https://raw.githubusercontent.com/wenguang/startup/master/imgs/message-forwarding.png)
