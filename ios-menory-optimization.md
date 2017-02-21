@@ -1,0 +1,3 @@
+### 内存性能优化
+
+（[FBRetainCycleDetector](https://github.com/facebook/FBRetainCycleDetector), [FBAllocationTracker](https://l.facebook.com/l.php?u=https%3A%2F%2Fgithub.com%2Ffacebook%2FFBAllocationTracker&h=ATP53K5ZoJaVf_5Ul-Nu_xLW-PinhXWQRaNt7s_ERISgYWfw2RQ7EKi1JXVmLVlQxjady8OdAd7QagFPb3m5ZIuoaI_8KJFRQffAJkx6peKR7mjwutwNJAjMsBfMaa0njQ&s=1),  [FBMemoryProfiler](https://l.facebook.com/l.php?u=https%3A%2F%2Fgithub.com%2Ffacebook%2FFBMemoryProfiler&h=ATOPGozjBqXHXNmJFn5_XG_1whYY9rDPElLjjSik1dtCFxAWS3lGW3D_vcq6eDiCZpjDTZntBfMaeGn09OaFwi25QfHHvOj3AUOPVwu15e5LysufidwB0qcNRl06HUkk5g&s=1).）
