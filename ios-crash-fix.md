@@ -30,9 +30,17 @@
 
 6、**SIGABRT**
 
+bugly如下描述：
+
+SIG是信号名的通用前缀。ABRT是abort program的缩写。
+
+当操作系统发现不安全的情况时，它能够对这种情况进行更多的控制，必要的话，它能要求进程进行清理工作。在调试造成此信号的底层错误时，并没有什么妙招。 如 cocos2d 或 UIKit 等框架通常会在特定的前提条件没有满足或一些糟糕的情况出现时调用 C 函数 abort （由它来发送此信号）。
+
+发生在UIApplication WillTerminate 时，是主动退出应用时发生的，所以对用户没什么实际影响。
+
 ​	**待续** -_-/ 
 
-
+参考 [**iOS Crash 杀手排名**](https://gold.xitu.io/entry/586d00ef1b69e60062c8d745) 
 
 KVO二次remove
 
