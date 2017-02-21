@@ -14,3 +14,6 @@ ASI的reqeust请求报错时会调用**reportFailure**方法，请求完成时�
 **ReportClient: 日志上报**
 
 它比较简单，就是**AFHTTPRequestOperationManager**的子类，上报数据而已。
+
+
+
