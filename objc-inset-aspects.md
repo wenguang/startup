@@ -5,7 +5,9 @@
 
 我们知道当**_objc_msgSend**找到方法的IMP时，runtime就会调用**_objc_msgForword**进行消息转发，而在_objc_msgForword**中执行**resolveInstanceMethod、forwardingTargetForSelector、methodSiguatureForSelector都没能得到IMP后，会调用到**forwardInvocation**，当**forwardInvocation**也得不到IMP，那就能调用**doesNotRecognizeSelector**并抛出异常了（详见[消息转发](https://github.com/wenguang/startup/blob/master/objc-message-forwarding.md)）。
 
-**Aspects**做的事就是把**_objc_msgForward**的最后一步**forwardInvocation**的IMP指向了____ASPECTS_ARE_BEING_CALLED__函数，再把原始调用的selector的IMP指向_objc_msgForward函数，也就是调用原始方法会被强行进行消息转发，而会执行____ASPECTS_ARE_BEING_CALLED__函数。而____ASPECTS_ARE_BEING_CALLED__最终会执行我们指定的一个block来替代SEL原先的实现。
+**Aspects**做的事就是把**_objc_msgForward**的最后一步**forwardInvocation**的IMP指向了ASPECTS_ARE_BEING_CALLED__函数，再把原始调用的selector的IMP指向_objc_msgForward函数，也就是调用原始方法会被强行进行消息转发，而会执行____ASPECTS_ARE_BEING_CALLED__函数。而____ASPECTS_ARE_BEING_CALLED__最终会执行我们指定的一个block来替代SEL原先的实现。
+
+***以上实现要在selector所在类的子类，参考 aspect_hookClass***
 
 ### 调用串连
 **指定的block和forwardInvocation原始的NSInvocation是怎样串连起来的？**
@@ -39,19 +41,19 @@
 	    } *descriptor;
 	    // imported variables
 	};
-	
+
 可以看到 const char *signature，它就是block签名指针了。Aspects定义了AspectBlockRef结构体，它就是对应block的结构，Aspects把我们定义的block赋值给这个结构体，于是用以下代码找到block中方法签名的指针：
-	
+​	
 	//layout是个AspectBlockRef结构体
 	void *desc = layout->descriptor;
 	desc += 2 * sizeof(unsigned long int);
 	if (layout->flags & AspectBlockFlagsHasCopyDisposeHelpers) {
 		desc += 2 * sizeof(void *);
-    }
+	}
 	...
 	const char *signature = (*(const char **)desc);
 	return [NSMethodSignature signatureWithObjCTypes:signature];
-	
+
 ### NSInvocation参数的取值与赋值
 
 来看到下面几个方法定义
@@ -62,7 +64,7 @@
 	//NSInvocation
 	- (void)getArgument:(void *)argumentLocation atIndex:(NSInteger)idx;
 	- (void)setArgument:(void *)argumentLocation atIndex:(NSInteger)idx;
-	
+
 可以看到getArgument是把取得第idx的参数值写到argumentLocation指向的内存中，而setArgument是把argumentLocation指向的内存数据赋值给第idx的参数。
 
 **所以argumentLocation的内存空间是要手动分配的，且分配的内存大小要能满足第idx的参数类型的需要**。就要用到getArgumentTypeAtIndex取得参数的类型，它的返回是**const char ***，是个指针，类型编码请参考 ：[Type Encodings](https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/ObjCRuntimeGuide/Articles/ocrtTypeEncodings.html)。**通常这样判断类型编码：strcmp(argType, @encode(unsigned int)) == 0**
@@ -97,6 +99,6 @@
 	void *argBuf = NULL;
 	argBuf = reallocf(argBuf, argSize)
 	return [NSValue valueWithBytes:argBuf objCType:argType];
-	
+
 我们注意到这样一个函数：**const char *NSGetSizeAndAlignment(const char *typePtr, NSUInteger * _Nullable sizep, NSUInteger * _Nullable alignp);** 把类型的大小读到argSize中，然后reallocf分配一块内存来存储NSInvocation读取出的参数值。
 
