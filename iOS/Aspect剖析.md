@@ -25,45 +25,51 @@
 
 我们知道block是一个对象，它的内部结构可参考 [Block Implementation Specification](https://clang.llvm.org/docs/Block-ABI-Apple.html)，[Block深究浅析(上篇)-Block本质](http://1gcode.com/2015/10/03/notes-iOS-Block01/)，它的结构是这样的：
 
-	struct Block_literal_1 {
-	    void *isa; // initialized to &_NSConcreteStackBlock or &_NSConcreteGlobalBlock
-	    int flags;
-	    int reserved;
-	    void (*invoke)(void *, ...);
-	    struct Block_descriptor_1 {
-	    	unsigned long int reserved;         // NULL
-	        unsigned long int size;         // sizeof(struct Block_literal_1)
-	        // optional helper functions
-	        void (*copy_helper)(void *dst, void *src);     // IFF (1<<25)
-	        void (*dispose_helper)(void *src);             // IFF (1<<25)
-	        // required ABI.2010.3.16
-	        const char *signature;                         // IFF (1<<30)
-	    } *descriptor;
-	    // imported variables
-	};
+```objective-c
+struct Block_literal_1 {
+    void *isa; // initialized to &_NSConcreteStackBlock or &_NSConcreteGlobalBlock
+    int flags;
+    int reserved;
+    void (*invoke)(void *, ...);
+    struct Block_descriptor_1 {
+    	unsigned long int reserved;         // NULL
+        unsigned long int size;         // sizeof(struct Block_literal_1)
+        // optional helper functions
+        void (*copy_helper)(void *dst, void *src);     // IFF (1<<25)
+        void (*dispose_helper)(void *src);             // IFF (1<<25)
+        // required ABI.2010.3.16
+        const char *signature;                         // IFF (1<<30)
+    } *descriptor;
+    // imported variables
+};
+```
 
 可以看到 const char *signature，它就是block签名指针了。Aspects定义了AspectBlockRef结构体，它就是对应block的结构，Aspects把我们定义的block赋值给这个结构体，于是用以下代码找到block中方法签名的指针：
 ​	
-	//layout是个AspectBlockRef结构体
-	void *desc = layout->descriptor;
-	desc += 2 * sizeof(unsigned long int);
-	if (layout->flags & AspectBlockFlagsHasCopyDisposeHelpers) {
-		desc += 2 * sizeof(void *);
-	}
-	...
-	const char *signature = (*(const char **)desc);
-	return [NSMethodSignature signatureWithObjCTypes:signature];
+```objective-c
+//layout是个AspectBlockRef结构体
+void *desc = layout->descriptor;
+desc += 2 * sizeof(unsigned long int);
+if (layout->flags & AspectBlockFlagsHasCopyDisposeHelpers) {
+	desc += 2 * sizeof(void *);
+}
+...
+const char *signature = (*(const char **)desc);
+return [NSMethodSignature signatureWithObjCTypes:signature];
+```
 
 ### NSInvocation参数的取值与赋值
 
 来看到下面几个方法定义
 
-	//NSMethodSignature
-	- (const char *)getArgumentTypeAtIndex:(NSUInteger)idx
-	
-	//NSInvocation
-	- (void)getArgument:(void *)argumentLocation atIndex:(NSInteger)idx;
-	- (void)setArgument:(void *)argumentLocation atIndex:(NSInteger)idx;
+```objective-c
+//NSInvocation
+- (const char *)getArgumentTypeAtIndex:(NSUInteger)idx
+
+//NSInvocation
+- (void)getArgument:(void *)argumentLocation atIndex:(NSInteger)idx;
+- (void)setArgument:(void *)argumentLocation atIndex:(NSInteger)idx;
+```
 
 可以看到getArgument是把取得第idx的参数值写到argumentLocation指向的内存中，而setArgument是把argumentLocation指向的内存数据赋值给第idx的参数。
 
@@ -73,32 +79,36 @@
 
 但NSInvocation的参数中若有block、SEL、Class、id，可这样读值：
 
-	if (strcmp(argType, @encode(id)) == 0 || strcmp(argType, @encode(Class)) == 0) {
-		__autoreleasing id returnObj;
-		[self getArgument:&returnObj atIndex:(NSInteger)index];
-		return returnObj;
-	} else if (strcmp(argType, @encode(SEL)) == 0) {
-	       SEL selector = 0;
-	       [self getArgument:&selector atIndex:(NSInteger)index];
-	       return NSStringFromSelector(selector);
-	   } else if (strcmp(argType, @encode(Class)) == 0) {
-	       __autoreleasing Class theClass = Nil;
-	       [self getArgument:&theClass atIndex:(NSInteger)index];
-	       return theClass;
-	} else if (strcmp(argType, @encode(void (^)(void))) == 0) {
-		__unsafe_unretained id block = nil;
-		[self getArgument:&block atIndex:(NSInteger)index];
-		return [block copy];
-	}
+```objective-c
+if (strcmp(argType, @encode(id)) == 0 || strcmp(argType, @encode(Class)) == 0) {
+	__autoreleasing id returnObj;
+	[self getArgument:&returnObj atIndex:(NSInteger)index];
+	return returnObj;
+} else if (strcmp(argType, @encode(SEL)) == 0) {
+       SEL selector = 0;
+       [self getArgument:&selector atIndex:(NSInteger)index];
+       return NSStringFromSelector(selector);
+   } else if (strcmp(argType, @encode(Class)) == 0) {
+       __autoreleasing Class theClass = Nil;
+       [self getArgument:&theClass atIndex:(NSInteger)index];
+       return theClass;
+} else if (strcmp(argType, @encode(void (^)(void))) == 0) {
+	__unsafe_unretained id block = nil;
+	[self getArgument:&block atIndex:(NSInteger)index];
+	return [block copy];
+}
+```
 
 **也可以这样读值：**
 
-	const char *argType;
-	NSUInteger argSize;
-	NSGetSizeAndAlignment(argType, &argSize, NULL);
-	void *argBuf = NULL;
-	argBuf = reallocf(argBuf, argSize)
-	return [NSValue valueWithBytes:argBuf objCType:argType];
+```objective-c
+const char *argType;
+NSUInteger argSize;
+NSGetSizeAndAlignment(argType, &argSize, NULL);
+void *argBuf = NULL;
+argBuf = reallocf(argBuf, argSize)
+return [NSValue valueWithBytes:argBuf objCType:argType];
+```
 
 我们注意到这样一个函数：**const char *NSGetSizeAndAlignment(const char *typePtr, NSUInteger * _Nullable sizep, NSUInteger * _Nullable alignp);** 把类型的大小读到argSize中，然后reallocf分配一块内存来存储NSInvocation读取出的参数值。
 
