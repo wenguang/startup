@@ -2,7 +2,7 @@
 
 完整的Plist项请参考：[Information Property List Key Reference](https://developer.apple.com/library/prerelease/content/documentation/General/Reference/InfoPlistKeyReference/Articles/CocoaKeys.html)
 
-ATS（AppTransportSecurity 即https适配）
+ATS（App Transport Security Settings 即https适配）
 
 ​	参考：[关于iOS10中的ATS的问题](https://onevcat.com/2016/06/ios-10-ats/)
 
