@@ -1,4 +1,4 @@
-【搭环境】安装weex-toolkit工具集
+**【搭环境】安装weex-toolkit工具集**
 
 > npm install -g weex-toolkit
 
@@ -86,7 +86,9 @@ GET /node_modules/weex-vue-render/index.js 200 5ms - 713.49kb
 
 
 
-【跑iOS上的试例】在weexone/下创建iOS目录，创建iOS工程，引入WeexSDK，
+**【跑iOS上的试例】**
+
+在weexone/下创建iOS目录，创建iOS工程，引入WeexSDK，
 
 把weexplayground的animation.js拷贝到weexone工程中，用WeexViewController（它和WeexSDK中的WXBaseViewController很像）加载animation.js，这就显示出一个weex页面了，里面有很多动画效果。
 
@@ -110,6 +112,163 @@ animation.js要复杂一些，app.weex.js就简单些，那又该怎样编写.vu
 
 
 参考：[写给 iOS 程序员的 Weex 教程（2）：打造自己的 iOS host 应用](https://0error0warning.com/blog/14842302030085.html) 中的demo。
+
+
+
+**【webpack打包】**
+
+.js文件应该是经webpack打包过的。那来看看webpack怎样打包的。
+
+安装webpack
+
+> npm install webpack -g
+
+在vue-webpack目录下创建package.json，一路回车就好
+
+> npm init
+
+创建index.html和entry.js
+
+```html
+<html>
+<head>
+    <meta charset="utf-8">
+</head>
+<body>
+    <h1 id="app"></h1>
+      <!-- 注意这里引入的不是我们创建的文件，而是用webpack生成的文件 -->
+    <script src="bundle.js"></script>
+</body>
+</html>
+```
+
+```javascript
+document.getElementById('app').innerHTML="hello world";
+```
+
+打包
+
+> webpack entry.js bundle.js
+
+成功后看到bundle.js的结构和app.weex.js很像，这时打开浏览器打开index.html可以看到HelloWord了。
+
+再创建一个sub.js，并修改entry.js，重新打包
+
+```javascript
+//sub.js
+//我们这里使用CommonJS的风格
+function getText(){
+  var element = document.createElement('h2');
+  element.innerHTML = "Hello China";
+  return element;
+}
+
+module.exports = getText;
+```
+
+```javascript
+//entry.js 
+//引用sub模块
+var sub = require('./sub');
+
+var app=document.getElementById('app');
+app.innerHTML="hello world";
+app.appendChild(sub());
+```
+
+可以在vue-webpack目录下运行webpack命令不用带参数，那就要配置webpack.config.js了
+
+```javascript
+//entry 入口文件 让webpack用哪个文件作为项目的入口
+//output 出口 让webpack把处理完成的文件放在哪里
+//module 模块 要用什么不同的模块来处理各种类型的文件
+var Webpack = require("webpack");
+module.exports = {
+    entry: ["./entry.js"],
+    output: {
+        path: __dirname,
+        filename: "bundle.js"
+    }
+}
+```
+
+webpack命令会自动在当前目录中查找webpack.config.js的配置文件，并按照里面定义的规则来进行执行。
+
+运行webpack报错：Error: Cannot find module 'webpack'，在当前的node_modules下找不到webpack，前面是用全局安装的。在目录下再安装一次
+
+> npm install webpack —save-dev
+
+再运行webpack就打包成功了。以上打包未涉及到css、图片。详见：[浅析前端模块化](http://zhaomenghuan.github.io/blog/h/20160415.html)
+
+
+
+**【搭建vue开发环境】**
+
+安装vue和vue-cli命令行工具
+
+> npm install vue -g
+>
+> npm install vue-cli -g
+
+vue+webpack初始化项目结构、安装依赖、运行
+
+> vue init webpack vue-project
+>
+> cd vue-project
+>
+> npm install
+>
+> npm run dev
+
+```shell
+wenguangdeMacBook-Pro:vue-project wenguangpan$ npm run dev
+
+> vue-project@1.0.0 dev /Users/wenguangpan/vue-project
+> node build/dev-server.js
+
+> Starting dev server...
+
+
+ DONE  Compiled successfully in 2166ms                                 下午2:15:02
+
+> Listening at http://localhost:8080
+```
+
+http://localhost:8080 看到运行结果，那到底它是怎样工作起来的呢？项目结构各文件有什么作用呢？
+
+package.json有项目结构的描述。
+
+
+
+> npm run build
+
+```shell
+wenguangdeMacBook-Pro:vue-project wenguangpan$ npm run build
+
+> vue-project@1.0.0 build /Users/wenguangpan/vue-project
+> node build/build.js
+
+⠏ building for production...
+
+... //省略
+
+Build complete.
+
+Tip: built files are meant to be served over an HTTP server.
+Opening index.html over file:// won't work.
+```
+
+在dist目录下生成。
+
+
+
+参考：[vuejs-templates/webpack](https://github.com/vuejs-templates/webpack)
+
+
+
+**到目前，离我们编写vue页面，打包jsbundle，再到ios weex中运行还有距离**
+
+
 
 
 
