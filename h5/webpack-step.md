@@ -1,3 +1,7 @@
+
+
+
+
 **【webpack干么用的？】** 
 
 开发部署好的前端模块要在客户端中执行，少不了模块的**加载**和**传输**这两大过程。
@@ -295,17 +299,150 @@ webpack-dev-server
 
 
 
+**【让.vue跑起来】** 
+
+想让webpack编译，在package.json的devDependencies下加上这些依赖，执行npm install安装
+
+我是用npm install xxx —save-dev 各个安装的，因为我不知道最新版本
+
+```json
+"autoprefixer": "^6.7.7",
+"autoprefixer-loader": "^3.2.0",
+"babel": "^6.23.0",
+"babel-core": "^6.24.1",
+"babel-loader": "^6.4.1",
+"babel-plugin-transform-runtime": "^6.23.0",
+"babel-preset-es2015": "^6.24.1",
+"babel-runtime": "^6.23.0",
+"node-sass": "^4.5.2",
+"sass-loader": "^6.0.3",
+"vue-html-loader": "^1.2.4",
+"vue-loader": "^11.3.4",
+"vue-template-compiler": "^2.2.6"
+```
+
+node-sass 和 sass-loader 是为了处理SASS（是SASS还是SCSS？它们是啥？待我google下，嘻...）
+
+安装完依赖后，再来看webpack.config.js配置，在module的loaders结点加上
+
+```javascript
+// scss
+{ test: /\.scss/, loader: 'style!css!sass?sourceMap'},
+// 解析.vue文件
+{ test: /\.vue$/, loader: 'vue-loader' },
+// 转化ES6的语法
+{ test: /\.js$/, loader: 'babel-loader', exclude: /node_modules/ },
+```
+
+require可以不用写扩展名，加上以下配置
+
+```javascript
+resolve: {
+    // require时省略的扩展名，如：require('module') 不需要module.js
+    extensions: ['.js', '.vue']
+}
+```
+
+最后我们把目录结构调整一下：/src/components、/dist，入口js文件放/src下，vue文件放/../components下，webpack.config.js配置如下：
+
+```javascript
+var path = require("path");
+
+module.exports = {
+    entry: './src/main',
+    output: {
+        path: path.join(__dirname, './dist'),
+        filename: 'mix.js',  //webpack生成的文件名
+        publicPath: './dist' //公共文件生成的地址
+    }
+  
+  ...
+```
+
+package.json 配置下webpack-dev-server的命令
+
+```json
+"scripts": {
+  "start": "webpack-dev-server --inline --hot"
+}
+```
+
+这样就可以用 npm start 来启动服务器了。
+
+做完这些就可以编写app.vue了
+
+```vue
+<template>
+    <div>
+        <h1>姓名：{{name}}</h1>
+        <h2>{{age}}</h2>
+    </div>
+</template>
+<script>
+    //es6
+    export default {
+        el:"#app",
+         //data:function(){}，下面是es6写法
+         data () {
+            return {
+                name:"guowenfh",
+                age:"2q1"
+            }
+        }
+    }
+</script>
+<style lang="sass">
+    /*一定要加lang不然无法编译*/
+    /*测试一下对sass的编译*/
+    $qwe:#098;
+    body{
+        background-color: $qwe;
+        h1{
+            background-color: #eee;
+            color: red;
+            transform: translate(10%, 10%);/*测试自动添加前缀*/
+        }
+        h1:hover{
+            height:100px;
+        }
+        h2{
+            background-color: #999;
+        }
+    }
+</style>
+```
+
+index.html修改如下：
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>webpack vue</title>
+    <style>
+        #app {
+            margin: 20px auto;
+            width: 800px;
+            height: 600px;
+        }
+    </style>
+</head>
+<body>
+    <div id="app"></div>
+    <script src="dist/mix.js"></script>
+</body>
+</html>
+```
+
+最后编译打包，启动服务
+
+> webpack
+>
+> npm start
+
+http://localhost:8080 
 
 
 
-
-
-
-
-
-
-
-**【webpack打包】** 和 **【搭建vue开发环境】（见vue-step.md）** 这两个步骤创建的目录结构不同，package.json也不同，似乎未能做到vue+webpack。
-
-
-
+至此、算是把vue运行起来了。
