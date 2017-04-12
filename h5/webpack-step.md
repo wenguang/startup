@@ -446,3 +446,7 @@ http://localhost:8080
 
 
 至此、算是把vue运行起来了。
+
+
+
+参考：[webpack入坑之旅（五）加载vue单文件组件](http://blog.guowenfh.com/2016/03/25/vue-webpack-05-vue/) 
