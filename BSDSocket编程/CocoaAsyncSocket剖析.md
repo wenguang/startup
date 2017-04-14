@@ -2,7 +2,7 @@
 // BSDSocket编程常用系统文件
 #import <TargetConditionals.h>
 #import <arpa/inet.h>	//地址转换
-#import <fcntl.h>
+#import <fcntl.h>	//文件描述符操作
 #import <ifaddrs.h>
 #import <netdb.h>
 #import <netinet/in.h>
@@ -19,6 +19,8 @@
 
 
 [sys/socket.h常用注释](https://github.com/wenguang/startup/blob/master/iOS/BSD-sys:socket.h%E6%B3%A8%E9%87%8A.md)  
+
+[arpa/inet.h常用注释](https://github.com/wenguang/startup/blob/master/iOS/BSD-arpa:inet.h%E6%B3%A8%E9%87%8A.md) 
 
 
 
@@ -66,77 +68,6 @@ struct	sockaddr_un {
 	char		sun_path[104];	/* [XSI] path name (gag) */
 };
 ```
-
-
-
-【arpa/inet.h注释】
-
-```objective-c
-///---------------------------------------------------------------------------------------------//
-// 当转换ip/v4的地址时，addrBuf的长度为INET_ADDRSTRLEN
-// 当转换ip/v6的地址时，addrBuf的长度为INET6_ADDRSTRLEN
-char addr4Buf[INET_ADDRSTRLEN];
-char addr6Buf[INET6_ADDRSTRLEN];
-inet_ntop(AF_INET, &pSockaddr4->sin_addr, addr4Buf, (socklen_t)sizeof(addr4Buf)
-inet_ntop(AF_INET, &pSockaddr6->sin_addr, addr6Buf, (socklen_t)sizeof(addr6Buf)
-
-/**
-  * 将网络字节序的二进制地址转换成文本字符串，af为协议簇
-  * 若成功，返回地址字符串指针；若出错，返回NULL;
-  */
-const char	*inet_ntop(int af, const void *src, char *dst, socklen_t cnt);
-          
-/**
-  * 用于将文本字符串格式转换成网络字节序二进制地址，af为协议簇
-  * 若成功，返回1；若格式无效，返回0；若出错，返回-1;
-  */
-int inet_pton(int af，const char *src，void *dst)；
-          
-inet_ntop和inet_pton函数同时适用ip/v4和ip/v6
-inet_addr、inet_aton和inet_ntoa只适用ip/v4
-
-// 将点分十进制IP地址转换成网络字节序IP地址
-// 如果正确执行将返回一个无符号长整数型数。如果传入的字符串不是一个合法的IP地址，将返回INADDR_NONE;
-in_addr_t inet_addr(const char *cp);
-          
-// 用于将点分十进制IP地址转换成网络字节序IP地址
-// 如果这个函数成功，函数的返回值非零，如果输入地址不正确则会返回零
-int inet_aton(const char *string, struct in_addr *addr);
-
-// 用于网络字节序IP转化点分十进制IP
-// 若无错误发生，inet_ntoa()返回一个字符指针。否则的话，返回NULL
-char *inet_ntoa (struct in_addr);
-```
-
-
-
-
-
-
-
-【sys/fnctl.h注释】
-
-```objective-c
-///---------------------------------------------------------------------------------------------//
-/// 把socket的句柄(文件描述符)状态标志设置为非延迟
-/// 就是把socket设置为非阻塞式，这是socket编程常用到的函数
-status = fcntl(socketFD, F_SETFL, O_NONBLOCK);
-
-/**
-  * 操作文件描述词的一些特性
-  *
-  * @param fd 文件描述符，socketFD即socket句柄，也是个文件描述符，上面讲过
-  * @param cmd 操作命令，如：F_SETFL，详见：fnctl.h
-  * @param arg 如：O_NONBLOCK，表示非延迟，详见：fnctl.h
-  * 
-  * 参数详细参考：http://c.biancheng.net/cpp/html/233.html
-  *
-  * @return 成功则返回0, 若有错误则返回-1
-  */
-int fcntl(int fd, int cmd, long arg);
-```
-
-
 
 
 
