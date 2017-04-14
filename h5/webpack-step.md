@@ -450,3 +450,15 @@ http://localhost:8080
 
 
 参考：[webpack入坑之旅（五）加载vue单文件组件](http://blog.guowenfh.com/2016/03/25/vue-webpack-05-vue/) 
+
+
+
+
+
+**【vue-router实现SPA】** 
+
+不能正常跳转？
+
+[webpack入坑之旅（六）配合vue-router实现SPA](http://blog.guowenfh.com/2016/03/28/vue-webpack-06-router/) 
+
+[直接在地址栏里输入路由，路由不能生效？](https://github.com/vuejs/vue-router/issues/113) 
