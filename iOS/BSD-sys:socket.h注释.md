@@ -1,4 +1,14 @@
 ```objective-c
+// 协议簇常用宏
+#define	AF_UNIX		1		/* local to host (pipes) */
+#define	AF_LOCAL	AF_UNIX		/* backward compatibility */
+#define	AF_INET		2		/* internetwork: UDP, TCP, etc. */
+#define	AF_INET6	30		/* IPv6 */
+
+
+
+
+
 ///---------------------------------------------------------------------------------------------//
 int socketFD = socket(domain, SOCK_STREAM, 0);
 
