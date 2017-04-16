@@ -18,9 +18,11 @@
 
 
 
-[sys/socket.h常用注释](https://github.com/wenguang/startup/blob/master/iOS/BSD-sys:socket.h%E6%B3%A8%E9%87%8A.md)  
+[sys/socket.h常用注释](https://github.com/wenguang/startup/blob/master/BSDSocket%E7%BC%96%E7%A8%8B/BSD-sys:socket.h%E6%B3%A8%E9%87%8A.md)  
 
-[arpa/inet.h常用注释](https://github.com/wenguang/startup/blob/master/iOS/BSD-arpa:inet.h%E6%B3%A8%E9%87%8A.md) 
+[arpa/inet.h常用注释](https://github.com/wenguang/startup/blob/master/BSDSocket%E7%BC%96%E7%A8%8B/BSD-arpa:inet.h%E6%B3%A8%E9%87%8A.md) 
+
+[sys/fnctl.h常用注释](https://github.com/wenguang/startup/blob/master/BSDSocket%E7%BC%96%E7%A8%8B/BSD-sys:fnctl.h%E6%B3%A8%E9%87%8A.md) 
 
 
 
@@ -108,3 +110,7 @@ dispatch_source_set_timer(readTimer, tt, DISPATCH_TIME_FOREVER, 0);
  [Avoiding Common Networking Mistakes](https://developer.apple.com/library/content/documentation/NetworkingInternetWeb/Conceptual/NetworkingOverview/CommonPitfalls/CommonPitfalls.html) 
 
 [send或者write socket遭遇SIGPIPE信号](http://l241002209.iteye.com/blog/1506681) ：这里提到SYN、ACK、RST、FIN，需加深对TCP连接过程的理解
+
+
+
+close函数和shutdown函数有什么不同？
