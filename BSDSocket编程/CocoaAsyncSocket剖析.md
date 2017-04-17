@@ -3,13 +3,13 @@
 #import <TargetConditionals.h>
 #import <arpa/inet.h>	//地址转换
 #import <fcntl.h>	//文件描述符操作
-#import <ifaddrs.h>
-#import <netdb.h>
+#import <ifaddrs.h>	//获取网卡ip和mac地址
+#import <netdb.h>	//域名、地址和协议相关
 #import <netinet/in.h>
 #import <net/if.h>
 #import <sys/socket.h>
 #import <sys/types.h>
-#import <sys/ioctl.h>
+#import <sys/ioctl.h>	//I/O通道管理
 #import <sys/poll.h>
 #import <sys/uio.h>
 #import <sys/un.h>
@@ -23,6 +23,10 @@
 [arpa/inet.h常用注释](https://github.com/wenguang/startup/blob/master/BSDSocket%E7%BC%96%E7%A8%8B/BSD-arpa:inet.h%E6%B3%A8%E9%87%8A.md) 
 
 [sys/fnctl.h常用注释](https://github.com/wenguang/startup/blob/master/BSDSocket%E7%BC%96%E7%A8%8B/BSD-sys:fnctl.h%E6%B3%A8%E9%87%8A.md) 
+
+
+
+
 
 
 
@@ -69,6 +73,52 @@ struct	sockaddr_un {
 	sa_family_t	sun_family;	/* [XSI] AF_UNIX */
 	char		sun_path[104];	/* [XSI] path name (gag) */
 };
+// <netdb.h>
+struct addrinfo {
+	int	ai_flags;	/* AI_PASSIVE, AI_CANONNAME, AI_NUMERICHOST */
+	int	ai_family;	/* PF_xxx */
+	int	ai_socktype;	/* SOCK_xxx */
+	int	ai_protocol;	/* 0 or IPPROTO_xxx for IPv4 and IPv6 */
+	socklen_t ai_addrlen;	/* length of ai_addr */
+	char	*ai_canonname;	/* canonical name for hostname */
+	struct	sockaddr *ai_addr;	/* binary address */
+	struct	addrinfo *ai_next;	/* next structure in linked list */
+};
+// ai_flags可取的值
+AI_ADDRCONFIG		//查询配置的地址类型(IPv4或IPv6)
+AI_ALL				//查找IPv4和IPv6
+AI_CANONNAME		//需要一个规范名
+AI_NUMERICHOST		//以数字格式返回主机地址
+AI_NUMERICSERV		//以端口号返回服务
+AI_PASSIVE			//套接字地址用于监听绑定
+AI_V4MAPPED			//如果没有找到IPv4地址，则返回映射到IPv6格式
+
+// <ifaddrs.h>
+struct ifaddrs {
+  struct ifaddrs  *ifa_next;
+  char		*ifa_name;
+  unsigned int	 ifa_flags;
+  struct sockaddr	*ifa_addr;
+  struct sockaddr	*ifa_netmask;
+  struct sockaddr	*ifa_dstaddr;
+  void		*ifa_data;
+};
+
+/*
+* This may have been defined in <net/if.h>.  Note that if <net/if.h> is
+* to be included it must be included before this header file.
+*/
+#ifndef	ifa_broadaddr
+#define	ifa_broadaddr	ifa_dstaddr	/* broadcast address interface */
+#endif
+
+struct ifmaddrs {
+  struct ifmaddrs	*ifma_next;
+  struct sockaddr	*ifma_name;
+  struct sockaddr	*ifma_addr;
+  struct sockaddr	*ifma_lladdr;
+};
+
 ```
 
 
@@ -113,4 +163,6 @@ dispatch_source_set_timer(readTimer, tt, DISPATCH_TIME_FOREVER, 0);
 
 
 
-close函数和shutdown函数有什么不同？
+【close函数和shutdown函数有什么不同】
+
+[socket close()和shutdown()区别](http://www.jianshu.com/p/eecab8d50697) ：以server调用close为例，分析client端如何知道已经接收到RST报文
