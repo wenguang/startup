@@ -1,6 +1,13 @@
-I/O复用
+**I/O复用** 
 
 ```objective-c
+struct pollfd pfd[1];
+pfd[0].fd = socketFD;
+pfd[0].events = POLLOUT;
+pfd[0].revents = 0;
+
+poll(pfd, 1, 0);
+
 /**
 fd：每一个 pollfd 结构体指定了一个被监视的文件描述符，可以传递多个结构体，指示 poll() 监视多个文件描述符。
 events：指定监测fd的事件（输入、输出、错误），每一个事件有多个取值
@@ -37,17 +44,9 @@ int poll(struct pollfd *fds, nfds_t nfds, int timeout);
 
 
 
+**pollfd中的events和revents可设置的值：这些常量也都定义在sys/poll.h中** 
 
-
-
-
-参考：[I/O复用之poll函数](http://blog.csdn.net/lianghe_work/article/details/46534029) 
-
-
-
-
-
-
+![](https://github.com/wenguang/startup/blob/master/BSDSocket%E7%BC%96%E7%A8%8B/pollfd-event.png?raw=true)
 
 
 
