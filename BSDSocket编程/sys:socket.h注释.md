@@ -86,7 +86,7 @@ status = listen(socketFD, 1024);
   * 参数backlog 指定同时能处理的最大连接要求
   * 如果连接数目达此上限则client端将收到ECONNREFUSED 的错误. 
   * Listen()并未开始接收连线, 只是设置socket 为listen 模式, 真正接收client 端连线的是accept(). 
-  * 通常listen()会在socket(), bind()之后调用, 接着才调用accept().
+  * 通常listen()会在socket(), bind()之后, 在accept()之前.
   *
   * @param sockfd socket文件描述符
   * @param backlog 指定同时能处理的最大连接要求

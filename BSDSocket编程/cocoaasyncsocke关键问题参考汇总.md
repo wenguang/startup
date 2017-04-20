@@ -26,28 +26,6 @@
 
 
 
-【GCD知识】
-
-```objective-c
-// 保证代码在指定的queue执行，设置这个标识
-// 指定队列里面设置一个标识
-dispatch_queue_set_specific(dispatch_queue_t queue, const void *key,
-	void *_Nullable context, dispatch_function_t _Nullable destructor);
-
-// 获取queue标识
-dispatch_queue_get_specific(dispatch_queue_t queue, const void *key);
-// 获取当前queue标识
-dispatch_get_specific(const void *key);
-
-
-
-// 
-readTimer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, socketQueue);
-dispatch_source_set_event_handler(readTimer ^{});
-dispatch_source_set_cancel_handler(readTimer, ^{});
-dispatch_source_set_timer(readTimer, tt, DISPATCH_TIME_FOREVER, 0);
-```
-
 
 
 [C语言标准函数库说明](http://c.biancheng.net/cpp/u/hanshu/) （有些函数和特定系统有些出入）
@@ -63,6 +41,13 @@ dispatch_source_set_timer(readTimer, tt, DISPATCH_TIME_FOREVER, 0);
  [Avoiding Common Networking Mistakes](https://developer.apple.com/library/content/documentation/NetworkingInternetWeb/Conceptual/NetworkingOverview/CommonPitfalls/CommonPitfalls.html) 
 
 [send或者write socket遭遇SIGPIPE信号](http://l241002209.iteye.com/blog/1506681) ：这里提到SYN、ACK、RST、FIN，需加深对TCP连接过程的理解
+
+```tex
+如果不判断read , write函数的返回值，就不知道服务器是否响应了RST, 此时客户端如果向接收了RST的套接口进行写操作时，内核给该进程发一个SIGPIPE信号。此信号的缺省行为就是终止进程，所以，进程必须捕获它以免不情愿地被终止。
+对于socket的SIGPIPE信号问题，有待研究结合实践写一篇详细的文字。
+```
+
+
 
 
 
