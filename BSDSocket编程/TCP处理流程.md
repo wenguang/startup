@@ -15,7 +15,7 @@ kSocketStarted = 1 << 0;（0…001） kConnected = 1 << 1; （0…010）
 int parentSocketFD = socket(AF_INET, SOCK_STREAM, 0);
 // 设置为非阻塞I/O模式
 status = fcntl(parentSocketFD, F_SETFL, O_NONBLOCK);
-//
+// 让处于TIME_WAIT状态（等待CLOSED状态）的端口可复用监听，这步不可或缺
 status = setsockopt(parentSocketFD, SOL_SOCKET, SO_REUSEADDR, &reuseOn, sizeof(reuseOn));
 // 如何获取pSocketFD的绑定地址是很关键的一步，端口是指定的，地址则是网卡IP，地址问题可独立开一篇
 status = bind(parentSocketFD, (const struct sockaddr *)[interfaceAddr bytes], (socklen_t)[interfaceAddr length]);
@@ -60,23 +60,27 @@ asyncSocket的读与写流程没有用到BSD中的read函数和write函数，而
 CFStream API工作模式（关键步骤）
 
 ```objective-c
-//步骤1	以后步骤只以readStream为例
+// 以readStream为例
 CFStreamCreatePairWithSocket(NULL, (CFSocketNativeHandle)socketFD, &readStream, &writeStream);
-//步骤2	这里kCFStreamPropertyShouldCloseNativeSocket设置很关键
-//它让stream关闭释放时不会自动关闭释放掉对应的socket
+// 这里kCFStreamPropertyShouldCloseNativeSocket设置很关键
+// 它让stream关闭释放时不会自动关闭释放掉对应的socket
 CFReadStreamSetProperty(readStream, kCFStreamPropertyShouldCloseNativeSocket, kCFBooleanFalse);
-//步骤3	
+// 设置callback	
 CFReadStreamSetClient(readStream, readStreamEvents, &CFReadStreamCallback, &streamContext)
-//步骤4	
+// 调度stream	
 CFReadStreamScheduleWithRunLoop(asyncSocket->readStream, runLoop, kCFRunLoopDefaultMode);
-//步骤5 打开stream前，用CFReadStreamGetStatus函数获取下当前的stream状态，有可能它已是打开状态了 
+// 打开stream前，用CFReadStreamGetStatus函数获取下当前的stream状态，有可能它已是打开状态了 
 CFReadStreamOpen(readStream);
-//步骤6	在CFReadStreamCallback中调用，在其中读取数据
+// 在CFReadStreamCallback中调用，在其中读取数据
 CFReadStreamHasBytesAvailable(asyncSocket->readStream)
-//步骤7
+//
 CFReadStreamUnscheduleFromRunLoop(asyncSocket->readStream, runLoop, kCFRunLoopDefaultMode);
-
 ```
 
 
 
+<Security/SecureTransport.h>
+
+
+
+参考：[Secure Transport Reference](https://developer.apple.com/reference/security/secure_transport?language=objc) 

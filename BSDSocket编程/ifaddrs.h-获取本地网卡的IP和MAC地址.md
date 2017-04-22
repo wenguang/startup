@@ -1,3 +1,5 @@
+获取网卡的IP和MAC地址
+
 ```objective-c
 struct ifaddrs {
     struct ifaddrs  *ifa_next;
@@ -19,7 +21,7 @@ struct ifaddrs *addrs;
 getifaddrs(&addrs);
 
 /**
- 获取网卡的IP和MAC地址。getifaddrs函数有个特点，就是获取地址时以链表方式返回，且每个链表节点要么是IP，要       么是MAC，所以如果要将网卡的IP和MAC地址同时返回的话，需要对对返回链表进行查找和重新组合。
+ 获取网卡的IP和MAC地址。getifaddrs函数有个特点，就是获取地址时以链表方式返回，且每个链表节点要么是IP地址，要么是MAC地址，所以如果要将网卡的IP和MAC地址同时返回的话，需要对对返回链表进行查找和重新组合。
 */
 int getifaddrs(struct ifaddrs **ifa);
 // 释放getifaddrs返回的链表

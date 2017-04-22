@@ -1,6 +1,8 @@
 **getaddrinfo函数：通过主机名获得ipv4或ipv6地址** 
 
 ```objective-c
+getaddrinfo解决了把主机名和服务名转换成套接口地址结构的问题。
+  
 1. 概述
 
 IPv4中使用gethostbyname()函数完 成主机名到地址解析，这个函数仅仅支持IPv4，且不允许调用者指定所需地址类型的任何信息，返回的结构只包含了用于存储IPv4地址的空间。IPv6中 引入了getaddrinfo()的新API，它是协议无关的，既可用于IPv4也可用于IPv6。getaddrinfo函数能够处理名字到地址以及服 务到端口这两种转换，返回的是一个addrinfo的结构（列表）指针而不是一个地址清单。这些addrinfo结构随后可由套接口函数直接使用。如此以 来，getaddrinfo函数把协议相关性安全隐藏在这个库函数内部。应用程序只要处理由getaddrinfo函数填写的套接口地址结构。该函数在 POSIX规范中定义了。
