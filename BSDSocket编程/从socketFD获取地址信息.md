@@ -1,8 +1,5 @@
 ```objective-c
-// <netinet/in.h>
-#define INET_ADDRSTRLEN                 16
-// <netinet6/in6.h>
-#define INET6_ADDRSTRLEN                 64
+
 
 
 // 
