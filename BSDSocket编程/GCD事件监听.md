@@ -1,15 +1,4 @@
 ```objective-c
-// 保证代码在指定的queue执行，设置这个标识
-// 指定队列里面设置一个标识
-dispatch_queue_set_specific(dispatch_queue_t queue, const void *key,
-	void *_Nullable context, dispatch_function_t _Nullable destructor);
-
-// 获取queue标识
-dispatch_queue_get_specific(dispatch_queue_t queue, const void *key);
-// 获取当前queue标识
-dispatch_get_specific(const void *key);
-
-
 
 ///--------------------------------- GCD事件监听处理步骤 -------------------------------------//
 
@@ -65,7 +54,8 @@ void dispatch_activate(dispatch_object_t object);
  读取事件数据
  
  这个函数对于监听不同的事件，读取的值是不同的
- 对于以socketFD，listen()之后，accept()之前，读到的值为numPendingConnections到底是什么意思？
+ 对于以socketFD，listen()之后，accept()之前，读到的值为  numPendingConnections到底是什么意思？
+ 对已经和远程建立好连接的socketFD，读取的值是客户端发来可读数据字节数，从CocoaAsyncSocket上看是这样的
  */
 unsigned long dispatch_source_get_data(dispatch_source_t source);
 
@@ -80,6 +70,22 @@ while ([strongSelf doAccept:socketFD] && (++i < numPendingConnections));
 dispatch_source_cancel(source);
 source = NULL;
 ```
+
+
+
+```objective-c
+// 保证代码在指定的queue执行，设置这个标识
+// 指定队列里面设置一个标识
+dispatch_queue_set_specific(dispatch_queue_t queue, const void *key,
+	void *_Nullable context, dispatch_function_t _Nullable destructor);
+
+// 获取queue标识
+dispatch_queue_get_specific(dispatch_queue_t queue, const void *key);
+// 获取当前queue标识
+dispatch_get_specific(const void *key);
+```
+
+
 
 
 
