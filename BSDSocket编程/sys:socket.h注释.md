@@ -327,6 +327,12 @@ ssize_t sendmsg(int sockfd, const strcut msghdr *msg, unsigned int flags);
 ssize_t sendto(int sockfd, const void * buff, int len, unsigned int flags, const struct sockaddr * toaddr, int tolen);
 ```
 
+**TCP**  
+
+**socket in server: create、configure、bind、listen、accept** 
+
+**socket in client: create、configure、bind、connect** 
+
 
 
 参考：[Socket中listen/accept函数的区别](http://blog.csdn.net/zhangzheng0413/article/details/8188967) 
