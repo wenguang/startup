@@ -56,6 +56,8 @@ void dispatch_activate(dispatch_object_t object);
  这个函数对于监听不同的事件，读取的值是不同的
  对于以socketFD，listen()之后，accept()之前，读到的值为  numPendingConnections到底是什么意思？
  对已经和远程建立好连接的socketFD，读取的值是客户端发来可读数据字节数，从CocoaAsyncSocket上看是这样的
+ 
+ 对于已和远程连接上的socket的读事件，dispatch_source_get_data得到的是socket上可读数据的字节长度
  */
 unsigned long dispatch_source_get_data(dispatch_source_t source);
 
@@ -89,4 +91,4 @@ dispatch_get_specific(const void *key);
 
 
 
-参考：[dispatch source 重要函数](http://blog.doorxp.com/archives/78/)、[dispatch_source学习](http://www.jianshu.com/p/2f6eed90bb9d) 
+参考：[dispatch source 重要函数](http://blog.doorxp.com/archives/78/)、[dispatch_source学习](http://www.jianshu.com/p/2f6eed90bb9d) 、[GCD事件联结](http://www.dreamingwish.com/article/gcd%E4%BB%8B%E7%BB%8D%EF%BC%88%E4%B8%89%EF%BC%89-dispatch-sources.html) 

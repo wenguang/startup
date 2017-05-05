@@ -9,8 +9,6 @@ asyncSocket->readStream; //好多地方都用到了指针访问
 
 
 
-
-
 ```objective-c
 // 
 long portL = strtol([[components objectAtIndex:1] UTF8String], NULL, 10);
@@ -25,11 +23,3 @@ long int strtol (const char* str, char** endptr, int base);
 
 bzero(&saddr,sizeof(saddr)); 
 ```
-
-
-
-pSocket：服务端监听连接的socket
-
-cSocket：pSocket从accept得到的与客户端通信的socket
-
-每产生一个cSocket就新创建一个与之对应的GCDAsynSocket。但这个新创建的GCDAsyncSocket的delegate、delegateQueue是和parentSocketFD的GCDAsynSocket的一样，只有socketQueue是通过delegate新生成的。

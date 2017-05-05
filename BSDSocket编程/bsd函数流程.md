@@ -1,3 +1,13 @@
+**TCP** 
+
+**socket in server: create、configure、bind、listen、accept** 
+
+**socket in client: create、configure、bind、connect** 
+
+
+
+
+
 
 
 ```objective-c

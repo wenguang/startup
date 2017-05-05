@@ -94,6 +94,8 @@ status = listen(socketFD, 1024);
 */
 int listen(int sockfd, int backlog);
 
+这个参数涉及到一些网络的细节。进程处理一个一个连接请求的时候，可能还存在其它的连接请求。因为TCP连接是一个过程，所以可能存在一种半连接的状态，有时由于同时尝试连接的用户过多，使得服务器进程无法快速地完成连接请求。如果这个情况出现了，服务器进程希望内核如何处理呢？内核会在自己的进程空间里维护一个队列以跟踪这些完成的连接但服务器进程还没有接手处理或正在进行的连接，这样的一个队列内核不可能让其任意大，所以必须有一个大小的上限。这个backlog告诉内核使用这个数值作为上限。
+毫无疑问，服务器进程不能随便指定一个数值，内核有一个许可的范围。这个范围是实现相关的。很难有某种统一，一般这个值会小30以内。
 
 
 
@@ -106,13 +108,13 @@ childSocketFD = accept(parentSocketFD, (struct sockaddr *)&addr, &addrLen);
   * 接受连接
   *
   * @param sockfd 上述listen函数指定的监听socket
-  * @param addr   存放连接方（即客户端）地址
-  * @param addrlen 存放客户端地址长度
-  * @return 函数执行成功返回一个新的连接socket的描述符，失败返回-1
+  * @param addr   返回新创建的与远程通信的套接字的地址结构
+  * @param addrlen addr的地址长度
+  * @return 如果连接成功，就返回新创建的套接字的描述符，以后与客户套接字交换数据的是新创建的套接字；如果失败就返回 INVALID_SOCKET
 */
 int accept(int sockfd, struct sockaddr *addr, socklen_t *addrlen);
 
-
+服务程序调用accept函数从处于监听状态的流套接字s的客户连接请求队列中取出排在最前的一个客户请求，并且创建一个新的套接字来与客户套接字创建连接通道，如果连接成功，就返回新创建的套接字的描述符，以后与客户套接字交换数据的是新创建的套接字；如果失败就返回 INVALID_SOCKET。该函数的第一个参数指定处于监听状态的流套接字；操作系统利用第二个参数来返回新创建的套接字的地址结构；操作系统利用第三个参数来返回新创建的套接字的地址结构的长度。
 
 
 ///---------------------------------------------------------------------------------------------//
@@ -325,3 +327,6 @@ ssize_t sendmsg(int sockfd, const strcut msghdr *msg, unsigned int flags);
 ssize_t sendto(int sockfd, const void * buff, int len, unsigned int flags, const struct sockaddr * toaddr, int tolen);
 ```
 
+
+
+参考：[Socket中listen/accept函数的区别](http://blog.csdn.net/zhangzheng0413/article/details/8188967) 
