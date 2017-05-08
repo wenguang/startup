@@ -1,6 +1,12 @@
-**读相关的注释翻译** 
-
 **GCDAsyncReadPacket和GCDAsyncSocketPreBuffer相关的注释翻译已写入源码中** 
+
+
+
+```objective-c
+注意挂起readSource、writeSource的时机
+```
+
+
 
 
 
@@ -12,10 +18,6 @@ or
 ssize_t result = read(....);
 if (result < 0 && errno == EWOULDBLOCK) //...
 ```
-
-
-
-
 
 **看不懂doWriteData这段** 
 
