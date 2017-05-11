@@ -2,11 +2,11 @@
 
 **服务端—go/c/c++编写—开源库：TeamTalk、GoBelieveIO**  
 
-**并发性能—开源库：tencent/libco** 
+**并发性能—开源库：tencent/libco[doing]** 
 
 **跨平台网络—c/c++编写—开源库：tencent/mars**  
 
-**iOS 端—objc编写—开源库：CocoaAsyncSocket** 
+**iOS 端—objc编写—开源库：CocoaAsyncSocket[done]**  
 
 **andriod端—java编写**
 
