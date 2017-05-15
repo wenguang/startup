@@ -1,11 +1,11 @@
 ### golang 怎样编写go代码 —— 从0开始
-***
+
 
 **安装配置**
 
 从 **[官方下载](https://golang.org/dl/)** 安装包，安装目录在 **/usr/local/go**
 
-设置环境变量，打开 **~/.bash_profile** 文件，加行 **export PATH=$PATH:/usr/local/go/bin**，
+设置环境变量，打开 **~/.bash_profile** 文件，加行 **export PATH=$PATH:/usr/local/go/bin**，重启终端后
 就可以用go命令了，如 go run、go build、go install 等
 
 卸装就删除了 /usr/local/go 目录，再删除 /etc/paths.d/go 文件。
@@ -19,7 +19,7 @@ go程序构建的结构就是可执行文件、包、和源文件都在一个统
 执行文件、包和源文件对应的子目录为 bin/、pkg/、src/，bin/ 和 /pkg 是编译生成的。结构如下：
 
 	GOPATH=~/go_path_test
-	
+
 	~/go_path_test
 	    bin/
 	    	hello                 # command executable
@@ -33,7 +33,7 @@ go程序构建的结构就是可执行文件、包、和源文件都在一个统
 	            	hello.go      # command source
 	        	stringutil/
 	            	reverse.go    # package source
-            	
+
 
 **编译生成**
 
@@ -48,7 +48,7 @@ go程序构建的结构就是可执行文件、包、和源文件都在一个统
 **引用包**
 
 	package main
-	
+
 	import (
 		"fmt"
 		"github.com/wenguang/stringutil"
@@ -97,9 +97,9 @@ go程序构建的结构就是可执行文件、包、和源文件都在一个统
 go提供了一个简单的框架做测试：testing包。文件以_test.go结尾，方法以Test开头，这样编写的代码就可以用 go test 来测试了。如 /stringutil/reverse_test.go
 
 	package stringutil
-	
+
 	import "testing"
-	
+
 	func TestReverse(t *testing.T) {
 		cases := []struct {
 			in, want string
