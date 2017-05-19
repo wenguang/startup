@@ -17,7 +17,7 @@
 3. **汇编(assembly)  -------------------- as**
 4. **连接(linking) --------------------- ld ** 
 
-![](https://github.com/wenguang/startup/blob/master/libco%E7%A0%94%E7%A9%B6/compile-tain.png?raw=true)
+![](https://github.com/wenguang/startup/blob/master/imgs/compile-tain.png?raw=true)
 
 > gcc -E hello.c -o hello.i
 >
