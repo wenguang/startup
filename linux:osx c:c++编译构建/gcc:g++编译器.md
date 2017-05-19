@@ -80,11 +80,11 @@
 
 **[GCC常用参数详解](http://www.cnblogs.com/zhangsir6/articles/2956798.html) ** 
 
-**-fPIC**： PIC就是position independent code，PIC使.so文件的代码段变为真正意义上的共享。http://blog.sina.com.cn/s/blog_54f82cc201011op1.html
+**-fPIC**： **表明生成位置无关的代码**。PIC就是position independent code，PIC使.so文件的代码段变为真正意义上的共享。http://blog.sina.com.cn/s/blog_54f82cc201011op1.html
 
 ​	*如果不加-fPIC,则加载.so文件的代码段时,代码段引用的数据对象需要重定位, 重定位会修改代码段的内容,这就造成每个使用这个.so文件代码段的进程在内核里都会生成这个.so文件代码段的copy.每个copy都不一样,取决于 这个.so文件代码段和数据段内存映射的位置.*
 
-**-shared**：和 -fPIC差不多
+**-shared**：表明生成共享库
 
 **-llibrary**： 
 　　制定编译的时候使用的库 
@@ -96,5 +96,5 @@
 　　制定编译的时候，搜索库的路径。比如你自己的库，可以用它制定目录，不然 
 　　编译器将只在标准库的目录找。这个dir就是目录的名称。  
 
-**更多参数见：[GCC中文手册](https://github.com/wenguang/startup/blob/master/GCC%20%E4%B8%AD%E6%96%87%E6%89%8B%E5%86%8C.pdf)** 
+**更多参数见：[GCC中文手册](https://github.com/wenguang/startup/blob/master/linux:osx%20c:c%2B%2B编译构建/GCC%20%E4%B8%AD%E6%96%87%E6%89%8B%E5%86%8C.pdf)** 
 

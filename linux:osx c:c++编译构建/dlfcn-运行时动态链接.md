@@ -73,10 +73,20 @@ int main()
 
 **生成可执行文件** 
 
-> gcc main.c -L./ -lxxx -o main
+> gcc main.c -L./ -lxxx -o main  
+
+以上这句在mac上执行在成功，在centos上报错：*./main: error while loading shared libraries: libxxx.so: cannot open shared object file: No such file or directory* 
+
+改为以下在linux和mac都执行成功了
+
+> gcc main.c -ldl -o main
 
 **执行main** 
 
 > ./main
 
 **编译脚本编写在makefile中，用make编译即可，代码github地址：[dlfcn-test](https://github.com/wenguang/dlfcn-test)** 
+
+
+
+参考：[加载so文件](http://blog.163.com/zh_opera/blog/static/5939270620147255615699) 
