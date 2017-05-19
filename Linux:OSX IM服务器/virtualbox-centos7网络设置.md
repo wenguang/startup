@@ -17,3 +17,5 @@
 参考：[virtualbox下最小化安装centos7后上网设置](https://my.oschina.net/u/144160/blog/517049) 
 
 ​	   [快速理解VirtualBox的四种网络连接方式](http://www.cnblogs.com/york-hust/archive/2012/03/29/2422911.html) 
+
+centos最小化版本更多的配置：[安装完最小化 RHEL/CentOS 7 后需要做的 30 件事情](https://linux.cn/article-5341-1.html) 
