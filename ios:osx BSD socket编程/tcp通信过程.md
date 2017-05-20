@@ -1,6 +1,6 @@
 **先了解下协议的报文格式** 
 
-![](https://github.com/wenguang/startup/blob/master/BSDSocket%E7%BC%96%E7%A8%8B/tcp-msg01.jpg?raw=true) 
+![](https://github.com/wenguang/startup/blob/master/imgs/tcp-msg01.jpg?raw=true) 
 
 
 

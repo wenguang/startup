@@ -46,7 +46,7 @@ int poll(struct pollfd *fds, nfds_t nfds, int timeout);
 
 **pollfd中的events和revents可设置的值：这些常量也都定义在sys/poll.h中** 
 
-![](https://github.com/wenguang/startup/blob/master/BSDSocket%E7%BC%96%E7%A8%8B/pollfd-event.png?raw=true)
+![](https://github.com/wenguang/startup/blob/master/imgs/pollfd-event.png?raw=true)
 
 
 

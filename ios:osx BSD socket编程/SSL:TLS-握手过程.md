@@ -1,6 +1,6 @@
 基于这幅图来讲解
 
-![](https://github.com/wenguang/startup/blob/master/BSDSocket%E7%BC%96%E7%A8%8B/tls-handshake.png?raw=true)
+![](https://github.com/wenguang/startup/blob/master/imgs/tls-handshake.png?raw=true)
 
 \#这就是SSL/TLS建立会话的握手阶段
 

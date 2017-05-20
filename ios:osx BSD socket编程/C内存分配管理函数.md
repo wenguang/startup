@@ -83,7 +83,7 @@ memmove can be very very useful.
 这段代码能够很好的说明内存重叠时的情况：先将内容复制到类似缓冲区的地方，再用缓冲区中的内容覆盖 dest 指向的内存，请看下图。
 ```
 
-![](https://github.com/wenguang/startup/blob/master/BSDSocket%E7%BC%96%E7%A8%8B/memmove.png?raw=true)
+![](https://github.com/wenguang/startup/blob/master/imgs/memmove.png?raw=true)
 
 
 
