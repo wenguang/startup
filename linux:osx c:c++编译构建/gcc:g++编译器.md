@@ -96,5 +96,5 @@
 　　制定编译的时候，搜索库的路径。比如你自己的库，可以用它制定目录，不然 
 　　编译器将只在标准库的目录找。这个dir就是目录的名称。  
 
-**更多参数见：[GCC中文手册](https://github.com/wenguang/startup/blob/master/linux:osx%20c:c%2B%2B编译构建/GCC%20%E4%B8%AD%E6%96%87%E6%89%8B%E5%86%8C.pdf)** 
+**更多参数见：[gcc编译选项总结](http://blog.csdn.net/gatieme/article/details/21389603)**、[GCC中文手册](https://github.com/wenguang/startup/blob/master/linux:osx%20c:c%2B%2B编译构建/GCC%20%E4%B8%AD%E6%96%87%E6%89%8B%E5%86%8C.pdf) 
 
