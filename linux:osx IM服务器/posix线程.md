@@ -1,3 +1,7 @@
+**[pthread的各种同步机制](https://casatwy.com/pthreadde-ge-chong-tong-bu-ji-zhi.html)**  
+
+**[pthread多线程编程整理 - 与时间赛跑的使者](http://www.360doc.com/content/10/1109/10/3700464_67847038.shtml)** 
+
 **\<pthread.h\> ** 
 
 **pthread_t、pthread_attr_t** 
