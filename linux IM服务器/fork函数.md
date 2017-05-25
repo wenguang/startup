@@ -1,6 +1,6 @@
-### folk 
+### fork函数 
 
-~^~!! 文中代码见：https://github.com/wenguang/c-attack/tree/master/folk
+~^~!! 文中代码见：https://github.com/wenguang/c-attack/tree/master/folk.c
 
 ```c
 #include <unistd.h>  
@@ -47,6 +47,10 @@ count: 1
 fork出错可能有两种原因：
 ​    1）当前的进程数已经达到了系统规定的上限，这时errno的值被设置为EAGAIN。
 ​    2）系统内存不足，这时errno的值被设置为ENOMEM。
+
+
+
+**folk之后，父进程先执行还是子进程先执行是确定的** 
 
 
 
