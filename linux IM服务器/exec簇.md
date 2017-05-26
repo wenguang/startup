@@ -21,3 +21,26 @@ l：函数取参数表
 v：函数取一个argv[]
 
 e：函数取envp[]数组，而不使用当前环境
+
+![](https://github.com/wenguang/startup/blob/master/imgs/6exec.png?raw=true)
+
+说到envp[]，就提到历史上，Unix的main函数有3个参数：
+
+```c
+int main (int argc, char argv[], char* envp[]);
+```
+
+envp[]意在取代程序的环境表，ANSI C规定main只有两个参数，因为envp[]相比环境表没什么好处。
+
+**环境表** 
+
+> 每个程序都接收到环境表。与参数一样，环境表也是一个字符指针数组，其中每个指针包含一个以NULL结束的字符串的地址，全局变量environ则包住了该指针数组的地址。
+
+*extern char **environ* 
+
+
+
+
+
+
+
