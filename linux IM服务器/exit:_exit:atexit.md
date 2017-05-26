@@ -1,4 +1,4 @@
-### exit/_exit/atexit/return
+### exit/_exit/atexit
 
 *\<stdlib.h\>*
 
@@ -34,4 +34,7 @@ int atexit(void (*func)(void));
 * 一个进程可登录最多32个这样的函数
 * exit以登记这些函数的的相反顺序调用它们
 * 同一函数登记多次，也会被调用多次
+
+
+![](https://github.com/wenguang/startup/blob/master/imgs/c-start-exit.png?raw=true)
 
