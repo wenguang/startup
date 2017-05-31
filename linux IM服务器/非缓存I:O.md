@@ -30,9 +30,13 @@
 
 
 
-**文件描述符标记**：
+**文件描述符标记**：如close-on-exec标记，FD_CLOEXEC。
 
-**文件状态标志**：读、写、增写、同步、异步、非阻塞等，它们以O_xxx常量表示，如：O_RDWR，不同的文件I/O函数可操作的状态标志也不尽相同。下面介绍各个函数时会列出相关常用的标志常量。
+**文件状态标记**：读、写、增写、同步、异步、非阻塞等，它们以O_xxx常量表示，如：O_RDWR，不同的文件I/O函数可操作的状态标志也不尽相同。下面介绍各个函数时会列出相关常用的标志常量。
+
+**这些标记常量定义在*\<bits/fcntl-linux.h>*中**，但引入*\<fcntl.h\>*就可以了，因为*\<fcntl.h\>*最终引用了*\<bits/fcntl-linux.h\>*。
+
+*\<fcntl.h\>* —> *\<bits/fcntl.h\>* —> *\<bits/fcntl-linux\>* 
 
 
 
@@ -104,7 +108,19 @@ int close (int fd);
 
 
 
+**fcntl函数** 
 
+*\<fcntl.h\>* 
 
-​		
-​	
+```c
+// 成功返回视cmd而定，出错返回-1
+int fcntl (int fd, int cmd, .../* int arg or struct flock *flockptr */);
+```
+
+fcntl函数有5种功能：
+
+* 复制FD（cmd=F_DUPFD），成功则返回新FD值
+* 获取/设置文件描述符标记（cmd=F_GETFD或cmd=F_SETFD），获取成功返回标记值（这些值可用\|=叠加 ），设置成功返回0
+* 获取/设置文件状态标记（cmd=F_GETFL或cmd=F_SETFL），获取成功返回标记值（这些值可用\|=叠加 ），设置成功返回0
+* 获取/设置异步I/O所有权（cmd=F_GETOWN或cmd=F_SETOWN）......
+* 获取设置文件记录锁（cmd=F_GETLK、cmd=F_SETLW或cmd=F_SETLKW），详见APUE 12.3记录锁章节
