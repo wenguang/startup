@@ -18,7 +18,7 @@
 
 **三次握手和四次挥手** 
 
-![](https://github.com/wenguang/startup/blob/master/BSDSocket%E7%BC%96%E7%A8%8B/tcp-3handshake-4wave.jpg?raw=true)
+![](https://github.com/wenguang/startup/blob/master/imgs//tcp-3handshake-4wave.jpg?raw=true)
 
 
 
