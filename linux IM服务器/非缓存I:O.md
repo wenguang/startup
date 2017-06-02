@@ -94,7 +94,6 @@ mode参数常量：
 * S_IXOTH        其他用户可执行
 
 
-
 **close函数** 
 
 *\<unistd.h\>* 
@@ -104,7 +103,27 @@ mode参数常量：
 int close (int fd);
 ```
 
+**read函数**
 
+*\<unistd.h\>* 
+
+```c
+// 从fd读取nbytes字节数据到buff指向的内存中
+// 返回实际读到的字节数，出错返回-1
+// 读操作从文件的当前位移量处开始
+ssize_t read(int fd, void *buff, size_t nbytes);
+```
+
+**write函数**
+
+*\<unistd.h\>* 
+
+```c
+// 把buff指向的内存把nbytes字节数据写入fd中
+// 返回实际写入字节数，出错返回-1
+// 写操作从文件的当前位移量处开始
+ssize_t write(int fd, const void* buff, size_t nbytes);
+```
 
 
 

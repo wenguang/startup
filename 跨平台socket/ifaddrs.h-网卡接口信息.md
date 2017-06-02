@@ -1,4 +1,6 @@
-获取网卡的IP和MAC地址
+### 网卡接口信息
+
+*\<ifaddrs.h\>* 
 
 ```objective-c
 struct ifaddrs {
@@ -30,3 +32,27 @@ int getifmaddrs(struct ifmaddrs **ifm);
 void freeifmaddrs(struct ifmaddrs *ifm);
 ```
 
+
+
+**getifaddrs获取的数据对应ifconfig命令打印出的信息**
+
+ifconfig得到的网卡接口号：lo0、gif0、stf0、en0、en1、en2、bridge0、p2p0、awdl0、utun0
+代码断点看到lo0有4个ifaddrs地址，en0有3个、utun0有2个，其他1个。这些地址中，暂时只用到AF_INET和AF_INET6地址，其他协议簇地址有什么用现在搞不太清楚，有待研究~~~，
+很奇怪，在内置系统信息应用中查硬件信息看到：这台电脑似乎没有安装任何 PCI 以太网卡。-_-？
+
+lo：  回环接口(loop back) 或者 本地主机(localhost)
+gif： 通用 IP-in-IP隧道(RFC2893)
+stf： 6to4连接(RFC3056)
+en：	 以太网或802.11接口
+bridge： 第2层桥接
+p2p： Point-to-Point 协议
+awdl：airdrop peer to peer(一种mesh network), apple airdrop设备特有
+utun：不知道干啥的
+fw：IP over FireWire(IEEE-1394)
+
+lo0: flags=8049\<UP,LOOPBACK,RUNNING,MULTICAST\> mtu 16384
+UP：网卡已经启用，LOOPBACK：支持环路，RUNNING：网卡正在运行，MULTICAST：支持广播
+mtu：最大传输单元为16384字节
+
+有断点中，ifa_addr->sa_family的值是'\x1e'，表示2位十六进制数，它=30，表示AF_INET6。
+更多转义字符参考：http://blog.csdn.net/sdustliyang/article/details/6594254
