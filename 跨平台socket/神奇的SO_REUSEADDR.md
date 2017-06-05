@@ -1,0 +1,7 @@
+
+
+
+
+[网络编程（六）：端口那些事儿](http://blog.51reboot.com/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%EF%BC%88%E5%85%AD%EF%BC%89%EF%BC%9A%E7%AB%AF%E5%8F%A3%E9%82%A3%E4%BA%9B%E4%BA%8B%E5%84%BF/) 
+
+[SO_REUSEADDR和SO_REUSEPORT](https://bg2bkk.github.io/post/SO_REUSEADDR%E5%92%8CSO_REUSEPORT/) 
