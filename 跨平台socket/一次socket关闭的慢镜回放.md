@@ -1,4 +1,4 @@
-### 一次 tcp socket关闭的步骤分解
+### tcp socket关闭的步骤分解
 
 
 
@@ -58,4 +58,47 @@ mac: tcli处于FIN_WAIT_2状态
 >
 > tcp4       0      0  192.168.1.103.50549    192.168.1.104.9001     FIN_WAIT_2 
 
-过了60秒，mac上的FIN_WAIT_2状态就消失了，但centos7上则一直处在CLOSE_WAIT状态。
+过了60秒（[linux内核文档](https://www.kernel.org/doc/Documentation/networking/ip-sysctl.txt)的tcp_fin_timeout定义FIN_WAIT_2的过期时间），mac上的FIN_WAIT_2状态就消失了，但centos7上则一直处在CLOSE_WAIT状态。大量的CLOSE_WAIT的存在会使服务器down掉，故编写程序要特别注意避免这种情况发生。
+
+
+
+#### 定格FIN_WAIT_1
+
+FIN_WAIT_1是发出FIN后等待对方ACK期间的状态，ACK是系统内核回应的，一般情况下这个状态会非常短。要定格这个状态需要用到iptables对网络包进行拦截，此外可用nc代替server/client程序。
+
+centos7: 
+
+> nc -vl 9001
+
+mac:
+
+> nc -v 192.168.1.104 9001
+
+这样就建立了连接
+
+设置centos7的iptables规则，最好用—dport 加上mac端用nc建立连接的端口号，以下添加一条iptables规则，意思是：拦截了从centos7发出的，目标地址是192.168.1.103的，目标端口为51959的数据包。
+
+> iptables -A OUTPUT  -d 192.168.1.103 —dport 51949 -j DROP 
+
+用ctl-c停止mac上的nc连接，centos7上的nc也自动断开了
+
+centos7：处于LAST_ACK状态
+
+> [root@localhost imserver]# netstat -ant|grep 9001
+>
+> tcp        0      1 192.168.1.104:**9001**      192.168.1.103:51949     LAST_ACK   
+
+因为centos7收到mac的FIN，对回应了ACK（被拦截了），不过mac是否收到ACK，centos7又向mac发出FIN（当然又被拦截了），不管mac是否收到，centos7最终到达了LAST_ACK状态。
+
+mac: 处于FIN_WAIT_1状态
+
+> wenguangdeMacBook-Pro:startup wenguangpan$ netstat -ant|grep 51949
+>
+> tcp4       0      0  192.168.1.103.51949    192.168.1.104.9001     FIN_WAIT_1 
+
+因为centof7向mac回应的ACK被拦截了，FIN_WAIT\_1状态会维持一段时间，之后双方端口回到closed状态，FIN_WAIT_1这段时间出mac因为收不到centos7的ACK会向centos重发FIN若干次后（[linux内核文档](https://www.kernel.org/doc/Documentation/networking/ip-sysctl.txt)的tcp_orphan_retries说明重发次数为8次，mac上抓包发现是12次，不同系统差异），最后向centos7发了RST。
+
+同样的过滤规则wireshark抓包数据如下：
+
+![](https://github.com/wenguang/startup/blob/master/imgs/wireshark-0002.png?raw=true)
+
