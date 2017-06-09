@@ -1,7 +1,5 @@
 ### mongodb 配置与起步
 
-***
-
 安装：brew install mongodb，3.0.7 版本，安装目录在/usr/local/Cellar/mongodb
 
 配置文件：/usr/local/etc/mongod.conf，以下是刚安装后时配置文件的内容：
@@ -14,8 +12,8 @@
 	  dbPath: /usr/local/var/mongodb
 	net:
 	  bindIp: 127.0.0.1
-	  
-	 
+
+
 配置的相关路径可以更改的。
 
 更多配置项参考：[https://docs.mongodb.com/v3.0/reference/configuration-options/](https://docs.mongodb.com/v3.0/reference/configuration-options/)
@@ -45,4 +43,3 @@ JSON、CSV、TSV格式导入导出程序：[mongoimport](https://docs.mongodb.co
 mongo的GridFS文件系统交互工具：[mongofiles](https://docs.mongodb.com/v3.0/reference/program/mongofiles/)。
 
 
-  

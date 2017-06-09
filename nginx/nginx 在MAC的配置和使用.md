@@ -1,5 +1,4 @@
 ### Nginx 在MAC的配置和使用
-***
 
 安装：brew install nginx，在/usr/local/Cellar下。
 
@@ -27,28 +26,27 @@ nginx命令：
 顶级结点，如worker_processes、events、http，像server、location就子结点，更全面参考：[http://nginx.org/en/docs/](http://nginx.org/en/docs/)。这里只配置下静态资源服务和代理服务，FastCGI代理由于未搭建，暂不配置，参考：[http://nginx.org/en/docs/beginners_guide.html](http://nginx.org/en/docs/beginners_guide.html)。
 
 * 静态资源：在http结点下加以下配置段
-	
-		server {	
-		 	listen      8081;        
-		    server_name localhost;
-		    location / {
-		        root /ngxwww;
-		        index index2.html;
-		    }
-		}
-    
+
+   server {	
+   	 	listen      8081;        
+   	    server_name localhost;
+   	    location / {
+   	        root /ngxwww;
+   	        index index2.html;
+   	    }
+   	}
+
 * 代理服务：把http://localhost:8082 代理到vip主页
 
-		server {
-		    listen    8082;
-		    server_name localhost;
-		    location / {
-		        proxy_pass http://www.vip.com;
-		    }
-		}
+   server {
+   	    listen    8082;
+   	    server_name localhost;
+   	    location / {
+   	        proxy_pass http://www.vip.com;
+   	    }
+   	}
 
     
-     
-     
+
 
 
