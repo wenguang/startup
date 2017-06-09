@@ -1,4 +1,4 @@
-### tcp socket关闭的步骤分解
+### tcp socket关闭的慢镜回放
 
 
 
@@ -76,7 +76,7 @@ mac:
 
 这样就建立了连接
 
-设置centos7的iptables规则，最好用—dport 加上mac端用nc建立连接的端口号，以下添加一条iptables规则，意思是：拦截了从centos7发出的，目标地址是192.168.1.103的，目标端口为51959的数据包。
+设置centos7的iptables规则，以下添加一条iptables规则，意思是：拦截了从centos7发出的，目标地址是192.168.1.103的，目标端口为51959的数据包。最好用—dport 加上mac端用nc建立连接的端口号，不然发给ssh的22端口也被拦截了，那就操作不了虚拟机了。
 
 > iptables -A OUTPUT  -d 192.168.1.103 —dport 51949 -j DROP 
 
@@ -102,3 +102,6 @@ mac: 处于FIN_WAIT_1状态
 
 ![](https://github.com/wenguang/startup/blob/master/imgs/wireshark-0002.png?raw=true)
 
+
+
+*按以上方法也可以定格TIME_WAIT状态* 
