@@ -125,7 +125,17 @@ ssize_t read(int fd, void *buff, size_t nbytes);
 ssize_t write(int fd, const void* buff, size_t nbytes);
 ```
 
+**lseek函数** 
 
+*\<unistd.h\>* 
+
+```c
+// 成功返回偏移量，出错返回-1
+// whence为SEEK_SET，offset从文件首算起，非负值
+// whence为SEEK_CUR，offset从当前偏移量算起，可正可负
+// whence为SEEK_END，offset从文件尾算起，可正右负
+off_t lseek(int, fd, off_t offset, int whence);
+```
 
 **fcntl函数** 
 
