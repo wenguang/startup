@@ -28,6 +28,8 @@ void setbuf(FILE *fp, char *buf);
 int setvbuf(FILE *fp, char *buf, int mod, size_t size);
 ```
 
+![](https://github.com/wenguang/startup/blob/master/imgs/stdio-buftype.png?raw=true)
+
 
 
 #### 流打开与关闭
@@ -42,4 +44,82 @@ FILE * fdopen(int, fd, const char* type);
 // 成功返回0， 出错返回EOF
 int fclose(FILE *fp);
 ```
+
+![](https://github.com/wenguang/startup/blob/master/imgs/stdio-p.png?raw=true)
+
+
+
+#### 流定位
+
+```c
+// 成功返回文件位置，出错返回-1L
+long ftell(FILE *fp);
+// 成功返回0，出错非0
+// whence取值 SEEK_SET、SEET_CUR、SEET_END
+int fseek(FILE *fp, long offset, int whence);
+
+void rewind(FILE *fp);
+```
+
+
+
+#### 一次一字符
+
+```c
+// 皆为成功返回下一个字符，到达文件尾或出错返回EOF
+int getc(FILE *fp);
+int fgetc(FILE *fp);
+// 相当于getc(stdin)
+int getchar(void);
+
+// 皆为成功返回c，出错EOF
+int putc(int c, FILE *fp)
+int fputc(int c, FILE *fp);
+// 相当putc(c, stdout);
+int putchar(int c);
+```
+
+
+
+#### 一次一行
+
+```c
+// 皆为成功返回buf, 文件尾或出错NULL
+char* fgets(char *buf, int n, FILE *fp);
+char* gets(char *buf);
+
+// 皆为成功返回非负值，出错EOF
+int fputs(const char *str, FILE *fp);
+int puts(const char *str);
+```
+
+gets函数不安全，不建议使用，见APUE 5.7
+
+
+
+#### 判断流错误或EOF
+
+```c
+// 真为非0，假为0
+int ferror(FILE, fp);
+int feof(FILE *fp);
+
+// 清除error或EOF标志
+void clearerr(FILE *fp);
+```
+
+
+
+#### 二进制I/O 读写结构
+
+```c
+// 成功返回读写的结构数量
+// size为读写的结构大小，nobj为读写的结构数量
+// fread若返回数小于nobj，有可能是出错也有可能是到达了文件尾，需用ferror或feof判断，fwrite若返回数小于nobj则出错。
+
+size_t fread(void *ptr, size_t size, size_t nobj, FILE *fp);
+size_t fwrite(const void *ptr, size_t size, size_t nobj, FILE *fp);
+```
+
+*使用二进制I/O的基本问题是：它只能用于读写在同一系统上的数据，见APUE 5.9* 
 
