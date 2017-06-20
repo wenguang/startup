@@ -59,6 +59,15 @@ long ftell(FILE *fp);
 int fseek(FILE *fp, long offset, int whence);
 
 void rewind(FILE *fp);
+
+
+/* 以上几个函数配合可以获取文件大小 */
+FILE *fp;
+long lsize;
+fopen("text.txt", "rb");
+fseek(fp, 0, SEEK_END);
+lsize = ftell(fp);
+rewind(fp);
 ```
 
 
@@ -112,6 +121,8 @@ void clearerr(FILE *fp);
 
 #### 二进制I/O 读写结构
 
+*想完整读取文件到内存，最好以二进制方式打开，因为以文本方式打开，文件流会把一些非字符的数据过滤掉，fopen就是以二进制方式打开* 
+
 ```c
 // 成功返回读写的结构数量
 // size为读写的结构大小，nobj为读写的结构数量
@@ -121,5 +132,5 @@ size_t fread(void *ptr, size_t size, size_t nobj, FILE *fp);
 size_t fwrite(const void *ptr, size_t size, size_t nobj, FILE *fp);
 ```
 
-*使用二进制I/O的基本问题是：它只能用于读写在同一系统上的数据，见APUE 5.9* 
+*使用二进制I/O的基本问题是：它只能用于读写在同一系统上的数据，见APUE 5.9。*
 
