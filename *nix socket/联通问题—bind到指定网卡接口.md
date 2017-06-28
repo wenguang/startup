@@ -1,4 +1,4 @@
-### bind到指定网卡接口
+### 联通问题—bind到指定网卡接口
 
 cient.c、server.c在不同的centos虚拟机环境也
 

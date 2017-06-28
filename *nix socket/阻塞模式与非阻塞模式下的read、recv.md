@@ -1,7 +1,42 @@
 ### 阻塞模式与非阻塞模式下的read、recv
 
 ```c
+/*
+解阻塞与非阻塞recv返回值没有区分，都是
+<0 出错
+=0 连接关闭
+>0 接收到数据大小
+特别：返回值<0时并且(errno == EINTR || errno == EWOULDBLOCK || errno == EAGAIN)的情况下认为连接是正常的，继续接收。
+只是阻塞模式下recv会阻塞着接收数据，非阻塞模式下如果没有数据会返回，不会阻塞着读，因此需要循环读取）。
+
+失败返回-1，errno被设为以下的某个值
+EAGAIN：套接字已标记为非阻塞，而接收操作被阻塞或者接收超时
+EBADF：sock不是有效的描述词
+ECONNREFUSE：远程主机阻绝网络连接
+EFAULT：内存空间访问出错
+EINTR：操作被信号中断
+EINVAL：参数无效
+ENOMEM：内存不足
+ENOTCONN：与面向连接关联的套接字尚未被连接上
+ENOTSOCK：sock索引的不是套接字
+*/
 ssize_t recv(int sockfd, void *buf, size_t nbytes, int flags);
+
+/*
+返回值
+>=0: copy到发送缓冲区的数据
+-1: 出错，非阻塞模式下，errno为EAGAIN或EWOULDBLOCK时，表示发送缓冲区已满
+
+错误代码：
+   EBADF 参数s 非合法的socket 处理代码.
+   EFAULT 参数中有一指针指向无法存取的内存空间
+   ENOTSOCK 参数s 为一文件描述词, 非socket.
+   EINTR 被信号所中断.
+   EAGAIN 此操作会令进程阻断, 但参数s 的socket 为不可阻断.
+   ENOBUFS 系统的缓冲内存不足
+   ENOMEM 核心内存不足
+   EINVAL 传给系统调用的参数不正确.
+*/
 ssize_t send(int sockfd, const void *buf, size_t nbytes, int flags);
 ```
 
@@ -47,4 +82,12 @@ flags参数说明
 
 
 
+**阻塞模式下recv** 
+
+**非阻塞模式下recv** 
+
+
+
 [有关send()，recv()函数的理解](http://www.cnblogs.com/aixingfou/archive/2011/07/29/2120956.html) 
+
+[linux recv返回值与linux socket错误分析](http://www.cnblogs.com/yunsicai/p/3514160.html) 
