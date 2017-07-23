@@ -49,4 +49,12 @@
 
 
 
+***特别提醒：int == signed int，但char比较特殊，不能简单以为 char == signed char，要基于不同的编译器***  
+
+
+
+[char、signed char和unsigned char的区别](http://www.360doc.com/content/11/0407/20/2200926_108011723.shtml) 
+
 [计算机中的负数表示，原码、反码、补码原理](http://www.01happy.com/computer-true-code-complement-code/) 
+
+[char 与 unsigned char的本质区别](http://www.cnblogs.com/qytan36/archive/2010/09/27/1836569.html) 
