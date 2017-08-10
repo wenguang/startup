@@ -1,0 +1,58 @@
+## JS语言与前端杂记
+
+[阮一峰的ECMAScript6入门](http://es6.ruanyifeng.com/) 
+
+[学习JavaScript必读的12本书](https://zhuanlan.zhihu.com/p/22914734) 
+
+
+
+[jQuery源码分析系列](http://www.cnblogs.com/aaronjs/p/3279314.html) 
+
+jQuery主要的几点工作就是简化DOM操作、css选择器、浏览器兼容，它的思想有深远的影响，被广泛吸纳，但快速发展的前端已经很少再需要用到jQuery了，原因如下：
+
+[jQuery会过时吗？](https://www.zhihu.com/question/34892985) 
+
+[Web前端 | 你还在用jQuery？](http://www.10tiao.com/html/463/201704/2650839889/1.html) 
+
+[抛弃jQuery，拥抱原生JavaScript](https://github.com/camsong/blog/issues/4) 
+
+过时的原因：
+
+* jQuery以DOM为中心，由于DOM Diff算法的出现，如React等一些框架实现这套算法，在大多数时候让直接的DOM操作变得没有必要了。
+
+
+* 不支持同构渲染，同构就是前后端运行同一代码，后端渲染出页面，这对SEO的支持再好，服务器没有DOM，引用jQuery会出错。【那React怎样做的呢？】
+* 性能问题也是一个原因。
+
+
+[你有必要知道的 10 个 JavaScript 难点](http://www.10tiao.com/html/399/201707/2651494566/1.html) 
+
+
+
+
+
+[MDN中文文档](https://developer.mozilla.org/zh-CN/) 
+
+[MDN Web技术文档](https://developer.mozilla.org/zh-CN/docs/Web) 
+
+
+
+[NW.js 0.13.0 中文参考文档](https://liuxp.me/nwjs/) （node-webkit，可用web的方式开发桌面应用，微信小程序的开发工具就是用该技术编写的）
+
+[一看就懂的ReactJs入门教程](http://www.cocoachina.com/webapp/20150721/12692.html) 
+
+[Web应用组件化的权衡](https://github.com/xufei/blog/issues/22) 
+
+[Meteor.js 是什么？](https://www.zhihu.com/question/20296322) 
+
+[什么是 Twitter Bootstrap？](https://www.zhihu.com/question/19821825) 
+
+
+
+[这里有些前端的好文章](http://www.10tiao.com/channel/index?type=264&name=web) 
+
+
+
+[React Native从入门到原理](http://www.jianshu.com/p/978c4bd3a759) 侧重读js-native之间的交互，读得显浅清晰。博主的其它文章也很好~：[bestswifter](http://www.jianshu.com/u/3e55748920d2) 
+
+[微信小程序原理](http://www.jianshu.com/p/fe7a8737680f) 

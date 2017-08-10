@@ -24,8 +24,6 @@
 
 **mChannelsPerFrame**：声道。**\*各个帧（采样）的频道数可能不一样?!***
 
-****
-
 **mBytesPerFrame：**= n * sizeof（AudioSampleType）或 = mBitsPerChannel / 8 * mChannelsPerFrame; n为声道数。
 
 **mFramesPerPacket：**对于未压缩音频，这个值为1；VBR格式是个大的值，比如1024对应AAC，对于packet中有可变frame数的格式，值为0，如Ogg Vorbis。**根据MPEG简介+如何计算CBR-VBR MP3的播放时间.pdf文档中MPEG音频数据的描述和官方文档中deriveBufferSize函数的判断，可以断定这里的packet的概念等同于MPEG帧的概念，MP3，即MPEG-1 Layer III，不论CBR，还是VBR，每一帧的采样个数都是固定的1152个。**
@@ -40,9 +38,7 @@
 
 1、 **VBR audio**
 
-2、**CBR audio where the channels have unequel sizes**
-
-****
+2、**CBR audio where the channels have unequel sizes** 
 
 **mDataByteSize**：包的字节数。
 
@@ -79,8 +75,6 @@
 **IEC 60958 AC3**：A Key that specifies an AC-3 codec that provides data packaged for transport over an IEC 60958 conpliant digital audio interface.
 
 **MPEGLayer1、MPEGLayer2、MPEGLayer3（MP3）**
-
-****
 
 **Apple IMA4**：这是一种压缩格式，将对16位体的音频文件进行4：1的压缩。这是面向iPhone设备的一种重要编码
 
