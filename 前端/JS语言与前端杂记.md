@@ -4,7 +4,13 @@
 
 [学习JavaScript必读的12本书](https://zhuanlan.zhihu.com/p/22914734) 
 
+[这里有些前端的好文章](http://www.10tiao.com/channel/index?type=264&name=web) 
 
+[你有必要知道的 10 个 JavaScript 难点](http://www.10tiao.com/html/399/201707/2651494566/1.html)  
+
+
+
+#### 【jQuery过时了？】 
 
 [jQuery源码分析系列](http://www.cnblogs.com/aaronjs/p/3279314.html) 
 
@@ -25,15 +31,15 @@ jQuery主要的几点工作就是简化DOM操作、css选择器、浏览器兼�
 * 性能问题也是一个原因。
 
 
-[你有必要知道的 10 个 JavaScript 难点](http://www.10tiao.com/html/399/201707/2651494566/1.html) 
 
 
-
-
+#### 【MDN文档】 
 
 [MDN中文文档](https://developer.mozilla.org/zh-CN/) 
 
 [MDN Web技术文档](https://developer.mozilla.org/zh-CN/docs/Web) 
+
+
 
 
 
@@ -47,12 +53,16 @@ jQuery主要的几点工作就是简化DOM操作、css选择器、浏览器兼�
 
 [什么是 Twitter Bootstrap？](https://www.zhihu.com/question/19821825) 
 
-
-
-[这里有些前端的好文章](http://www.10tiao.com/channel/index?type=264&name=web) 
-
-
-
 [React Native从入门到原理](http://www.jianshu.com/p/978c4bd3a759) 侧重读js-native之间的交互，读得显浅清晰。博主的其它文章也很好~：[bestswifter](http://www.jianshu.com/u/3e55748920d2) 
 
 [微信小程序原理](http://www.jianshu.com/p/fe7a8737680f) 
+
+
+
+
+
+#### 【前端工程化】
+
+[前端工程——基础篇 #10](https://github.com/fouber/blog/issues/10) 
+
+[大公司里怎样开发和部署前端代码？ #6](https://github.com/fouber/blog/issues/6) 
