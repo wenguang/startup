@@ -18,11 +18,11 @@
 
 #### 使用Package Control
 
-command+shift+p打开Package Control，输入ip，智能提示Install Package，回车稍等就会出现插件的输入提示，比如输出emmet，回车稍等安装成功。
+command+shift+p调出Package Control，输入ip，智能提示Install Package，回车稍等就会出现插件的输入提示，比如输出emmet，回车稍等安装成功。想要删除已安装的插件也很简单，command+shift+p调出Package Control，输出remove，智能提示Remove Package，回车，选择要删除的插件即行
 
 
 
-#### Emmet插件
+#### Emmet
 
 它让编写HTML代码变得极其简单高效
 
@@ -34,7 +34,7 @@ command+shift+p打开Package Control，输入ip，智能提示Install Package，
 
 
 
-#### SublimeCodeIntel插件
+#### SublimeCodeIntel
 
 这是一款代码提示插件，支持多种编程语言
 
@@ -62,21 +62,79 @@ SublimeCodeIntel支持的语言有JavaScript, Mason, XBL, XUL, RHTML, SCSS, Pyth
 
 
 
-#### Autoprefixer插件
+#### Autoprefixer
 
 这是一款CSS3私有前缀自动补全插件，它依赖node，得先安装node
 
 使用方法：在输入CSS3属性后（冒号前）按Tab键，如下图示
 
+![](https://github.com/wenguang/startup/blob/master/imgs/autoprefixer.gif?raw=true)
 
 
-#### JsFormat插件
+
+#### TrailingSpaces
+
+它可以自动将多余的空格标红，以示提醒。当然，如果你想一键摒除之，这也很好办，加入一点配置即可：在 Preferences / Key Bindings – User加上如下代码即可（数组内部，当然快捷键可自行约定，我这里用的是 `ctrl+shift+d` ）；
+
+```json
+{ "keys": ["ctrl+shift+d"], "command": "delete_trailing_spaces" }
+```
+
+
+
+####DocBlockr
+
+可以快速的对函数进行注释。保持代码规范。支持多种语言,有 JavaScript (including ES6), PHP, ActionScript, Haxe, CoffeeScript, TypeScript, Java, Apex, Groovy, Objective C, C, C++ and Rust.
+
+- `/*`:回车创建一个代码块注释
+- `/**`:回车在自动查找函数中的形参等等。
+
+它会生成 JSDoc 格式的注释。
+
+
+
+####SublimeTmpl
+
+SublimeTmpl能新建html、css、javascript、...等类型的文件模板，SublimeTmpl默认的快捷键:
+
+```shell
+ctrl+opt+h html
+ctrl+opt+j javascript
+ctrl+opt+c css
+```
+
+
+
+#### SublimeLinter 插件集
+
+js校验：SublimeLinter-jshint
+
+css校验：SublimeLinter-csslint
+
+html校验：SublimeLinter-contrib-htmlhint
+
+都依赖node。SublimeLinter-jshint要用npm安装jshint，SublimeLinter-csslint要用npm安装csslint，安装完后js校验不起作用，因为找不到可执行的linter，在~/.bash_profile加上配置重启sublime即可。见 [Finding a linter executable](http://sublimelinter.readthedocs.io/en/latest/troubleshooting.html#finding-a-linter-executable) 
+
+```shell
+hash -r
+which linter
+```
+
+
+
+#### HTML-CSS-JS Prettify
+
+一款集成了格式化（美化）html、css、js三种文件类型的插件，即便html,js写在PHP文件之内。插件依赖于nodejs，command+ctrl+H就可完成美化
+
+
+
+#### JsFormat
 
 即可在JS文件中通过鼠标右键->JsFormat或键盘快捷键Ctrl+Alt+F对JS进行格式化
 
 
 
-#### CssComb插件
+#### CssComb
 
 它依赖node，得先安装node
 
@@ -86,13 +144,17 @@ CssComb是为CSS属性进行排序和格式化插件
 
 
 
-#### SideBarEnhancements插件
+#### SideBarEnhancements
 
 SideBarEnhancements是一款很实用的右键菜单增强插件，在安装该插件前，在Sublime Text左侧FOLDERS栏中点击右键，只有寥寥几个简单的功能，安装后多了不少实用的右键功能
 
 
 
-#### Terminal插件
+#### Terminal
 
 即可使用快捷键Ctrl+Shift+T在subl当前根目录下呼出命令行窗口
+
+
+
+[如何优雅地使用Sublime Text](http://www.jeffjade.com/2015/12/15/2015-04-17-toss-sublime-text/) 
 
