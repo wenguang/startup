@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>飘带状3D菜单(未完)</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <link href="" rel="stylesheet">
+    <style type="text/css">
+    * {
+        padding: 0;
+        margin: 0;
+        border: 0;
+    }
+
+    body {
+        background-color: #3d332a;
+    }
+
+    nav {
+        display: table;
+        margin: 80px auto;
+    }
+
+    li {
+        list-style-type: none;
+        float: left;
+        cursor: pointer;
+        margin: 0 18px;
+        padding: 10px 10px 12px 10px;
+        background: #eae2d5;
+        border-left: 2px solid #d7cfc2;
+        border-right: 2px solid #d7cfc2;
+    }
+
+    li span {
+        float: top;
+        display: block;
+        text-align: center;
+        text-shadow: 1px 1px 1px #FFF;
+        margin: 0px 5px;
+    }
+
+    li span:first-child {
+        font-size: 33px;
+        color: #666;
+    }
+
+    li span:last-child {
+        font-family: Georgia;
+        font-size: 11px;
+        font-style: italic;
+        text-transform: capitalize;
+        letter-spacing: 1px;
+        margin-top: 5px;
+        color: #6488ba;
+    }
+
+    li:hover {
+        margin-top: -9px;
+        box-shadow: 0px 4px 10px 0px #000;
+        -webkit-transition: margin .2s;
+        -o-transition: margin .2s;
+        transition: margin .2s;
+    }
+
+    li:hover span {
+        -webkit-transition: all .2s;
+        -o-transition: all .2s;
+        transition: all .2s;
+    }
+
+    li:hover span:first-child {
+        color: #6488ba;
+        text-shadow: 1px 1px 1px #FFF, 0px 0px 1px #6488ba;
+    }
+
+    li:hover span:last-child {
+        color: #666;
+    }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <ul>
+            <li><span>t</span><span>twitter</span></li>
+            <li><span>c</span><span>codepen</span></li>
+            <li><span>d</span><span>dribbble</span></li>
+            <li><span>g</span><span>google+</span></li>
+        </ul>
+    </nav>
+</body>
+
+</html>

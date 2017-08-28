@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>多重抽屉动画</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <link href="" rel="stylesheet">
+    <style type="text/css">
+    @keyframes kf {
+        to {
+            transform: translateX(250px);
+        }
+    }
+
+    body {
+        background: black;
+    }
+
+    * {
+        border: 0;
+        margin: 0;
+        padding: 0;
+    }
+
+    .main {
+        position: relative;
+        width: 800px;
+        height: 400px;
+        margin: 250px auto;
+        transform-style: preserve-3d;
+    }
+
+    .main .sub {
+        position: absolute;
+        background: #40bf42;
+        width: 50px;
+        height: 200px;
+        top: 0px;
+        left: 0px;
+        margin: 0 auto;
+        animation: kf 1s infinite alternate;
+        transform-origin: top left;
+        opacity: .6;
+    }
+
+
+    .sub:nth-child(1) {
+        transform: translateX(50px);
+    }
+
+    .sub:nth-child(2) {
+        transform: translateX(100px);
+    }
+
+    .sub:nth-child(3) {
+
+        transform: translateX(150px);
+    }
+
+    .sub:nth-child(4) {
+
+        transform: translateX(200px);
+    }
+
+    .sub:nth-child(5) {
+
+        transform: translateX(250px);
+    }
+    </style>
+</head>
+
+<body>
+    <div class="main">
+        <div class="sub"></div>
+        <div class="sub"></div>
+        <div class="sub"></div>
+        <div class="sub"></div>
+        <div class="sub"></div>
+    </div>
+</body>
+</html
