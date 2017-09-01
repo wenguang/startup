@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Margin Collapse</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <link href="" rel="stylesheet">
+    <style type="text/css">
+    * {
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        border: 0;
+        margin: 0;
+        padding: 0;
+    }
+
+    .up {
+        background: #ccc;
+        height: 100px;
+        margin-bottom: 50px;
+    }
+
+    .down {
+        background: #ee66ff;
+        height: 100px;
+        margin-top: 49px;
+    }
+
+    .left {
+        background: #98ec93;
+        margin-right: 50px;
+    }
+
+    .right {
+        background: #ec98dc;
+        margin-left: 49px;
+    }
+    </style>
+</head>
+
+<body>
+    <div class="up">
+        <span class="left">left</span><span class="right">right</span>
+    </div>
+    <div class="down"></div>
+</body>
+
+</html>
