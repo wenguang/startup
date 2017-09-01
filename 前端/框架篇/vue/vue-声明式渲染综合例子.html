@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>vue-frist-step-综合例子</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <link href="" rel="stylesheet">
+    <script src="vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <input v-model="firstName">
+        <p>{{firstName}}</p>
+        <input v-model="lastName">
+        <p>{{lastName}}</p>
+        <button v-on:click="addToList">加入列表</button>
+        <ul>
+            <li v-for="name in names">
+                {{ name }}
+            </li>
+        </ul>
+    </div>
+    <script type="text/javascript">
+    var app = new Vue({
+        el: '#app',
+        data: {
+            firstName: '',
+            lastName: '',
+            names: [
+
+            ]
+        },
+        methods: {
+            addToList: function() {
+                var name = this.firstName + ' ' + this.lastName;
+                this.names.push(name);
+            }
+        }
+    });
+    </script>
+</body>
+
+</html>

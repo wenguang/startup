@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>vue-组件</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <link href="" rel="stylesheet">
+    <script src="vue.js"></script>
+</head>
+
+<body>
+    <div id='app'>
+        <ol>
+            <todo-item v-for="item in list" v-bind:todo="item" v-bind:key="item.id">
+            </todo-item>
+        </ol>
+    </div>
+    <script type="text/javascript">
+    Vue.component('todo-item', {
+        props: ['todo', 'key'],
+        template: '<li>{{ todo.text }}</li>'
+    });
+    var app = new Vue({
+        el: '#app',
+        data: {
+            list: [
+                { id: 0, text: 'hello' },
+                { id: 1, text: 'hacker' },
+                { id: 2, text: 'vue.js' },
+                { id: 3, text: 'reactive' }
+            ]
+        }
+    });
+    </script>
+</body>
+
+</html>
