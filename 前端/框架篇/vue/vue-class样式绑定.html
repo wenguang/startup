@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>vue-class样式绑定</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <link href="" rel="stylesheet">
+    <script src="vue.js"></script>
+    <style type="text/css">
+    * {
+        border: 0;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    .static {
+        height: 100px;
+        background: #eee;
+    }
+
+    .active {
+        background: #98ef67;
+    }
+
+    .error {
+        background: #f00;
+    }
+
+    .small {
+        height: 20px;
+        background: #ef98df;
+    }
+
+    .li_1 {
+        background: #679146;
+        font-size: 20px;
+    }
+    </style>
+</head>
+
+<body>
+    <div id="vm1" class="static" v-bind:class="{active: isActive, error: hasError}"></div>
+    <p>绑定到对象上</p>
+    <div id="vm2" class="static" :class="classObject"></div>
+    <p>利用computed绑定对象</p>
+    <div id="vm3" class="static" :class="classObject"></div>
+    <p>数组语法</p>
+    <div id="vm4" :class="[staticObject, smallObject]"></div>
+    <p>用于组件中</p>
+    <div id="vm5" class="static">
+        <my-component v-bind:class="{active: isActive}"></my-component>
+    </div>
+    <script type="text/javascript">
+    var vm1 = new Vue({
+        el: '#vm1',
+        data: {
+            isActive: false,
+            hasError: false
+        }
+    });
+    var vm2 = new Vue({
+        el: '#vm2',
+        data: {
+            classObject: {
+                active: true,
+                error: false
+            }
+
+        }
+    });
+    var vm3 = new Vue({
+        el: '#vm3',
+        data: {
+            isActive: false,
+            hasError: null
+        },
+        computed: {
+            classObject: function() {
+                return {
+                    active: this.isActive && !this.hasError,
+                    error: this.isActive && this.hasError
+                };
+            }
+        }
+    });
+    var vm4 = new Vue({
+        el: '#vm4',
+        data: {
+            staticObject: 'static',
+            smallObject: 'small'
+        }
+    });
+
+    Vue.component('my-component', {
+        template: '<ol><li id="li_1"><span>class绑定在组件在应用</span></li></ol>'
+    });
+    var vm5 = new Vue({
+        el: '#vm5',
+        data: {
+            isActive: true
+        }
+    });
+    </script>
+</body>
+
+</html>
