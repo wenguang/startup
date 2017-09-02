@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>vue模板语法</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <link href="" rel="stylesheet">
+    <script src="vue.js"></script>
+</head>
+
+<body>
+    <div id="app1">
+        <p v-html="htmlMsg"></p>
+        <p>{{number + 1}}</p>
+        <p>{{ok?'YES':'NO'}}</p>
+        <p v-html='message'></p>
+    </div>
+    <script type="text/javascript">
+    var app1 = new Vue({
+        el: '#app1',
+        data: {
+            htmlMsg: 'v-html指令的作用：</br><em>当数据中有html标签时，要用v-html那正解地解析出html标签</em>',
+            number: 100,
+            ok: true,
+            message: 'vue不仅可以绑定简单的属性值，也支持使用javascript表达式，这些表达式会在所属 Vue 实例的数据作用域下作为 JavaScript 被解析。有个限制就是，<strong>每个绑定都只能包含单个表达式</strong>'
+        }
+    });
+    </script>
+</body>
+
+</html>

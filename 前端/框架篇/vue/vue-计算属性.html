@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>vue-计算属性</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <link href="" rel="stylesheet">
+    <script src="vue.js"></script>
+</head>
+
+<body>
+    <div id="example">
+        <p>Original message: "{{ message }}"</p>
+        <p>Computed reversed message: "{{ reversedMessage }}"</p>
+        <input v-model="message">
+    </div>
+    <script type="text/javascript">
+    var vm = new Vue({
+        el: '#example',
+        data: {
+            message: '你可以像绑定普通属性一样在模板中绑定计算属性。Vue 知道 vm.reversedMessage 依赖于 vm.message，因此当 vm.message 发生改变时，所有依赖于 vm.reversedMessage 的绑定也会更新。而且最妙的是我们已经以声明的方式创建了这种依赖关系：计算属性的 getter 函数是没有连带影响 (side effect)，这使得它易于测试和推理'
+        },
+        computed: {
+            reversedMessage: function() {
+                return this.message.split('').reverse().join('');
+            }
+        }
+    });
+    </script>
+</body>
+
+</html>
