@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>vue-条件渲染-key的妙用</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <link href="" rel="stylesheet">
+    <script src="vue.js"></script>
+    <style type="text/css">
+    * {
+        border: 0;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    </style>
+</head>
+
+<body>
+    <p>Vue 会尽可能高效地渲染元素，通常会复用已有元素而不是从头开始渲染。这么做，除了使 Vue 变得非常快之外，还有一些有用的好处。例如，如果你允许用户在不同的登录方式之间切换，那么在上面的代码中切换 loginType 将不会清除用户已经输入的内容。因为两个模板使用了相同的元素，不会被替换掉——仅仅是替换了它的 placeholder。<strong>这样也不总是符合实际需求，所以 Vue 为你提供了一种方式来声明“这两个元素是完全独立的——不要复用它们”。只需添加一个具有唯一值的 key 属性即可</strong></p>
+    </br>
+    <div id="vm2">
+        <template v-if="loginType === 'username'">
+            <label>Username</label>
+            <input placeholder="Enter your username" key="username">
+        </template>
+        <template v-else>
+            <label>Email</label>
+            <input placeholder="Enter your email address" key="email">
+        </template>
+        <button v-on:click="toggleLoginType">Toggle login type</button>
+    </div>
+    <script type="text/javascript">
+    var vm2 = new Vue({
+        el: '#vm2',
+        data: {
+            loginType: 'username'
+        },
+        methods: {
+            toggleLoginType: function() {
+                this.loginType = this.loginType === 'username' ? 'email' : 'username';
+            }
+        }
+    });
+    </script>
+</body>
+
+</html>

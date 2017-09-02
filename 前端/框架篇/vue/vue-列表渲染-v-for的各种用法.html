@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>vue-列表渲染-v-for的各种用法</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <link href="" rel="stylesheet">
+    <script src="vue.js"></script>
+    <style type="text/css">
+    * {
+        border: 0;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    </style>
+</head>
+
+<body>
+    <div id="vm1">
+        <p>在 v-for 块中，我们拥有对父作用域属性的完全访问权限。 v-for 还支持一个可选的第二个参数为当前项的索引。可以把in 换成 of</p>
+        <ul>
+            <li v-for="(item, index) of items">
+                {{parentMessage}} - {{index}} - {{item.message}}
+            </li>
+        </ul>
+        </br>
+        <p>你也可以用 v-for 通过一个对象的属性来迭代，也可以提供第二个的参数为键名</p>
+        <ul>
+            <li v-for="(value, key) in object">
+                {{key}} : {{value}}
+            </li>
+        </ul>
+        <br>
+        <p>第三个参数为索引</p>
+        <ul>
+            <li v-for="(value, key, index) in object">
+                {{index}}.{{key}} : {{value}}
+            </li>
+        </ul>
+    </div>
+    <script type="text/javascript">
+    var vm1 = new Vue({
+        el: '#vm1',
+        data: {
+            parentMessage: 'parent',
+            items: [
+                { message: 'MEG' },
+                { message: 'HIS' }
+            ],
+            object: {
+                firstName: 'pan',
+                lastName: 'wenguang',
+                age: '32'
+            }
+        }
+    });
+    </script>
+</body>
+
+</html>

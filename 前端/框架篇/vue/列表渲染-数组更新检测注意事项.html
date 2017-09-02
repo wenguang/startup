@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>vue-列表渲染-数组更新检测注意事项</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <link href="" rel="stylesheet">
+    <script src="vue.js"></script>
+    <style type="text/css">
+    * {
+        border: 0;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    </style>
+</head>
+
+<body>
+    <div id="vm">
+        <ul>
+            <li v-for="(item, index) in items">
+                {{index}}. {{item.message}}
+            </li>
+        </ul>
+    </div>
+    <br>
+    <h4>数组变异：在原来数组的的数据发生变动，vue会检测到变动更新渲染</h3>
+    <p>
+        push() pop() shift() unshift() splice() sort() reverse() 这些方法属于变异方法
+    </p>
+    <br>
+    <h4>重塑数组： 会返回一个新数组，vue就检测不到变动了，所以要把新数组赋值给原来的数组</h3>
+    <p>
+        例如：filter(), concat() 和 slice() 就属于重塑方法
+    </p>
+    <br>
+    <h4>注意事项：由于 JavaScript 的限制，Vue 不能检测以下变动的数组：</h3>
+    <p>
+
+当你利用索引直接设置一个项时，例如： vm.items[indexOfItem] = newValue
+当你修改数组的长度时，例如： vm.items.length = newLength
+为了解决第一类问题，以下两种方式都可以实现和 vm.items[indexOfItem] = newValue 相同的效果， 同时也将触发状态更新：
+// Vue.set
+Vue.set(example1.items, indexOfItem, newValue)
+// Array.prototype.splice
+example1.items.splice(indexOfItem, 1, newValue)
+为了解决第二类问题，你可以使用 splice：
+example1.items.splice(newLength)
+
+    </p>
+    <script type="text/javascript">
+    var vm = new Vue({
+        el: '#vm',
+        data: {
+            items: [
+                { message: 'aaa' },
+                { message: 'ggg' },
+                { message: 'ttt' }
+            ]
+        }
+    });
+    </script>
+</body>
+
+</html>
