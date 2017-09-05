@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>vue-组件中的v-for</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <link href="" rel="stylesheet">
+    <script src="vue.js"></script>
+    <style type="text/css">
+    * {
+        border: 0;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    </style>
+</head>
+
+<body>
+    <div id="example">
+        <p><a href="https://cn.vuejs.org/v2/guide/list.html#一个组件的-v-for">以下是文档中的例子</a></p>
+        <input v-model="newTodoText" v-on:keyup.enter="addNewTodo" placeholder="Add a todo">
+        <ul>
+            <li is="todo-item" v-for="(todo, index) of todos" :key="todo.id" :title="todo.title" v-on:remove="todos.splice(index, 1)">
+                {{todo.title}}</li>
+        </ul>
+        <br>
+        <p>自现实</p>
+        <input v-model="newTodoText" v-on:keyup.enter="addNewTodo" placeholder="Add a todo">
+        <ul>
+            <li v-for="(todo, index) of todos" :key="todo.id">
+                {{todo.title}}
+                <button v-on:click="todos.splice(index, 1)">X</button>
+            </li>
+        </ul>
+    </div>
+    <script type="text/javascript">
+    Vue.component('todo-item', {
+        template: '\
+    			<li>{{title}}\
+    			<button v-on:click="$emit(\'remove\')">X</button>\
+    			</li>',
+        props: ['title']
+    });
+    var example = new Vue({
+        el: '#example',
+        data: {
+            newTodoText: '',
+            todos: [
+                { id: 1, title: 'do the dishes' },
+                { id: 2, title: 'take out the trash' },
+                { id: 3, title: 'mow the lawn' }
+            ],
+            nextTodoId: 4
+        },
+        methods: {
+            addNewTodo: function() {
+                this.todos.push({
+                    id: this.nextTodoId++,
+                    title: this.newTodoText
+                });
+            }
+        }
+    });
+    </script>
+</body>
+
+</html>

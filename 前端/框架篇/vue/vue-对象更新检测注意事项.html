@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>vue-对象更新检测注意事项</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <link href="" rel="stylesheet">
+    <script src="vue.js"></script>
+    <style type="text/css">
+    * {
+        border: 0;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    </style>
+</head>
+
+<body>
+    <p>还是由于 JavaScript 的限制，Vue 不能检测对象属性的添加或删除。对于已经创建的实例，<strong>Vue 不能动态添加根级别的响应式属性。但是，可以使用 Vue.set(object, key, value) 方法向嵌套对象添加响应式属性。</strong></p>
+    <ul id="vm">
+        <li v-for="(value, key) in profile">
+            {{key}} : {{value}}
+        </li>
+    </ul>
+    <script type="text/javascript">
+    var vm = new Vue({
+        el: '#vm',
+        data: {
+            profile: {
+            	name: 'wenguang'
+            }
+        }
+    });
+    Vue.set(vm.profile, 'age', 32);
+
+    // 有时你可能需要为已有对象赋予多个新属性，比如使用 Object.assign() 或 _.extend()。在这种情况下，你应该用两个对象的属性创建一个新的对象。所以，如果你想添加新的响应式属性，不要像这样：
+    Object.assign(vm.profile, {
+    	ato: 'vue.js',
+    	toa: 'bs'
+    });
+    </script>
+</body>
+
+</html>

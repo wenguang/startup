@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>vue-事件处理—键值修饰符</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <link href="" rel="stylesheet">
+    <script src="vue.js"></script>
+    <style type="text/css">
+    * {
+        border: 0;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    input {
+    	border: 1px solid #666;
+    }
+    </style>
+</head>
+
+<body>
+    <div id="vm">
+        <p>记住所有的 keyCode 比较困难，所以 Vue 为最常用的按键提供了别名：</p>
+        <ol>
+            <li>.enter</li>
+            <li>.tab</li>
+            <li>.delete</li>
+            <li>.esc</li>
+            <li>.space</li>
+            <li>.up</li>
+            <li>.down</li>
+            <li>.left</li>
+            <li>.right</li>
+            <strong>以下为修饰键</strong>
+            <li>.ctrl</li>
+            <li>.alt</li>
+            <li>.shift</li>
+            <li>.meta</li>
+        </ol>
+        <input v-on:keyup.alt.67="trig($event)">
+    </div>
+    <div>
+    	<strong>
+    		注意：在Mac系统键盘上，meta对应命令键 (⌘)。在Windows系统键盘meta对应windows徽标键(⊞)。”。
+    	</strong>
+    </div>
+    <div><strong>修饰键：v-on:keyup.alt.67</strong></div>
+    <script type="text/javascript">
+    var vm = new Vue({
+        el: '#vm',
+        methods: {
+            trig: function(event) {
+                if (event) {
+                    alert(event.keyCode);
+                }
+            }
+        }
+    });
+    </script>
+</body>
+
+</html>

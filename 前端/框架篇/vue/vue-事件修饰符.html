@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>vue-事件修饰符</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <link href="" rel="stylesheet">
+    <script src="vue.js"></script>
+    <style type="text/css">
+    * {
+        border: 0;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    </style>
+</head>
+
+<body>
+    <div id="vm">
+        <p>尽管可以用$event给方法传入原生的事件，对事件行为进行设置，methods 只有纯粹的数据逻辑，而不是去处理 DOM 事件细节，应该有更多优雅的方法才是</p>
+        <button v-on:click="warn('cannot be submitted yet.', $event)">
+            submit
+        </button>
+        <br>
+        <p><strong>为了解决这个问题， Vue.js 为 v-on 提供了 事件修饰符。通过由点(.)表示的指令后缀来调用修饰符</strong></p>
+        <ul>
+            <li> .stop：阻止单击事件冒泡</li>
+            <li> .prevent：阻止事件的默认行为</li>
+            <li> .capture：添加事件侦听器时使用事件捕获模式</li>
+            <li> .self：只当事件在该元素本身（比如不是子元素）触发时触发回调</li>
+            <li> .once：点击事件将只会触发一次。不像其它只能对原生的 DOM 事件起作用的修饰符，.once 修饰符还能被用到自定义的组件事件上</li>
+        </ul>
+        <button v-on:click.prevent="show('阻止了默认的事件行为')">.prevent阻止了默认的事件行为</button>
+        <br>
+        <p></p>
+        <p><strong>要理解事件修饰符，要学习原生event对象与事件的各种行为</strong></p>
+    </div>
+    <script type="text/javascript">
+    var vm = new Vue({
+        el: '#vm',
+        methods: {
+            warn: function(message, event) {
+                if (event) event.preventDefault();
+                alert(message);
+            },
+            show: function(message) {
+                alert(message);
+            }
+        }
+    });
+    </script>
+</body>
+
+</html>

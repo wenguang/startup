@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>vue-v-model修饰符</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <link href="" rel="stylesheet">
+    <script src="vue.js"></script>
+    <style type="text/css">
+    * {
+        border: 0;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    div {
+        margin-top: 20px;
+        margin-left: 20px;
+    }
+
+    input {
+        height: 20px;
+        border: 1px solid #ccc;
+    }
+    </style>
+</head>
+
+<body>
+    <div id="vm">
+        <div>在默认情况下， v-model 在 input 事件中同步输入框的值与数据 (除了 上述 IME 部分)，但你可以添加一个修饰符 lazy ，从而转变为在 change 事件中同步：</div>
+        <div>
+            <input v-model.lazy="msg">
+            <span>{{msg}}</span>
+        </div>
+        <div>如果想自动将用户的输入值转为 Number 类型（如果原值的转换结果为 NaN 则返回原值），可以添加一个修饰符 number 给 v-model 来处理输入值，这通常很有用，因为在 type="number" 时 HTML 中输入的值也总是会返回字符串类型。</div>
+        <div>
+            <input v-model.number="age" type="number">
+            <span>{{age}}</span>
+        </div>
+        <div>如果要自动过滤用户输入的首尾空格，可以添加 trim 修饰符到 v-model 上过滤输入：</div>
+        <div>
+            <input v-model.trim="trimMsg">
+            <span>{{trimMsg}}</span>
+        </div>
+    </div>
+    <script type="text/javascript">
+    var vm = new Vue({
+        el: '#vm',
+        data: {
+            msg: '',
+            age: 0,
+            trimMsg: ''
+        }
+    })
+    </script>
+</body>
+
+</html>

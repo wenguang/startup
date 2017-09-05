@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>vue-组件局部注册</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <link href="" rel="stylesheet">
+    <script src="vue.js"></script>
+    <style type="text/css">
+    * {
+        border: 0;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    div {
+        margin-top: 20px;
+        margin-left: 20px;
+    }
+
+    input {
+        height: 20px;
+        border: 1px solid #ccc;
+    }
+    </style>
+</head>
+
+<body>
+<div>
+	<strong>用Vue.component方法注册的组件是全局的，可在所有vue实例中使用。也可以注册局部组件，只能在指定的实例中使用，以下就是局部组件，还能嵌套注册组件</strong>
+</div>
+    <div id="demo">
+        <custom-component>
+            <tages></tages>
+        </custom-component>
+        <my-component></my-component>
+        <partail-component></partail-component>
+    </div>
+    <script type="text/javascript">
+    var demo = new Vue({
+        el: "#demo",
+        components: { //局部注册组件
+            "custom-component": {
+                template: "<div><component-child></component-child></div>",
+                components: { //组件中还可以继续注册局部组件
+                    "component-child": {
+                        template: "<p>hello,我是custom-component的子组件</p>"
+                    }
+                }
+            },
+            "my-component": {
+                template: "<div>hello,my-component！</div>"
+            },
+            "tages": {
+                template: "<div>hello,tages</div>"
+            },
+            'partail-component': {
+            	template: '<div> a partial component</div>'
+            }
+        }
+    });
+    </script>
+</body>
+
+</html>

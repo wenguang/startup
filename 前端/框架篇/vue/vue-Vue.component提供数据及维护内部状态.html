@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>vue-Vue.component提供数据及维护内部状态</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <link href="" rel="stylesheet">
+    <script src="vue.js"></script>
+    <style type="text/css">
+    * {
+        border: 0;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    div {
+        margin-top: 20px;
+        margin-left: 20px;
+    }
+
+    input {
+        height: 20px;
+        border: 1px solid #ccc;
+    }
+    </style>
+</head>
+
+<body>
+    <div><strong>通过 Vue 构造器传入的各种选项大多数都可以在组件里用。data 是一个例外，它必须是函数。实际上，如果你这么做</strong></div>
+    <div id="vm">
+        <simple-counter></simple-counter>
+        <simple-counter></simple-counter>
+        <simple-counter></simple-counter>
+    </div>
+    <script type="text/javascript">
+    var data = { counter: 0 }
+    Vue.component('simple-counter', {
+        template: '<button v-on:click="counter += 1">{{ counter }}</button>',
+
+        data: function() {
+            // 技术上 data 的确是一个函数了，因此 Vue 不会警告，
+            // 但是我们返回给每个组件的实例却引用了同一个 data 对象
+            // return data;
+            return {
+                counter: 0
+            }
+        }
+    });
+    new Vue({
+        el: '#vm'
+    });
+    </script>
+</body>
+
+</html>

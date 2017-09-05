@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>vue-表单输入绑定</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <link href="" rel="stylesheet">
+    <script src="vue.js"></script>
+    <style type="text/css">
+    * {
+        border: 0;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    div {
+        margin-top: 20px;
+        margin-left: 20px;
+    }
+    </style>
+</head>
+
+<body>
+    <div id="vm">
+        <div>
+            你可以用 v-model 指令在表单控件元素上创建双向数据绑定。它会根据控件类型自动选取正确的方法来更新元素。尽管有些神奇，但 v-model 本质上不过是语法糖，它负责监听用户的输入事件以更新数据，并特别处理一些极端的例子。
+        </div>
+        <div>下面当type='radio'时，checkedNames数组中只会有一个值；当type='checkbox'时，checkedNames数组中会有多个值。vue会自动适配这些情况</div>
+        <div>
+            <input type="checkbox" id="jack" value="jack" v-model="checkedNames">
+            <label for="jack">jack</label>
+            <br>
+            <input type="checkbox" id="john" value="john" v-model="checkedNames">
+            <label for="john">john</label>
+            <br>
+            <input type="checkbox" id="mike" value="mike" v-model="checkedNames">
+            <label for="mike">mike</label>
+            <br>
+            <span>checked names: {{checkedNames}}</span>
+        </div>
+        <div>
+            <select name="" id="" v-model="selected">
+                <option value="" disabled>请选择</option>
+                <option value="A">A</option>
+                <option value="B">B</option>
+                <option value="C">C</option>
+            </select>
+            <span>selected: {{selected}}</span>
+        </div>
+        <div>
+            <select name="" id="" v-model="multipleSelected" multiple style="width: 50px">
+                <option value="A">A</option>
+                <option value="B">B</option>
+                <option value="C">C</option>
+            </select>
+            <span>multipleSelected: {{multipleSelected}}</span>
+        </div>
+        <div>动态选项，用 v-for 渲染：</div>
+        <div>
+            <select v-model="selected" name="" id="">
+                <option v-for="option in options" :value="option.value">
+                	{{option.text}}
+                </option>
+            </select>
+        	<span>selected: {{selected}}</span>
+    	</div>
+    </div>
+    <script type="text/javascript">
+    var vm = new Vue({
+        el: '#vm',
+        data: {
+            checkedNames: [],
+            selected: '',
+            multipleSelected: [],
+            options: [
+            	{text: 'one', value: 'A'},
+            	{text: 'twe', value: 'B'},
+            	{text: 'three', value: 'C'}
+            ]
+        }
+    });
+    </script>
+</body>
+
+</html>

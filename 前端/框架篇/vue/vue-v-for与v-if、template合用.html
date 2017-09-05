@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>vue-v-for与v-if、template合用</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <link href="" rel="stylesheet">
+    <script src="vue.js"></script>
+    <style type="text/css">
+    * {
+        border: 0;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    </style>
+</head>
+
+<body>
+    <div id="vm">
+        <p>你也可以利用带有 v-for 的 template标签渲染多个元素
+        </p>
+        <ul>
+            <template v-for="item in items">
+                <li>{{item.msg}}</li>
+                <li>这是一个固定的内容</li>
+            </template>
+        </ul>
+        <br>
+        <p>当它们处于同一节点，v-for 的优先级比 v-if 更高，这意味着 v-if 将分别重复运行于每个 v-for 循环中。当你想为仅有的一些项渲染节点时，这种优先级的机制会十分有用，v-for与v-if合用也可以实现过滤功能</p>
+        <ul>
+            <li v-for="item in items" v-if="item.match === true">
+                {{item.msg}}
+            </li>
+        </ul>
+        <br>
+        <p>而如果你的目的是有条件地跳过循环的执行，那么可以将 v-if 置于外层元素 (或 template)上。如:</p>
+        <ul v-if="items.length">
+            <li v-for="item in items">
+                {{item.msg}}
+            </li>
+        </ul>
+        <p v-else>No item left!</p>
+    </div>
+    <script type="text/javascript">
+    var vm = new Vue({
+        el: '#vm',
+        data: {
+            items: [
+                { msg: 'new york', match: true },
+                { msg: 'tokoyo', match: true },
+                { msg: 'hk', match: false }
+            ]
+        }
+    });
+    </script>
+</body>
+
+</html>

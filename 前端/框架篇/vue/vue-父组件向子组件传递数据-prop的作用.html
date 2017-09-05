@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>vue-父组件向子组件传递数据-prop的作用</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <link href="" rel="stylesheet">
+    <script src="vue.js"></script>
+    <style type="text/css">
+    * {
+        border: 0;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    div {
+        margin-top: 20px;
+        margin-left: 20px;
+    }
+
+    input {
+        height: 20px;
+        border: 1px solid #ccc;
+    }
+    </style>
+</head>
+
+<body>
+    <div id="vm">
+        <div><strong>在子组件中用props定义属性，父组件向子组件属性赋值，子组件在template中用插值方式使用属性的值，这就是父组件向子组件传递数据的过程，关键就是prop</strong></div>
+        <div>
+            <child message="hello!"></child>
+        </div>
+    </div>
+    <script type="text/javascript">
+    Vue.component('child', {
+    	
+    })
+    new Vue({
+    	el:'vm'
+    });
+    </script>
+</body>
+
+</html>
