@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>vue-组件-非父子组件通信</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <link href="" rel="stylesheet">
+    <script src="vue.js"></script>
+    <style type="text/css">
+    * {
+        border: 0;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    div {
+        margin-top: 20px;
+        margin-left: 20px;
+    }
+
+    input {
+        height: 20px;
+        border: 1px solid #ccc;
+    }
+    </style>
+</head>
+
+<body>
+    <div>
+        <strong>
+        	Vue2.x 废弃了 broadcast 和 dispatch 之后，可以通过 vuex ，还有 event bus 来解决。这里不讲 vuex ，讲起来是另外一个话题，就讲一下怎么在非父子组件之间通过 event bus 进行通信。
+        </strong>
+        <hr> var bus = new Vue()
+        <hr> // 触发组件 A 中的事件
+        <br> bus.$emit('id-selected', 1)
+        <hr> // 在组件 B 创建的钩子中监听事件
+        <br> bus.$on('id-selected', function (id) { })
+    </div>
+    <div id='app'>
+        <foo></foo>
+        <hr>
+        <bar></bar>
+    </div>
+    <script type="text/javascript">
+    // 注册一个空的 Vue 实例，作为 ‘中转站’
+    var eventBus = new Vue({})
+    // foo 组件
+    var foo = {
+        template: '<div><p>the count of foo is {{fooCount}}</p>' +
+            '<button @click="addBar">add bar\'s count</button></div>',
+        data: function() {
+            return {
+                fooCount: 0
+            }
+        },
+        methods: {
+            addBar: function() {
+                // 触发事件
+                eventBus.$emit('addBar')
+            }
+        },
+        mounted: function() {
+            eventBus.$on('addFoo', function(num) {
+                this.fooCount += num
+            }.bind(this))
+            // 这里必须将 this 绑定在组件实例上。如果不使用 bind , 也可以使用箭头函数。
+        }
+    }
+    // bar 组件
+    var bar = {
+        template: '<div><p>the count of bar is {{barCount}}</p>' +
+            '<button @click="addFoo">add foo\'s count</button></div>',
+        data: function() {
+            return {
+                barCount: 0
+            }
+        },
+        methods: {
+            addFoo: function() {
+                // 触发事件，同时传递一个参数
+                eventBus.$emit('addFoo', 2)
+            }
+        },
+        // 在 组件创建的钩子函数中 监听事件
+        mounted: function() {
+            eventBus.$on('addBar', function() {
+                this.barCount++
+            }.bind(this))
+        }
+    }
+    var vm = new Vue({
+        el: '#app',
+        components: {
+            foo,
+            bar
+        }
+    })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>vue-组件-子向父的通信</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <link href="" rel="stylesheet">
+    <script src="vue.js"></script>
+    <style type="text/css">
+    * {
+        border: 0;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    div {
+        margin-top: 20px;
+        margin-left: 20px;
+    }
+
+    input {
+        height: 20px;
+        border: 1px solid #ccc;
+    }
+    </style>
+</head>
+
+<body>
+    <div id="vm">
+        <div>
+            我们知道，父组件是使用 props 传递数据给子组件，但子组件怎么跟父组件通信呢？这个时候 Vue 的自定义事件系统就派得上用场了。
+        </div>
+        <div>
+            每个 Vue 实例都实现了事件接口 (Events interface)，即：
+            <br> 使用 $on(eventName) 监听事件
+            <br> 使用 $emit(eventName) 触发事件
+            <br> 另外，父组件可以在使用子组件的地方直接用 v-on 来监听子组件触发的事件。
+        </div>
+        <div><strong>
+			Vue 的事件系统分离自浏览器的 EventTarget API。尽管它们的运行类似，<br>但是 $on 和 $emit 不是addEventListener 和 dispatchEvent 的别名。
+		</strong></div>
+        <div>
+            <span>total: {{total}}</span>
+            <br>
+            <button-counter v-on:increment="incrementTotal"></button-counter>
+            <button-counter v-on:increment="incrementTotal"></button-counter>
+        </div>
+        <div>
+            <strong>
+				在本例中，子组件已经和它外部完全解耦了。它所做的只是报告自己的内部事件，至于父组件是否关心则与它无关。留意到这一点很重要。
+			</strong>
+        </div>
+    </div>
+    <script type="text/javascript">
+    Vue.component('button-counter', {
+        template: '<button v-on:click="incrementCount">{{count}}</button>',
+        data: function() {
+            return { count: 0 };
+        },
+        methods: {
+            incrementCount: function() {
+                this.count += 1;
+                this.$emit('increment');
+            }
+        }
+    });
+    new Vue({
+        el: '#vm',
+        data: {
+            total: 0
+        },
+        methods: {
+            incrementTotal: function() {
+                this.total += 1;
+            }
+        }
+    });
+    </script>
+</body>
+
+</html>

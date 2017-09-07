@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>vue-组件-让组件中的v-model生效</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <link href="" rel="stylesheet">
+    <script src="vue.js"></script>
+    <style type="text/css">
+    * {
+        border: 0;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    div {
+        margin-top: 20px;
+        margin-left: 20px;
+    }
+
+    input {
+        height: 20px;
+        border: 1px solid #ccc;
+    }
+    </style>
+</head>
+
+<body>
+    <div id="vm">
+        <strong>v-model="something" 是个语法糖，它相当于v-bind:value="something" v-on:input="something=$event.target.value"</strong>
+            <br>
+        <input v-model="something">
+        <br>
+        <input v-bind:value="something" v-on:input="something=$event.target.value">
+        <br>
+        <strong>
+        	所以要让组件的 v-model 生效，它应该 (在 2.2.0+ 这是可配置的)：
+        </strong>
+        <br>
+        <strong>
+        	1、接受一个 value 属性
+        </strong>
+        <br>
+        <strong>
+        	2、在有新的值时触发 input 事件
+        </strong>
+        <br>
+        <custom-input v-model="something"></custom-input>
+    </div>
+    <script type="text/javascript">
+    Vue.component('custom-input', {
+        template: '<input v-bind:value="value" v-on:input="updateValue($event.target.value)" />',
+        props: ['value'],
+        methods: {
+            updateValue: function(val) {
+                this.$emit('input', val);
+            }
+        }
+    });
+    new Vue({
+        el: '#vm',
+        data: {
+            something: 'wenguang'
+        }
+    });
+    </script>
+</body>
+
+</html>

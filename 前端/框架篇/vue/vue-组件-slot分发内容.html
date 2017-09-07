@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>vue-组件-slot分发内容</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <link href="" rel="stylesheet">
+    <script src="vue.js"></script>
+    <style type="text/css">
+    * {
+        border: 0;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    div {
+        margin-top: 20px;
+        margin-left: 20px;
+    }
+
+    input {
+        height: 20px;
+        border: 1px solid #ccc;
+    }
+    </style>
+</head>
+
+<body>
+    <div id="vm">
+        <div>
+            <h3>我是父组件的标题</h3>
+            <my-com>
+                <p>这是一些初始内容</p>
+                <p>这是更多的初始内容</p>
+            </my-com>
+        </div>
+        <app-layout>
+            <h1 slot="header">这里可能是一个页面标题</h1>
+            <p>主要内容的一个段落。</p>
+            <p>另一个主要段落。</p>
+            <p slot="footer">这里有一些联系信息</p>
+        </app-layout>
+    </div>
+    <script type="text/javascript">
+    Vue.component('my-com', {
+        template: '<div>\
+    					<h4>我是子组件的标题</h4>\
+    					<slot>\
+    						只有在没有分发内容时才会显示\
+    					</slot>\
+    					</div>'
+    });
+    Vue.component('app-layout', {
+        template: '<div>\
+					  <header>\
+					    <slot name="header"></slot>\
+					  </header>\
+					  <main>\
+					    <slot>只有在没有分发内容时才会显示</slot>\
+					  </main>\
+					  <footer>\
+					    <slot name="footer"></slot>\
+					  </footer>\
+					</div>'
+    });
+    new Vue({
+        el: '#vm'
+    });
+    </script>
+</body>
+
+</html>

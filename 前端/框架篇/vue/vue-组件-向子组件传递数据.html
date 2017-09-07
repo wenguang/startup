@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>vue-父组件向子组件传递数据-prop的作用</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <link href="" rel="stylesheet">
+    <script src="vue.js"></script>
+    <style type="text/css">
+    * {
+        border: 0;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    div {
+        margin-top: 20px;
+        margin-left: 20px;
+    }
+
+    input {
+        height: 20px;
+        border: 1px solid #ccc;
+    }
+    </style>
+</head>
+
+<body>
+    <div>
+        <p>组件意味着协同工作，通常父子组件会是这样的关系：组件 A 在它的模板中使用了组件 B。它们之间必然需要相互通信：父组件要给子组件传递数据，子组件需要将它内部发生的事情告知给父组件。然而，在一个良好定义的接口中尽可能将父子组件解耦是很重要的。这保证了每个组件可以在相对隔离的环境中书写和理解，也大幅提高了组件的可维护性和可重用性。 在 Vue 中，父子组件的关系可以总结为 props down, events up。父组件通过 props 向下传递数据给子组件，子组件通过 events 给父组件发送消息。看看它们是怎么工作的。</p>
+        <img src="https://github.com/wenguang/startup/blob/master/imgs/vue-components-com.png?raw=true" alt="">
+    </div>
+    <div id="vm">
+        <div><strong>在子组件中用props定义属性，父组件向子组件属性赋值，子组件在template中用插值方式使用属性的值，这就是父组件向子组件传递数据的过程，关键就是prop</strong></div>
+        <div>
+            <child message="hello!"></child>
+        </div>
+        <div>
+            <input v-model="parentMsg">
+            <br>
+            <child v-bind:message="parentMsg"></child>
+        </div>
+    </div>
+    <script type="text/javascript">
+    Vue.component('child', {
+        props: ['message'],
+        template: '<span>{{message}}</span>'
+    });
+    new Vue({
+        el: '#vm',
+        data: {
+            parentMsg: ''
+        }
+    });
+    </script>
+</body>
+
+</html>

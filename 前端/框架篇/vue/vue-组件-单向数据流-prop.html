@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>vue-单向数据流-prop</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <link href="" rel="stylesheet">
+    <script src="vue.js"></script>
+    <style type="text/css">
+    * {
+        border: 0;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    div {
+        margin-top: 20px;
+        margin-left: 20px;
+    }
+
+    input {
+        height: 20px;
+        border: 1px solid #ccc;
+    }
+    </style>
+</head>
+
+<body>
+    <div id="vm">
+        <div>
+            <h4>单向数据流</h4>
+            <p><strong>prop 是单向绑定的：当父组件的属性变化时，将传导给子组件，但是不会反过来。这是为了防止子组件无意修改了父组件的状态——这会让应用的数据流难以理解。
+另外，每次父组件更新时，子组件的所有 prop 都会更新为最新值。这意味着你不应该在子组件内部改变 prop。如果你这么做了，Vue 会在控制台给出警告。</strong>
+            </p>
+            <p><strong>为什么我们会有修改 prop 中数据的冲动呢？通常是这两种原因：</strong></p>
+            <p><strong>1、prop 作为初始值传入后，子组件想把它当作局部数据来用；</strong></p>
+            <p><strong>2、prop 作为初始值传入，由子组件处理成其它数据输出。</strong></p>
+            <p><strong>情况1的解决方法是：定义一个局部变量，并用 prop 的值初始化它：</strong></p>
+            <p><strong>情况2的解决方法是：定义一个计算属性，处理 prop 的值并返回</strong></p>
+        </div>
+        <div>
+            <child init-title="单向数据流" init-message="组件内显示的是局部变量，局部变量由prop的值初始化，这样局部变量的改变就不会影响到prop，也就不会影响父组件的状态"></child>
+        </div>
+        <div>
+        	<p>以下的需求是：定义一个组件，它有一个文本框，输入的字符串都会被转为大写提供给外部使用</p>
+        	<upper str="hello world"></upper>
+        </div>
+    </div>
+    <script type="text/javascript">
+    Vue.component('child', {
+        props: ['initTitle', 'initMessage'],
+        template: '<div><span>{{title}}</span><br><span>{{message}}</span></div>',
+        data: function() {
+        	return {
+        		title: this.initTitle,
+        		message: this.initMessage
+        	};
+        }
+    });
+    Vue.component('upper', {
+    	props:['str'],
+    	template: '<div>{{upperStr}}</div>',
+    	computed: {
+    		upperStr: function() {
+    			return this.str.trim().toUpperCase();
+    		}
+    	}
+    });
+    new Vue({
+        el: '#vm',
+    });
+    </script>
+</body>
+
+</html>

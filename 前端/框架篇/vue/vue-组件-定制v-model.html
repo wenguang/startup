@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>vue-组件-定制v-model</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <link href="" rel="stylesheet">
+    <script src="vue.js"></script>
+    <style type="text/css">
+    * {
+        border: 0;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    div {
+        margin-top: 20px;
+        margin-left: 20px;
+    }
+
+    input {
+        height: 20px;
+        border: 1px solid #ccc;
+    }
+    </style>
+</head>
+
+<body>
+    <div id="vm">
+        <strong>
+    		默认情况下，一个组件上的 v-model 会把 value 用作 prop 且把 input 用作 event，但是一些输入类型比如单选框和复选框按钮可能像使用 value prop 来达到不同的目的。使用 model 选项可以回避这些情况产生的冲突。model选项允许一个自定义组件在使用 v-model 时定制 prop 和 event。
+    	</strong>
+        <br>
+        <span>{{foo}}e</span>
+        <my-checkbox id="my-checkbox" v-model="foo"></my-checkbox>
+        <!-- 下行注释的语法糖 -->
+        <!-- <my-checkbox :checked="foo" @change="val => { foo = val }" value="some"></my-checkbox> -->
+        <strong>
+        		<!-- 以上按官方文档写，似乎不起作用 -->
+        	</strong>
+    </div>
+    <script type="text/javascript">
+    Vue.component('my-checkbox', {
+        model: {
+            prop: 'checked',
+            event: 'change'
+        },
+        props: {
+            checked: {
+                type: Boolean,
+                default: false
+            },
+            value: String
+        },
+        template: '<input type="checkbox" :checked="checked" @change="change($event.target.value)" :value="value"/>',
+        methods: {
+        	change: function(val) {
+        		this.$emit('change', val);
+        	}
+        }
+    });
+    var vm = new Vue({
+        el: '#vm',
+        data: {
+            foo: true
+        }
+    });
+    </script>
+    <!-- 分隔线 -->
+    <div>
+    	<strong>
+    		下面看看https://segmentfault.com/a/1190000010744545 的例子
+    	</strong>
+    </div>
+    <div id="app2">
+        {{fruit}}
+        <!-- 观测数据变化 -->
+        <my-checkbox v-model="fruit.apple" value="apple"></my-checkbox>
+        <!-- 下行注释的语法糖 -->
+        <!-- <my-checkbox :checked="fruit.apple" @change="val => {fruit.apple = val}" value="apple"></my-checkbox> -->
+        <my-checkbox v-model="fruit.peach" value="peach"></my-checkbox>
+        <!-- 下行注释的语法糖 -->
+        <!-- <my-checkbox :checked="fruit.peach" @change="val => {fruit.peach = val}" value="peach"></my-checkbox> -->
+    </div>
+    <script>
+    Vue.component('my-checkbox', {
+        template: '<div><span>{{value}}</span><input type="checkbox" :checked="checked" @change="doThis" :value="value"/></div>',
+        model: {
+            prop: 'checked',
+            event: 'change'
+        },
+        props: {
+            checked: Boolean,
+            value: String
+        },
+        methods: {
+            doThis() {
+                this.$emit('change', !this.checked);
+            }
+        }
+    });
+    new Vue({
+        el: '#app2',
+        data: {
+            fruit: { //数据
+                apple: true,
+                peach: false
+            }
+        }
+    });
+    </script>
+</body>
+
+</html>
