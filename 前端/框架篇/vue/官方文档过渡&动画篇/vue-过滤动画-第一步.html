@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>vue-过滤动画-第一步</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <link href="" rel="stylesheet">
+    <script src="vue.js"></script>
+    <style type="text/css">
+    * {
+        border: 0;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    div {
+        margin-top: 20px;
+        margin-left: 20px;
+    }
+
+    input {
+        height: 20px;
+        border: 1px solid #ccc;
+    }
+
+    .fade-enter-active,
+    .fade-leave-active {
+        transition: opacity .5s
+    }
+
+    .fade-enter,
+    .fade-leave-to
+    /* .fade-leave-active in below version 2.1.8 */
+
+    {
+        opacity: 0
+    }
+    </style>
+</head>
+
+<body>
+    <div id="vm">
+        <button @click="show=!show">Toggle</button>
+        <transition name="fade">
+            <p v-if="show">hello</p>
+        </transition>
+    </div>
+    <script type="text/javascript">
+    new Vue({
+        el: '#vm',
+        data: {
+            show: true
+        }
+    });
+    </script>
+</body>
+
+</html>
