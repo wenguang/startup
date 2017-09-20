@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>vuex-核心概念-modules</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <link href="" rel="stylesheet">
+    <script src="vue.js"></script>
+    <script src="vue-router.js"></script>
+    <script src="vuex.js"></script>
+    <style type="text/css">
+    .div {
+        margin-left: 10px;
+        margin-bottom: 10px;
+    }
+
+    .p {
+        margin-bottom: 10px;
+    }
+    </style>
+</head>
+
+<body>
+    <div id="app"></div>
+    <script type="text/javascript">
+    const moduleA = {
+        state: {
+            ap1: 1
+        },
+        getters: {
+            agp1: state => state.ap1 + 2
+        },
+        mutations: {
+            amp1: (state, { n }) => state.ap1 += n
+        },
+        actions: {
+            // 第一个参数是当前模块上下文，用解构赋值方法
+            aap1: ({ commit }) => commit('amp1', { n: 5 })
+        }
+    }
+    const moduleB = {
+        state: {
+            bp1: 2
+        },
+        //对于模块内部的 mutation 和 getter，接收的第一个参数是模块的局部状态对象
+        getters: {
+            bgp1: state => state.bp1 + 2
+        },
+        mutations: {
+            bmp1: (state, { n }) => state.bp1 += n
+        },
+        actions: {
+            // 同样，对于模块内部的 action，局部状态通过 context.state 暴露出来， 根节点状态则为 context.rootState：
+            bap1: context => {
+                context.commit('bmp1', { n: 5 })
+                console.log(context)
+                console.log(context.rootState.p1)
+                console.log(context.rootGetters.gp1)
+            }
+        }
+    }
+    const store = new Vuex.Store({
+        state: {
+            p1: 0
+        },
+        getters: {
+            gp1: state => state.p1 + 2
+        },
+        mutations: {},
+        actions: {},
+        modules: {
+            a: moduleA,
+            b: moduleB
+        }
+    })
+    // state得加上模块后才能访问局部状态，而getters, mutations和actions则不会加模块
+    console.log(store.state.a.ap1)
+    console.log(store.state.b.bp1)
+    console.log(store.state.p1)
+
+    console.log(store.getters.gp1)
+
+    store.commit('bmp1', { n: 4 })
+    console.log(store.state.b.bp1)
+    store.dispatch('bap1')
+    </script>
+</body>
+
+</html>

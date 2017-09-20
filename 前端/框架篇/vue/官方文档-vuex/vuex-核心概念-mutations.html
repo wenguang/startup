@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>vuex-核心概念-mutations</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <link href="" rel="stylesheet">
+    <script src="vue.js"></script>
+    <script src="vue-router.js"></script>
+    <script src="vuex.js"></script>
+    <style type="text/css">
+    .div {
+        margin-left: 10px;
+        margin-bottom: 10px;
+    }
+
+    .p {
+        margin-bottom: 10px;
+    }
+    </style>
+</head>
+
+<body>
+    <div id="app"></div>
+    <script type="text/javascript">
+    const store = new Vuex.Store({
+        state: {
+            count: 1
+        },
+        mutations: {
+            increment: state => state.count++,
+            decrement: (state, payload) => state.count -= payload.amount,
+            addProp: (state, payload) => Vue.set(state, payload.newPropKey, payload.newPropValue)
+        }
+    })
+    const newprop = {
+        data: function() {
+            return {
+                newPropKey: null,
+                newPropValue: null
+            }
+        },
+        template: `
+            <div>
+                <p>store.state新属性键：
+                    <input @input="updateKey($event.target.value)" />
+                </p>
+                <p>store.state.新属性值：
+                    <input @input="updateValue($event.target.value)" />
+                </p>
+                <p>
+                    <button @click="addNewProp">新增属性</button>
+                </p>
+                <ul>
+                    <!-- 如果在模板时直接写store.state就会报错 -->
+                    <li v-for="prop in stateObj">
+                        {{prop}}
+                    </li>
+                </ul>
+            </div>`,
+        methods: {
+            updateKey(key) {
+                newPropKey = key
+            },
+            updateValue(val) {
+                newPropValue = val
+            },
+            addNewProp() {
+                if (newPropKey !== null && newPropKey !== undefined && newPropValue !== null && newPropValue !== undefined) {
+                    store.commit('addProp', { newPropKey: newPropKey, newPropValue, newPropValue })
+                }
+            }
+        },
+        computed: {
+            stateObj() {
+                return store.state
+            }
+        }
+    }
+    const cop1 = {
+        template: `
+            <div>
+                <p>这是组件1，点击+号会改变数据状态</p>
+                <button @click="increment">+</button>
+                <button @click="decrement">-{{n}}</button>
+            </div>
+            `,
+        data: function() {
+            return { n: 2 }
+        },
+        methods: {
+            increment() {
+                store.commit('increment')
+            },
+            // 以下两种提交是等同的
+            // decrement() {
+            //     store.commit('decrement', { amount: 2 })
+            // }
+            // vuex会把除了第一个参数type以外的参数
+            decrement() {
+                store.commit({
+                    type: 'decrement',
+                    amount: 2
+                })
+            }
+        }
+    }
+    const cop2 = {
+        template: `
+            <div>
+                <p>这是组件2，可以感知数据状态的改变</p>
+                <p>click count {{count}}</p>
+            </div>
+            `,
+        computed: {
+            count() {
+                return store.state.count
+            }
+        }
+    }
+    new Vue({
+        store,
+        el: '#app',
+        components: { cop1, cop2, newprop },
+        template: `
+            <div>
+                <p>
+                    更改 Vuex 的 store 中的状态的唯一方法是提交 mutation。Vuex 中的 mutations 非常类似于事件：每个 mutation 都有一个字符串的 事件类型 (type) 和 一个 回调函数 (handler)。<strong>这个回调函数就是我们实际进行状态更改的地方，并且它会接受 state 作为第一个参数，你可以向 store.commit 传入额外的参数，即 mutation 的 载荷（payload）
+                </strong></p>
+                <p><strong>注意！mutations只让包含同步操作</strong></p>
+                <cop1></cop1>
+                <cop2></cop2>
+                <h3>Mutations 需遵守 Vue 的响应规则</h3>
+                <p>既然 Vuex 的 store 中的状态是响应式的，那么当我们变更状态时，监视状态的 Vue 组件也会自动更新。这也意味着 Vuex 中的 mutation 也需要与使用 Vue 一样遵守一些注意事项：</p>
+                <p>1、最好提前在你的 store 中初始化好所有所需属性。</p>
+                <p>2、当需要在对象上添加新属性时，你应该</p>
+                <p>使用 Vue.set(store.state.obj, 'newProp', 123), 或者</p>
+                <p>state.obj = { ...state.obj, newProp: 123 }</p>
+                <p><strong>只有这样写，动态新增的属性才会让vue给其附上响应式的特性</strong></p>
+                <newprop></newprop>
+            </div>`
+    })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>router-基础-动态路由匹配</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <link href="" rel="stylesheet">
+    <script src="vue.js"></script>
+    <script src="vue-router.js"></script>
+    <style type="text/css">
+    * {
+        border: 0;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    div {
+        margin-top: 20px;
+        margin-left: 20px;
+    }
+
+    input {
+        height: 20px;
+        border: 1px solid #ccc;
+    }
+
+    .router-link-active {
+        color: red;
+        font-weight: 600;
+    }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <p>
+            <router-link to="/" exact>Home</router-link>
+            <router-link to="/user/foo" exact>/user/foo</router-link>
+            <router-link to="/user/bar" exact>/user/bar</router-link>
+            <router-link to="/user/foo/post/fade">/user/foo/post/fade</router-link>
+            <router-link to="/user/bar/post/smooth">/user/bar/post/smooth</router-link>
+        </p>
+        <router-view></router-view>
+        <div>
+            提醒一下，当使用路由参数时，例如从 /user/foo 导航到 user/bar，<strong>原来的组件实例会被复用。</strong>因为两个路由都渲染同个组件，比起销毁再创建，复用则显得更加高效。<strong>不过，这也意味着组件的生命周期钩子不会再被调用。 </strong>复用组件时，想对路由参数的变化作出响应的话，你可以简单地 watch（监测变化） $route 对象：
+        </div>
+        <div>
+        	<h3>高级匹配模式</h3>
+        	<p>
+        		vue-router 使用 path-to-regexp 作为路径匹配引擎，所以支持很多高级的匹配模式，例如：可选的动态路径参数、匹配零个或多个、一个或多个，甚至是自定义正则匹配。查看它的 文档 学习高阶的路径匹配，还有 这个例子 展示 vue-router 怎么使用这类匹配。
+        	</p>
+        </div>
+    </div>
+    <script type="text/javascript">
+    var home = { template: '<div>home</div>' }
+    var user = { template: '<div>user {{$route.params.user_id}}</div>' }
+    var post = {
+        template: '<div>user {{$route.params.user_id}} new post {{$route.params.post_id}} - {{$route.params}}</div>',
+        watch: {
+            '$route': function(to, from) {
+                console.log('from' + from + 'to' + to)
+            }
+        }
+    }
+    var routes = [
+        { path: '/', component: home },
+        { path: '/user/:user_id', component: user },
+        { path: '/user/:user_id/post/:post_id', component: post }
+    ]
+    var router = new VueRouter({
+        routes: routes
+    })
+    var app = new Vue({
+        router: router
+    }).$mount('#app')
+    </script>
+</body>
+
+</html>

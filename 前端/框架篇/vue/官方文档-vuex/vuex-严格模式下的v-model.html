@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>vuex-严格模式下的v-model</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <link href="" rel="stylesheet">
+    <script src="vue.js"></script>
+    <script src="vue-router.js"></script>
+    <script src="vuex.js"></script>
+    <style type="text/css">
+    .div {
+        margin-left: 10px;
+        margin-bottom: 10px;
+    }
+
+    .p {
+        margin-bottom: 10px;
+    }
+    </style>
+</head>
+
+<body>
+    <div>
+        <p>在严格模式下，无论何时发生了状态变更且不是由 mutation 函数引起的，将会抛出错误。这能保证所有的状态变更都能被调试工具跟踪到。</p>
+        <p><strong>不要在发布环境下启用严格模式！</strong>严格模式会深度监测状态树来检测不合规的状态变更——请确保在发布环境下关闭严格模式，以避免性能损失。</p>
+        <p>
+            假设这里的 obj 是在计算属性中返回的一个属于 Vuex store 的对象，在用户输入时，v-model 会试图直接修改 obj.message。在严格模式中，由于这个修改不是在 mutation 函数中执行的, 这里会抛出一个错误。
+        </p>
+        <p><strong>
+        	有两种方法应对这种情况：
+        </strong></p>
+    </div>
+    <div id="app">
+    </div>
+    <script type="text/javascript">
+    const store = new Vuex.Store({
+        // process 是node环境的类，网页引用vuex不能用
+        strict: true, //process.env.NODE_ENV !== 'production',
+        state: {
+            count: 0,
+            message: '',
+            message2: ''
+        },
+        mutations: {
+            add: state => state.count++,
+            updateMessage: (state, msg) => state.message = msg,
+            updateMessage2: (state, msg) => state.message2 = msg
+        }
+    })
+    // 直接修改state会报错
+    //store.state.count++
+    //store.commit('add')
+
+    new Vue({
+        store,
+        el: '#app',
+        template: `
+		<div>
+		<p><input :value="message" @input="updateMessage"/></p>
+		<p>{{message}}</p>
+		<p>带有 setter 的双向绑定计算属性</p>
+		<p><input v-model="message2"/></p>
+		<p>{{message2}}</p>
+		</div>`,
+        computed: {
+            message() {
+                return this.$store.state.message
+            },
+            // 这种方法再方便些
+            message2: {
+                get() {
+                    return this.$store.state.message2
+                },
+                set(value) {
+                    this.$store.commit('updateMessage2', value)
+                }
+            }
+        },
+        methods: {
+            // 事件响应函数默认传入event对象
+            updateMessage(e) {
+                this.$store.commit('updateMessage', e.target.value)
+            }
+        }
+    })
+    </script>
+</body>
+
+</html>

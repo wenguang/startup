@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>vue-css过渡</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <link href="" rel="stylesheet">
+    <script src="vue.js"></script>
+    <style type="text/css">
+    * {
+        border: 0;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    div {
+        margin-top: 20px;
+        margin-left: 20px;
+    }
+
+    input {
+        height: 20px;
+        border: 1px solid #ccc;
+    }
+
+    .slide-fade-enter,
+    .slide-fade-leave-to {
+        transform: translateX(20px);
+        opacity: 0;
+    }
+
+    .slide-fade-enter-active {
+        -webkit-transition: all .3s;
+        -o-transition: all .3s;
+        transition: all .3s;
+    }
+
+    .slide-fade-leave-active {
+        -webkit-transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+        -o-transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+        transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+    }
+    </style>
+</head>
+
+<body>
+    <div id="vm">
+        <button @click="show = !show">Toggle render</button>
+        <transition name="slide-fade">
+            <p v-if="show">hello</p>
+        </transition>
+    </div>
+    <script type="text/javascript">
+    new Vue({
+        el: '#vm',
+        data: {
+            show: true
+        }
+    });
+    </script>
+</body>
+
+</html>

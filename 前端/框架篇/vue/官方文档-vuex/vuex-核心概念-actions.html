@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>vuex-核心概念-actions</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <link href="" rel="stylesheet">
+    <script src="vue.js"></script>
+    <script src="vue-router.js"></script>
+    <script src="vuex.js"></script>
+    <style type="text/css">
+    .div {
+        margin-left: 10px;
+        margin-bottom: 10px;
+    }
+
+    .p {
+        margin-bottom: 10px;
+    }
+    </style>
+</head>
+
+<body>
+    <div id="app"></div>
+    <script type="text/javascript">
+    var _products = [
+        { id: 1, name: 'iphone8', price: '$950', stock: 2 },
+        { id: 2, name: 'iphone7', price: '$750', stock: 0 },
+        { id: 3, name: 'iphoneX', price: '$1280', stock: 1 },
+        { id: 4, name: 'iphone7 plus', price: '$899', stock: 3 }
+    ]
+    var API = {
+        getProducts: function(cb) {
+            // 模拟网络等待1秒
+            setTimeout(() => cb(_products), 1000)
+        }
+    }
+    const types = {
+        RECEIVE_PRODUCT: 'RECEIVE_PRODUCT'
+    }
+    var store = new Vuex.Store({
+        state: {
+            products: []
+        },
+        getters: {
+            onSaleProducts: state => state.products.filter(product => product.stock > 0)
+        },
+        mutations: {
+            [types.RECEIVE_PRODUCT](state, { products }) {
+                state.products = products
+            }
+        },
+        actions: {
+            // Action 函数接受一个与 store 实例具有相同方法和属性的 context 对象，因此你可以调用 context.commit 提交一个 mutation，或者通过 context.state 和 context.getters 来获取 state 和 getters。当我们在之后介绍到 Modules 时，你就知道 context 对象为什么不是 store 实例本身了。这里用传入 { commit } 是用es6 的解构赋值方法
+            getProducts({ commit }) {
+                API.getProducts((products) => {
+                    commit(types.RECEIVE_PRODUCT, { products })
+                })
+            }
+        }
+    })
+    const product = {
+        template: `
+    		<div>
+    			<ol>
+    				<li v-for="p of products">{{p.name}} {{p.price}}</li>
+    			</ol>
+    		</div>`,
+        // 用mapGetters老报错
+        // computed: mapGetters({
+        // 	products: 'onSaleProducts'
+        // })
+        computed: {
+            products() {
+                return this.$store.getters.onSaleProducts
+            }
+        }
+    }
+    new Vue({
+        store,
+        el: '#app',
+        components: { product },
+        template: ` <div>
+        <h2> 要如何理解actions呢？ </h2> <p> 都知道state就是内存中的原始数据状态了。 </p> <p> getters是对原始数据状态为基础做了些计算， 返回我们要的数据形式， 但它不改变state， 有点像computed。 </p> <p><strong> mutations就会改变state了， 且它只支持同步操作， 最常见的对state的修改两种情况： </strong></p>
+        <p><strong> 1、 用户输入导致state改变 </strong></p>
+        <p><strong> 2、 网络返回数据导致state改变 </strong></p>
+        <p><strong> 无论是响应用户输入还是等待网络返回通常都是异步操作， actions就支持异步操作。 </strong></p>
+        <p><strong> mutations只是定义了修改state的基本操作， 而actions则要先获得修改state的源（ 这就是响应用户输入和调用api）， 再向mutaions提交commit。 </strong></p>
+        <p> 这样就可以粗浅地理解actions的作用了。 结合官方的购物车例子就给能很好的理解了。 </p><h4> 以下就是模拟调用api获取数据显示的过程： </h4>
+        <product></product>
+		</div>
+        `,
+        created() {
+            store.dispatch('getProducts')
+        }
+    })
+    </script>
+</body>
+
+</html>

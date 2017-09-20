@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>router-进阶-数据获取</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <link href="" rel="stylesheet">
+    <script src="vue.js"></script>
+    <script src="vue-router.js"></script>
+    <style type="text/css">
+    * {
+        border: 0;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    div {
+        margin-top: 20px;
+        margin-left: 20px;
+    }
+
+    input {
+        height: 20px;
+        border: 1px solid #ccc;
+    }
+
+    .router-link-active {
+        color: red;
+        font-weight: 600;
+    }
+
+    p {
+        margin-bottom: 10px;
+    }
+    </style>
+</head>
+
+<body>
+    <div>
+        <p>
+            有时候，进入某个路由后，需要从服务器获取数据。例如，在渲染用户信息时，你需要从服务器获取用户的数据。我们可以通过两种方式来实现：
+        </p>
+        <p>
+            <strong>导航完成之后获取：</strong>先完成导航，然后在接下来的组件生命周期钩子中获取数据。在数据获取期间显示『加载中』之类的指示。
+        </p>
+        <p>
+            <strong>导航完成之前获取：</strong>导航完成前，在路由的 enter 钩子中获取数据，在数据获取成功后执行导航。
+        </p>
+        <p>
+            从技术角度讲，两种方式都不错 —— 就看你想要的用户体验是哪种。
+        </p>
+    </div>
+    <div id="app">
+        <div>
+            <div v-if="loading">
+                loading...
+            </div>
+            <div v-if="error">
+                {{error}}
+            </div>
+            <div v-if="post" class="post">
+                <h3>{{post.title}}</h3>
+                <p>{{post.content}}</p>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+    var router = new VueRouter({
+        routes: [{
+            path: '/post'
+        }]
+    })
+    new Vue({
+        router,
+        data: {
+            loading: false,
+            post: null,
+            error: null
+        },
+        created: function() {
+            // 组件创建完后获取数据，
+            // 此时 data 已经被 observed 了
+            this.fetchData()
+        },
+        watch: {
+            // 如果路由有变化，会再次执行该方法
+            '$route': 'fetchData'
+        },
+        methods: {
+            fetchData() {
+
+                this.error = this.post = null
+                this.loading = true
+                // replace getPost with your data fetching util / API wrapper
+                // getPost(this.$route.params.id, (err, post) => {
+                //     this.loading = false
+                //     if (err) {
+                //         this.error = err.toString()
+                //     } else {
+                //         this.post = post
+                //     }
+                // })
+
+                setTimeout(() => {
+                    this.error = null
+                    this.loading = false
+                    this.post = {
+                        title: 'post title',
+                        content: 'post content'
+                    }
+                }, 2000)
+            }
+        }
+    }).$mount('#app')
+    </script>
+</body>
+
+</html>

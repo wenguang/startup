@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>vuex-核心概念-getter</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <link href="" rel="stylesheet">
+    <script src="vue.js"></script>
+    <script src="vue-router.js"></script>
+    <script src="vuex.js"></script>
+    <style type="text/css">
+    .div {
+        margin-left: 10px;
+        margin-bottom: 10px;
+    }
+
+    .p {
+        margin-bottom: 10px;
+    }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+    </div>
+    <script type="text/javascript">
+    const store = new Vuex.Store({
+        state: {
+            todos: [
+                { id: 1, text: "dododod", done: false },
+                { id: 2, text: "msgnsjbn", done: true },
+                { id: 3, text: "gfgfg", done: false },
+                { id: 4, text: "wwmwmwm", done: true },
+                { id: 5, text: "kkkfkkf", done: false },
+                { id: 6, text: "qaqaqqql", done: false },
+                { id: 7, text: "ppiuui", done: false },
+                { id: 8, text: "dododod", done: true },
+                { id: 9, text: "ytytyty", done: false }
+            ]
+        },
+        getters: {
+            doneTodos: state => {
+                return state.todos.filter(todo => todo.done)
+            },
+            forTodos: state => {
+                return state.todos.filter(todo => !todo.done)
+            }
+        }
+    })
+    const todolist = {
+        template: `
+    			<div>
+    				<ul>
+    					<li v-for="todo in doneTodos">
+    						{{todo.text}}
+    					</li>
+    					<li>{{doneTodosCount}}</li>
+					</ul>
+    			</div>
+    			`,
+        computed: {
+            // doneTodos: store => {store.getters.doneTodos
+            // doneTodosCount: store => store.getters.doneTodos.length
+            doneTodos() {
+                return store.getters.doneTodos
+            },
+            doneTodosCount() {
+                return store.getters.doneTodos.length
+            }
+        }
+    }
+    new Vue({
+        store,
+        el: '#app',
+        components: { todolist },
+        template: `
+			<div>
+				<p>
+			            Getter 相当于全局的，可在多个组件中调用的计算属性
+			        </p>
+			        <p>
+			        <strong>
+			    		Vuex 允许我们在 store 中定义『getters』（可以认为是 store 的计算属性）。就像计算属性一样，getters的返回值会根据它的依赖被缓存起来，且只有当它的依赖值发生了改变才会被重新计算。
+			    	</strong>
+			    	</p>
+			    	<todolist></todolist>
+			</div>
+			`
+    })
+    </script>
+</body>
+
+</html>

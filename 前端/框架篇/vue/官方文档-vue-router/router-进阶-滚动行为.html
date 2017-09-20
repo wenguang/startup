@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>router-进阶-滚动行为</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <link href="" rel="stylesheet">
+    <script src="vue.js"></script>
+    <script src="vue-router.js"></script>
+    <style type="text/css">
+    * {
+        border: 0;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    div {
+        margin-top: 20px;
+        margin-left: 20px;
+    }
+
+    input {
+        height: 20px;
+        border: 1px solid #ccc;
+    }
+
+    .router-link-active {
+        color: red;
+        font-weight: 600;
+    }
+
+    p {
+        margin-bottom: 10px;
+    }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <router-view></router-view>
+        <div>
+            <p>使用前端路由，当切换到新路由时，想要页面滚到顶部，或者是保持原先的滚动位置，就像重新加载页面那样。 vue-router 能做到，而且更好，它让你可以自定义路由切换时页面如何滚动。</p>
+            <p><strong>注意: 这个功能只在 HTML5 history 模式下可用。</strong></p>
+            <p>scrollBehavior 方法接收 to 和 from 路由对象。第三个参数 savedPosition 当且仅当 popstate 导航 (通过浏览器的 前进/后退 按钮触发) 时才可用。</p>
+            <p>这个方法返回滚动位置的对象信息，长这样：</p>
+            <p><strong>1、{ x: number, y: number }<br>
+2、{ selector: string }</strong></p>
+        </div>
+        <div>
+            Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序Vue 2.0 的建议学习顺序
+        </div>
+    </div>
+    <script type="text/javascript">
+    var user = {
+        template: '<div>user</div>'
+    }
+    var profile = {
+        template: '<div>profile</div>'
+    }
+    var router = new VueRouter({
+        // mode: 'history',
+        routes: [
+            { path: '/user', component: user, },
+            { path: '/profile', component: profile }
+        ]
+        ,
+        scrollBehavior(to, from, savedPosition) {
+            if (savedPosition) {
+                console.log(savedPosition)
+                return savedPosition
+            } else {
+                console.log('no savedPosition')
+                return { x: 0, y: 0 }
+            }
+        }
+    })
+    var app = new Vue({
+        router: router
+    }).$mount('#app')
+    </script>
+</body>
+
+</html>

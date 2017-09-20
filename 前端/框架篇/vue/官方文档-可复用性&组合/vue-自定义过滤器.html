@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>vue-自定义过滤器</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <link href="" rel="stylesheet">
+    <script src="vue.js"></script>
+    <style type="text/css">
+    * {
+        border: 0;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    div {
+        margin-top: 20px;
+        margin-left: 20px;
+    }
+
+    input {
+        height: 20px;
+        border: 1px solid #ccc;
+    }
+    </style>
+</head>
+
+<body>
+    <div id="vm">
+        <ul>
+            <li v-for="product in products">
+                {{product.name | capitalize}} - {{product.price | discount}}
+            </li>
+        </ul>
+    </div>
+    <script type="text/javascript">
+    new Vue({
+        el: '#vm',
+        data: {
+            products: [
+                { name: 'microphone', price: 25, category: 'electronics' },
+                { name: 'laptop case', price: 15, category: 'accessories' },
+                { name: 'screen cleaner', price: 17, category: 'accessories' },
+                { name: 'laptop charger', price: 70, category: 'electronics' },
+                { name: 'mouse', price: 40, category: 'electronics' },
+                { name: 'earphones', price: 20, category: 'electronics' },
+                { name: 'monitor', price: 120, category: 'electronics' }
+            ]
+        },
+        filters: {
+            capitalize: function(value) {
+                if (!value) return ''
+                value = value.toString()
+                return value.charAt(0).toUpperCase() + value.slice(1)
+            },
+            discount: function(value) {
+                return value * (25 / 100)
+            }
+        }
+    })
+    </script>
+</body>
+
+</html>

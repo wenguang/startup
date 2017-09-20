@@ -156,5 +156,11 @@ SideBarEnhancements是一款很实用的右键菜单增强插件，在安装该�
 
 
 
+**vue-syntax-highlight** 
+
+.vue文件语法高亮显示
+
+
+
 [如何优雅地使用Sublime Text](http://www.jeffjade.com/2015/12/15/2015-04-17-toss-sublime-text/) 
 

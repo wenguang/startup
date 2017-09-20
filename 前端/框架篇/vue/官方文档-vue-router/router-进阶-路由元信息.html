@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>router-进阶-路由元信息</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <link href="" rel="stylesheet">
+    <script src="vue.js"></script>
+    <script src="vue-router.js"></script>
+    <style type="text/css">
+    * {
+        border: 0;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    div {
+        margin-top: 20px;
+        margin-left: 20px;
+    }
+
+    input {
+        height: 20px;
+        border: 1px solid #ccc;
+    }
+
+    .router-link-active {
+        color: red;
+        font-weight: 600;
+    }
+    </style>
+</head>
+
+<body>
+    <div>
+        <p>
+            <strong>
+        	定义路由的时候可以配置 meta 字段，这通常很可用，比如在进入某路由时，meta字段指示需要auth认证，我们就要实现重定向。做法就是在before钩子中遍历 $route.matched 来检查路由记录中的 meta 字段，检查meta字段是否需要认证而招行重定向
+        	</strong>
+        </p>
+    </div>
+    <div id="app">
+        <router-link to="/user/wegng" exact>/user</router-link>
+        <router-view></router-view>
+    </div>
+    <script type="text/javascript">
+    var user = { template: '<div>user-{{$route.params.id}}</div>' }
+    var login = { template: '<div>login</div>' }
+    var router = new VueRouter({
+        routes: [{
+                path: '/user/:id',
+                component: user,
+                meta: { requireAuth: true }
+            },
+            {
+                path: '/login',
+                component: login
+            }
+        ]
+    })
+    router.beforeEach((to, from, next) => {
+        if (to.matched.some(record => record.meta.requireAuth)) {
+            // some函数的用法：https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/some
+            //if (!auth.loggedIn()) {
+            if (true) {
+                next({ path: '/login' })
+            } else {
+                next()
+            }
+
+        } else {
+            next()
+        }
+    })
+    var app = new Vue({
+        el: '#app',
+        router: router
+
+    })
+    </script>
+</body>
+
+</html>

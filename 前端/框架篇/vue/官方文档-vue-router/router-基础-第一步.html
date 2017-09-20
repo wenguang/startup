@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>router-基础-第一步</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <link href="" rel="stylesheet">
+    <script src="vue.js"></script>
+    <script src="vue-router.js"></script>
+    <style type="text/css">
+    * {
+        border: 0;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    div {
+        margin-top: 20px;
+        margin-left: 20px;
+    }
+
+    input {
+        height: 20px;
+        border: 1px solid #ccc;
+    }
+
+    .router-link-active {
+        color: red;
+        font-weight: 600;
+    }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <p>
+            <!-- 使用 router-link 组件来导航. -->
+            <!-- 通过传入 `to` 属性指定链接. -->
+            <!-- <router-link> 默认会被渲染成一个 `<a>` 标签 -->
+
+            <!-- 明明我只选择了Go to news 但是Go to home 缺也是被选择的。这里的原因就是：&lt;router-link&gt;在和路由匹配的时候，并不是完整匹配，而是只要匹配到了就会添加 .router-link-active 这个class。而在我们定义路由的时候，定义了 “/” ，自然后面在选择 “/home ”和 “/news ” 时 home("/")自然就是一直被选中的状态，要解决这个问题其实很简单，只要在&lt;router-link&gt;中添加 “ exact ”  ，即可坐到完全匹配。 -->
+            <router-link to="/" exact>Go to home</router-link>
+            <router-link to="/view1">go to view1</router-link>
+            <router-link to="/view2">go to view2</router-link>
+        </p>
+        <!-- 路由匹配到的组件将渲染在这里 -->
+        <router-view></router-view>
+    </div>
+    <script type="text/javascript">
+    //定义vue组建
+    const home = {
+        template: '<div>this is home page</div>'
+    }
+    const view1 = {
+        template: '<div>this is view1 page</div>'
+    }
+    const view2 = {
+        template: '<div>this is view2 page</div>'
+    }
+
+    //定义路由
+    const routes = [
+        { path: '/', component: home },
+        { path: '/view1', component: view1 },
+        { path: '/view2', component: view2 }
+    ]
+
+    //创建router实例，并将定义的路由传入
+    var router = new VueRouter({
+        routes: routes
+    })
+
+    //创建和挂载根实例
+    new Vue({
+        el: '#app',
+        router: router
+    })
+
+    //创建和挂载根实例
+    // var app = new Vue({ // router: router // }).$mount('#app')
+    </script>
+</body>
+
+</html>

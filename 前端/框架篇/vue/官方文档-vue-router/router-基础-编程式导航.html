@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>router-基础-编程式导航</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <link href="" rel="stylesheet">
+    <script src="vue.js"></script>
+    <script src="vue-router.js"></script>
+    <style type="text/css">
+    * {
+        border: 0;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    div {
+        margin-top: 20px;
+        margin-left: 20px;
+    }
+
+    input {
+        height: 20px;
+        border: 1px solid #ccc;
+    }
+
+    .router-link-active {
+        color: red;
+        font-weight: 600;
+    }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <p>
+            <router-link to="/user/wenguang" replace>/user</router-link>
+        </p>
+        <button @click="push">router.push</button>
+        <button @click="replace">router.replace</button>
+        <button @click="go">router.go</button>
+        <router-view></router-view>
+    </div>
+    <script type="text/javascript">
+    var home = {
+        template: `
+        <div>
+        	// 字符串
+			router.push('home')
+
+			// 对象
+			router.push({ path: 'home' })
+
+			// 命名的路由
+			router.push({ name: 'user', params: { userId: 123 }})
+
+			// 带查询参数，变成 /register?plan=private
+			router.push({ path: 'register', query: { plan: 'private' }})
+        </div>`
+    }
+    var user = {
+        template: `
+        	<div>
+        		<h4>user {{$route.params.id}}</h4>
+        		<router-view></router-view>
+        	</div>
+        	`
+    }
+    var profile = {
+        template: '<div>profile</div>'
+    }
+    var posts = {
+        template: '<div>posts</div>'
+    }
+    var router = new VueRouter({
+        routes: [{
+                path: '/user/:id',
+                component: user,
+                children: [
+                    { path: 'profile', component: profile },
+                    { path: 'posts', component: posts }
+                ]
+            },
+            {
+                path: '/home',
+                component: home
+            }
+        ]
+    })
+    var app = new Vue({
+        router: router,
+        methods: {
+            push: function() {
+                // 字符串
+                //this.$router.push('home')
+                // 对象
+                router.push({ path: 'user/wenguang' })
+                // 
+                //router.push({ name: 'user', params: { id: 'ivorygx' } })
+            },
+            replace: function() {
+                // 跟 router.push 很像，唯一的不同就是，它不会向 history 添加新记录，而是跟它的方法名一样 —— 替换掉当前的 history 记录。
+                router.replace({ path: 'user/wenguang' })
+            },
+            go: function() {
+                // 在浏览器记录中前进一步，等同于 history.forward()
+                router.go(1)
+                // 后退一步记录，等同于 history.back()
+                router.go(-1)
+            }
+        }
+    }).$mount('#app')
+    </script>
+</body>
+
+</html>
