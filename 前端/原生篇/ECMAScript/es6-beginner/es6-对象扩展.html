@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>es6-对象扩展</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <link href="" rel="stylesheet">
+</head>
+
+<body>
+    <div id="app"></div>
+    <script type="text/javascript">
+    // Object.is()判断
+    console.log(Object.is('foo', 'foo'))
+    console.log(Object.is({}, {}))
+
+    console.log(+0 === -0) //true
+    console.log(NaN === NaN) //false
+    console.log(Object.is(+0, -0)) //false
+    console.log(Object.is(NaN, NaN)) //true
+
+
+    //Object.assign方法用于对象的合并
+    //Object.assign方法的第一个参数是目标对象，后面的参数都是源对象。
+    //如果只有一个参数，Object.assign会直接返回该参数。
+    //如果该参数不是对象，则会先转成对象，然后返回。
+    let s1 = { a: 1 }
+    let s2 = { b: 2 }
+    let t = { c: 3 }
+    Object.assign(t, s1, s2)
+    console.log(t)
+
+    //Object.assign的作用
+    //1、为对象添加属性
+    class Point {
+        //构造函数，当用 new Point(x, y)时实际调用的constructor(x, y)
+        constructor(x, y) {
+            Object.assign(this, { x, y });
+        }
+    }
+    let a = 1;
+    let b = 2;
+    let p = new Point(a, b);
+    //p.constructor == Point
+    console.log(p)
+
+    //2、为对象添加方法
+    Object.assign(Point.prototype, {
+        show() {
+            console.log('Object.assign为对象添加方法')
+        }
+    })
+    let p1 = new Point(a, b)
+    p1.show();
+    // 相当于Point.prototype.show = function() {}
+
+    //Object.keys(), Object.values(), Object.entries()
+    let obj = {foo:'bar', koo:'pzz'}
+    let keys = Object.keys(obj)
+    console.log(keys)
+    let values = Object.values(obj)
+    console.log(values)
+    let entries = Object.entries(obj)
+    console.log(entries)
+    for (let [key, value] of entries) {
+    	console.log(key + ":" + value)
+    }
+
+    //Object.create()
+
+    document.getElementById("app").innerHTML = `
+    	<a href="http://es6.ruanyifeng.com/?search=import&x=0&y=0#docs/object">对象的扩展</a>
+    	<h3>Object.assign方法实行的是浅拷贝，而不是深拷贝。也就是说，如果源对象某个属性的值是对象，那么目标对象拷贝得到的是这个对象的引用。</h3>
+    	<p>虽然Object.assign有几种作用：为对象添加属性、添加方法、克隆对象、合并对象，<strong>由于是浅拷贝，我觉得用它来克隆对象、合并对象是不靠谱的</strong></p>
+    	<p>更多如下：</p>
+    	<p>
+属性的可枚举性和遍历
+Object.getOwnPropertyDescriptors()
+__proto__属性，Object.setPrototypeOf()，Object.getPrototypeOf()
+对象的扩展运算符
+Null 传导运算符
+    	</p>
+    `
+    </script>
+</body>
+
+</html>

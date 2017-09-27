@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>es6-let-const</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <link href="" rel="stylesheet">
+</head>
+
+<body>
+    <div id="app">
+    </div>
+    <script type="text/javascript">
+    {
+        var v = 10;
+    }
+    v; // v在全局作用域
+
+    var a = [];
+    for (var i = 0; i < 10; i++) {
+        a[i] = function() {
+            console.log(i);
+        };
+    }
+    for (var k = 0; k < 10; k++) {
+        a[k]();
+    }
+    //上面代码中，变量i是var命令声明的，在全局范围内都有效，所以全局只有一个变量i。每一次循环，变量i的值都会发生改变，而循环内被赋给数组a的函数内部的console.log(i)，里面的i指向的就是全局的i。也就是说，所有数组a的成员里面的i，指向的都是同一个i，导致运行时输出的是最后一轮的i的值，也就是10。
+
+
+    var b = [];
+    for (let j = 0; j < 10; j++) {
+        b[j] = function() {
+            console.log(j);
+        };
+    }
+    for (var p = 0; p < 10; p++) {
+        b[p]();
+    }
+    //上面代码中，变量i是let声明的，当前的i只在本轮循环有效，所以每一次循环的i其实都是一个新的变量，所以最后输出的是6。你可能会问，如果每一轮循环的变量i都是重新声明的，那它怎么知道上一轮循环的值，从而计算出本轮循环的值？这是因为 JavaScript 引擎内部会记住上一轮循环的值，初始化本轮的变量i时，就在上一轮循环的基础上进行计算。
+
+
+    function f1() {
+        let n = 5;
+        if (true) {
+            let n = 10;
+        }
+        console.log(n); // 5
+    }
+    //另外，for循环还有一个特别之处，就是设置循环变量的那部分是一个父作用域，而循环体内部是一个单独的子作用域。
+
+    for (let i = 0; i < 3; i++) {
+        let i = 'abc';
+        console.log(i);
+    }
+    // abc
+    // abc
+    // abc
+
+    const f = 3;
+    //f = 4;	//报错
+    const foo = {};
+    f.ac = 'msg'
+    //f = {}; //报错
+
+    document.getElementById("app").innerHTML = `
+    	<a href="http://es6.ruanyifeng.com/?search=import&x=0&y=0#docs/let">let 和 const 命令</a>
+    	<p><strong>let实际上为 JavaScript 新增了块级作用域。</strong></p>
+    	<p>let声明的变量只在它所在的代码块有效。</p>
+    	<p>内层作用域可以定义外层作用域的同名变量。</p>
+    	<p>es6允许在块作用域内定义函数</p>
+    	<code>
+    		for (let i = 0; i < 3; i++) {
+			  let i = 'abc';
+			  console.log(i);
+			}
+			// abc
+			// abc
+			// abc
+    	</code>
+    	<p>这表明函数内部的变量i与循环变量i不在同一个作用域，有各自单独的作用域。/p>
+    	<p><strong>const本质</strong></p>
+    	<p>
+    	const实际上保证的，并不是变量的值不得改动，而是变量指向的那个内存地址不得改动。对于简单类型的数据（数值、字符串、布尔值），值就保存在变量指向的那个内存地址，因此等同于常量。但对于复合类型的数据（主要是对象和数组），变量指向的内存地址，保存的只是一个指针，const只能保证这个指针是固定的，至于它指向的数据结构是不是可变的，就完全不能控制了。因此，将一个对象声明为常量必须非常小心。
+    	</p>
+    	<code>
+    		const foo = {};
+
+			// 为 foo 添加一个属性，可以成功
+			foo.prop = 123;
+			foo.prop // 123
+
+			// 将 foo 指向另一个对象，就会报错
+			foo = {}; // TypeError: "foo" is read-only
+    	</code>`;
+    </script>
+</body>
+
+</html>

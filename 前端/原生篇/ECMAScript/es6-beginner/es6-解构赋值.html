@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>es6-解构赋值</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <link href="" rel="stylesheet">
+</head>
+
+<body>
+    <div id="app"></div>
+    <script type="text/javascript">
+    // 交换变量值
+    let x = 2;
+    let y = 1;
+    [x, y] = [y, x]
+    console.log(x + ',' + y);
+
+    // 返回多个值
+    function func() {
+        return {
+            foo: 'foo',
+            bar: 'bar',
+            zpp: 'zpp'
+        }
+    }
+    let { foo, bar } = func();
+    console.log(foo + ',' + bar);
+    let { a, b } = func();
+    console.log(a + ',' + b); //undefined，必须和函数返回变量一样
+    let { foo: fo, bar: ba } = func(); //这样相当把返回的foo、bar赋给新变量
+    console.log(fo + "," + ba);
+
+    //遍历
+    let map = new Map();
+    map.set('first', 'hello');
+    map.set('second', 'world')
+    for (let [key, value] of map) {
+        console.log(key + ' is ' + value);
+    }
+
+    //引出模块指定，node环境使用
+    // const {aa, bb} = require('module');
+
+    //数组解构赋值
+    let [x1, , x3] = [1, 2, 3]
+    let [y1, ...y5] = [1, 2, 3, 4, 5]
+    let [...z4] = [1, 2, 3, 4]
+    console.log(x1)
+    console.log(x3)
+    console.log(y1)
+    console.log(y5)
+    console.log(z4)
+
+    //对象解构赋值
+    let { string: msg = '这是缺省值' } = {}; //缺省值
+    console.log(msg);
+
+    const [a1, b1, c1, d1, e1] = 'hello';
+    // a1 // "h"
+    // b1 // "e"
+    // c1 // "l"
+    // d1 // "l"
+    // e1 // "o"
+
+    //解构赋值时，如果等号右边是数值和布尔值，则会先转为对象。
+    let {toString:s} = 123
+    if (s === Number.prototype.toString) {
+    	console.log(s)
+    }
+    let {toString:t} = true;
+    if (t === Boolean.prototype.toString) {
+    	console.log(t)
+    }
+
+    //函数参数的解构赋值
+    // let param = {p1:1, p2:2, p3:'p3'}
+    // (function method({p1, p3}) {
+    // 	console.log()
+    // }())
+
+
+    document.getElementById("app").innerHTML = `
+    	<a href="http://es6.ruanyifeng.com/?search=import&x=0&y=0#docs/destructuring">变量的解构赋值</a>
+    	<ol>
+    	<li>数组的解构赋值</li>
+    	<li>对象的解构赋值</li>
+    	<li>字符串的解构赋值</li>
+    	<li>数值和布尔值的解构赋值</li>
+    	<li>函数参数的解构赋值</li>
+    	</ol>
+    `
+    </script>
+</body>
+
+</html>

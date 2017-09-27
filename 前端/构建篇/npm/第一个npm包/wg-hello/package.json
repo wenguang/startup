@@ -1,0 +1,8 @@
+{
+  "name": "wg-hello",
+  "version": "1.0.1",
+  "description": "first test npm package",
+  "main": "index.js",
+  "author": "wenguang",
+  "license": "MIT"
+}

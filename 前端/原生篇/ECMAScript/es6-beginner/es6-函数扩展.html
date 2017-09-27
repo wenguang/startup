@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>es6-函数扩展</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="" rel="stylesheet">
+</head>
+<body>
+    <div id="app"></div>
+    <script type="text/javascript">
+
+    //箭头函数
+
+    // 绑定this
+    // ES7的一个提案，双逗号绑定，逗号左边是对象，右边是方法，有点像C++的作法
+    // 现在还未必要用
+    function f(x) {
+    	console.log(x)
+    }
+
+    var fo = {
+    	ba:function() {
+    		console.log('ba')
+    	}
+    }
+    function foo() {
+    	this.bar = function() {
+    		console.log('bar');
+    	}
+    }
+
+    //f.apply(fo, 5);
+
+    document.getElementById("app").innerHTML = `
+    	<a href="http://es6.ruanyifeng.com/?search=import&x=0&y=0#docs/function">函数的扩展</a>
+    `
+    </script>
+</body>
+</html>

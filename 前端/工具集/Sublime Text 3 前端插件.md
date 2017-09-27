@@ -156,9 +156,21 @@ SideBarEnhancements是一款很实用的右键菜单增强插件，在安装该�
 
 
 
-**vue-syntax-highlight** 
+#### vue-syntax-highlight
 
 .vue文件语法高亮显示
+
+
+
+#### babel
+
+babel插件
+
+
+
+#### MarkdownEditing和MarkdownPreview
+
+支持markdown编辑和预览
 
 
 
