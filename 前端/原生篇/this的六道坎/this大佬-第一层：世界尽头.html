@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>this大佬-第一层：世界尽头</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="" rel="stylesheet">
+</head>
+<body>
+	<div id="app">
+		<p><strong>权力最小的大佬是作为备胎的存在，在普通情况下就是全局，浏览器里就是window；在use strict的情况下就是undefined。</strong></p>
+	</div>
+	<script type="text/javascript">
+	function showThis() {
+		console.log(this)
+	}
+	function showStrictThis() {
+		'use strict'
+		console.log(this)
+	}
+	showThis()
+	showStrictThis()
+	</script>
+</body>
+</html>

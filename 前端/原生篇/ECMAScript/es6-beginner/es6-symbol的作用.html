@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>es6-symbol的作用</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="" rel="stylesheet">
+</head>
+<body>
+    <div id="app"></div>
+    <script type="text/javascript">
+    // 用来生成唯一值
+    // symbol() 和 symbol.for() 都可以生成唯一值
+    let f1 = Symbol.for('bar') === Symbol.for('bar')
+    console.log(f1)
+    let f2 = Symbol('bar') === Symbol('bar')
+    console.log(f2)
+
+    //消除强耦合字符串
+    let shapeType = {
+    	triangle:Symbol(),
+    	quartet:Symbol()
+    }
+    function checkType(shape) {
+    	switch(shape) {
+    		case shapeType.triangle:
+    		console.log('triangle')
+    		break;
+    		case shapeType.quartet:
+    		console.log(quartet)
+    		break;
+    		default:
+    		console.log('undefined shape type')
+    	}
+    }
+    checkType(shapeType.triangle)
+
+    //
+
+    document.getElementById("app").innerHTML = `
+    	<p>ES6 引入了一种新的原始数据类型Symbol，表示独一无二的值。它是 JavaScript 语言的第七种数据类型，前六种是：undefined、null、布尔值（Boolean）、字符串（String）、数值（Number）、对象（Object）。</p>
+    	<p><strong>想为一个对象添加新的方法（mixin 模式），新方法的名字就有可能与现有方法产生冲突。如果有一种机制，保证每个属性的名字都是独一无二的就好了，这样就从根本上防止属性名的冲突。这就是 ES6 引入Symbol的原因。</strong></p>
+    	<p><strong>Symbol.for()与Symbol()这两种写法，都会生成新的Symbol。它们的区别是，前者会被登记在全局环境中供搜索，后者不会。Symbol.for()不会每次调用就返回一个新的 Symbol 类型的值，而是会先检查给定的key是否已经存在，如果不存在才会新建一个值。</strong></p>
+    	<p>Symbol对消除强耦合字符串、<strong>模块的Singleton模式</strong>都很有用</p>
+    `
+    </script>
+</body>
+</html>

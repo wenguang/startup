@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>es6-Generator</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="" rel="stylesheet">
+</head>
+<body>
+    <div id="app"></div>
+    <script type="text/javascript">
+    // let object = {
+    // 	value:123,
+    // 	done:false
+    // }
+
+    function *foo() {
+    	let x = 1
+    	let y = yield(x+1)
+    	let z =yield (x+y)
+    	// let z =yield x+y 	//去掉括号结果是一样的
+    	return z
+    }
+    let f = foo()
+    console.log(f)
+    let a = f.next()
+    let b = f.next(3)
+    let c = f.next(4)
+    console.log(a)
+    console.log(b)
+    console.log(c)
+
+    // for...of
+    // for...of在遍历foo()
+    // 返回的结果时，每遇到一个yield，就把yield后面表达式的结果作为of前面的v的值进行赋值（next()
+    // 返回值的value字段）。没错，就这么不要脸的解释完了。
+    function *bar() {
+    	yield 1;
+    	yield 2;
+    	yield 3;
+    	return;
+    }
+    for(let v of bar()) {
+    	console.log(v);
+    }
+
+
+    document.getElementById("app").innerHTML = `
+    	<p><a href="http://www.tangshuang.net/2862.html">yield和generator</a></p>
+    	<p><a href="http://www.ruanyifeng.com/blog/2015/04/generator.html">Generator 函数的含义与用法</a></p>
+    	<p><a href="http://es6.ruanyifeng.com/?search=import&x=0&y=0#docs/generator">generator函数的语法</a></p>
+    	<p>
+    	每次调用 next 方法，会返回一个对象，表示当前阶段的信息（ value 属性和 done 属性）。value 属性是 yield 语句后面表达式的值，表示当前阶段的值；done 属性是一个布尔值，表示 Generator 函数是否执行完毕，即是否还有下一个阶段。
+    	</p>
+    	<p><strong>以下这段有点搞笑的话解释了代码中abc的值</strong></p>
+    	<p>求abc的value各是多少？</p>
+    	<p>你要没接触过，这个时候只会冒出来“吊雷老某”……a.value你应该知道，就2（x = 1, x + 1 = 2）。b.value呢？傻戳戳了吧。</p>
+    	<p>.next()的参数的意思是将传入的参数用作上一次的yield。啥子意思？就是第二次执行foo.next(3)的时候，yield x + 1这一大坨就是3，所以y = 3！“xx老谋”。所以，b.value的结果就是4 （x = 1,y = 3, x + y = 4）.</p>
+    	<p>这样推下去咯。最后返回的是z，但是传入的是4，yield (x + y) 这一大坨就用4来代替，z.value = yield (x + y) = 4。</p>
+    	<p><strong>两个问题：1. 为什么第一次执行next()不能传参？2.为什么yield后面要加括号？</strong></p>
+    	<p><strong>第2个问题把代码中的yield(x+y)改为yieldx+y，去掉括号的结果是一样的，和<a href="http://www.tangshuang.net/2862.html">yield和generator</a>中描述的不符</strong></p>
+    `
+    </script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+@font-face {
+    font-family: 'nomah';
+    src: url('./NomahScript-Light.ttf') format('ttf');
+    font-weight: 600;
+    font-style: normal;
+}
+
+.hello {
+    color: red;
+    font-family: 'nomah';
+    background: url('./time.jpeg');
+}

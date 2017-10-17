@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>this大佬-第二层：点石成金</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="" rel="stylesheet">
+</head>
+<body>
+    <div id="app">
+    	<p><strong>第二层大佬说白了就是找这个函数前面的点.。
+
+如果用到this的那个函数是属于某个 context object 的，那么这个 context object 绑定到this。
+
+比如下面的例子，boss是returnThis的 context object ，或者说returnThis属于boss。那就这几段代码中this是谁？</strong></p>
+<p><strong>特别注意boss3和boss4</strong></p>
+    </div>
+    <script type="text/javascript">
+    var boss = {
+    	name:'boss',
+    	returnThis() {
+    		return this
+    	}
+    }
+    console.log(boss.returnThis() === boss)
+
+    var boss1 = {
+    	name: 'boss1',
+    	returnThis() {
+    		return this
+    	}
+    }
+    var boss2 = {
+    	name:'boss2',
+    	returnThis() {
+    		return boss1.returnThis()
+    	}
+    }
+    var boss3 = {
+    	name: 'boss3',
+    	returnThis() {
+    		var returnThis = boss1.returnThis
+    		return returnThis()
+    	}
+    }
+    var boss4 = {
+    	name: 'boss4',
+    	returnThis:boss1.returnThis
+    }
+    console.log(boss1.returnThis())
+    console.log(boss2.returnThis())
+    console.log(boss3.returnThis())
+    console.log(boss4.returnThis())
+    </script>
+</body>
+</html>

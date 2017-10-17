@@ -1,0 +1,16 @@
+{
+  "name": "labelrc-babel-register",
+  "version": "0.0.1",
+  "description": "配置.labelrc结合babel-register使用",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "wenguang",
+  "license": "MIT",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.6.0",
+    "babel-register": "^6.26.0"
+  }
+}

@@ -43,3 +43,9 @@ https://github.com/babel/babel/blob/master/packages/babel-plugin-transform-runti
 
 #####babel在线转换工具：https://babeljs.io/repl/
 
+##### .babelrc配置参考：https://babeljs.io/docs/usage/babelrc/
+
+##### babel插件与preset集：https://babeljs.io/docs/plugins/
+
+
+

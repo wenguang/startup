@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>this大佬-第六层：军令如山</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <link href="" rel="stylesheet">
+</head>
+
+<body>
+    <div id="app">
+        <p><strong>最后一个法力无边的大佬就是 ES2015 的箭头函数。箭头函数里的this不再妖艳，被永远封印到当前词法作用域之中，称作 Lexical this ，在代码运行前就可以确定。没有其他大佬可以覆盖。</strong></p>
+        <p><strong>这样的好处就是方便让回调函数的this使用当前的作用域，不怕引起混淆。
+</strong></p>
+        <p><strong>所以对于箭头函数，只要看它在哪里创建的就行。</strong></p>
+        <p>如果对 V8 实现的词法作用域感兴趣可以看看这里。</p>
+    </div>
+    <script type="text/javascript">
+    function callback(cb) {
+        cb()
+    }
+    callback(() => { console.log(this) })
+
+    var boss1 = {
+        name: 'boss1',
+        callback: callback,
+        callback2() {
+            callback(() => { console.log(this) })
+        }
+    }
+    boss1.callback(() => { console.log(this) })
+    boss1.callback2(() => { console.log(this) })
+    </script>
+</body>
+
+</html>

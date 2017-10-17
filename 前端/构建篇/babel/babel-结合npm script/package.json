@@ -1,0 +1,14 @@
+{
+  "name": "babel-npm-script",
+  "version": "0.0.1",
+  "description": "babel-结合npm script使用",
+  "main": "index.js",
+  "scripts": {
+    "build": "babel src -d lib"
+  },
+  "author": "wenguang",
+  "license": "MIT",
+  "devDependencies": {
+    "babel-cli": "^6.26.0"
+  }
+}
