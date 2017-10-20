@@ -10,6 +10,8 @@
 
 2、[webpack一步步](https://github.com/wenguang/startup/blob/master/%E5%89%8D%E7%AB%AF/%E6%9E%84%E5%BB%BA%E8%87%AA%E5%8A%A8%E5%8C%96/webpack%E4%B8%80%E6%AD%A5%E6%AD%A5.md) 记录一步步如何用webpack
 
+3、[webpack之loader和plugin简介](https://zhuanlan.zhihu.com/p/28245984) 
+
 
 
 **什么是Webpack** 

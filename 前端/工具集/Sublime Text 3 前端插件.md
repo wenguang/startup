@@ -176,3 +176,15 @@ babel插件
 
 [如何优雅地使用Sublime Text](http://www.jeffjade.com/2015/12/15/2015-04-17-toss-sublime-text/) 
 
+
+
+#### WeexTemplate
+
+- 支持vue语法高亮
+- 支持在菜单栏快捷创建weex文件
+- 支持在侧边栏快捷创建weex文件
+- 支持自定义快捷键
+- 支持自定义weex模板
+
+https://github.com/devilthrone/WeexTemplate/blob/master/README-cn.md
+
