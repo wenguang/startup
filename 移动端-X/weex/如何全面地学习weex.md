@@ -42,17 +42,23 @@
 
 
 
-#####weex开发调试部署坑
+#####weex的坑
 
 [可能是史上最全的weex踩坑攻略](http://www.jianshu.com/p/497f1a9ff33f) 
 
+[我用 Weex 重写了一个应用](https://0error0warning.com/blog/14838682623530.html) （0.9.4版本）
 
 
-#####weex在ios上的集成
+
+#####weex在ios上的集成与扩展
 
 [Weex 是如何在 iOS 客户端上跑起来的](https://halfrost.com/weex_ios/) 
 
+[weex在iOS上的扩展](https://weex.apache.org/cn/references/advanced/extend-to-ios.html) 
+
 [写给 iOS 程序员的 Weex 教程系列（1~6）](https://0error0warning.com/blog/14840598858195.html) 
+
+[weex-hackernews](https://github.com/weexteam/weex-hackernews) (vue2.x、weex 0.9.5) 
 
 
 
@@ -62,5 +68,5 @@
 
 [iOS-Weex探索之iOS端WeexSDK源码解读（2）](http://tech.dianwoda.com/2017/09/20/ios-weextan-suo-zhi-iosduan-weexsdkyuan-ma-jie-du-2/) 
 
-[iOS-Weex源码解析](https://yownyang.github.io/2017/03/14/Weex_3/) 、[iOS-Weex源码文件夹的解释](https://yownyang.github.io/2017/03/14/Weex_2/) 
+[iOS-Weex源码解析](https://yownyang.github.io/2017/03/14/Weex_3/) （清晰）、[iOS-Weex源码文件夹的解释](https://yownyang.github.io/2017/03/14/Weex_2/) 
 

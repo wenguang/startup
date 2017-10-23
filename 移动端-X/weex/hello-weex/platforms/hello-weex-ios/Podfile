@@ -1,0 +1,5 @@
+target 'hello-weex-ios' do
+	pod 'WeexSDK'
+	pod 'WXDevtool', :configurations => ['Debug']	#只在 debug 时引入
+	pod 'SDWebImage', '3.8.2'
+end
