@@ -73,3 +73,9 @@ if (properties) {
 - WXBridgeContext：功能其实不多，render，regist component，regist module，executeJs。就是处理了需要调用js的逻辑。
 - WXJSCoreBridge: 这个类才是真正的处理JS调用的类。它实现了WXBridgeProtocol协议，对JavaScriptCore进行了封装，使`WXBridgeContext`调用
 
+
+
+![](https://github.com/wenguang/startup/blob/master/imgs/weex-call-js.png?raw=true)
+
+
+
